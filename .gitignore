@@ -1,0 +1,77 @@
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+ENV/
+
+# Cache e artefatos do Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+build/
+dist/
+*.egg-info/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Ambientes e arquivos locais do R
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Segredos e configurações locais
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+
+# IDEs, sistema operacional e temporários
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Bancos de dados locais e arquivos auxiliares do SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+
+# Dados binários/intermediários regeneráveis
+*.parquet
+*.feather
+*.arrow
+*.rds
+*.pkl
+*.pickle
+*.joblib
+
+# Saídas pesadas geradas pela análise RQ1
+AnaliseGitSkills/outputs/rq1/models*/
+AnaliseGitSkills/outputs/rq1/sensitivity/
+AnaliseGitSkills/outputs/rq1/rq1_model_data_for_r*.csv
+AnaliseGitSkills/outputs/rq1/representative_repositories.csv
+AnaliseGitSkills/outputs/rq1/reuse_by_content.csv

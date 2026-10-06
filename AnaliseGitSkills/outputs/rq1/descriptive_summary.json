@@ -1,0 +1,22 @@
+{
+  "total_contents": 1586188,
+  "unique_contents": 1332110,
+  "reused_contents": 254078,
+  "percent_reused": 16.018152,
+  "total_occurrences": 3347020,
+  "total_repository_placements": 2737824,
+  "extra_reuse": 1151636,
+  "percent_extra_repository_placements": 42.063916,
+  "mean_reuse": 1.726040040650919,
+  "median_reuse": 1.0,
+  "standard_deviation_reuse": 5.2402173129794205,
+  "maximum_reuse": 937,
+  "gini_reuse": 0.3977789200845938,
+  "p50": 1.0,
+  "p75": 1.0,
+  "p90": 2.0,
+  "p95": 3.0,
+  "p99": 15.0,
+  "p99_5": 29.0,
+  "p99_9": 65.0
+}
