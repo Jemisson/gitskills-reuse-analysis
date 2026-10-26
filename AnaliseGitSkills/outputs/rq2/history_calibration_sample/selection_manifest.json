@@ -1,0 +1,88 @@
+{
+  "arguments": {
+    "anchors": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_anchors.csv",
+    "max_repositories": 11,
+    "occurrences": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_sample",
+    "overwrite": false,
+    "per_stratum": 1,
+    "probe_file": null,
+    "seed": 20261026
+  },
+  "created_at_utc": "2026-10-26T14:43:08.618399+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1792195081875654435,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+      "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+      "size_bytes": 372490
+    },
+    {
+      "mtime_ns": 1792195081868645653,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_anchors.csv",
+      "sha256": "37f99e4cb00ad6576f7e3d58823e8cea6cf61dcb13d202b98bd90380e1ad092b",
+      "size_bytes": 5950
+    },
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    },
+    {
+      "mtime_ns": 1792195309880326940,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a",
+      "size_bytes": 107617
+    }
+  ],
+  "limitations": [
+    "Probe instability makes eligibility conditional and potentially biased.",
+    "Repository deduplication makes closed-form inclusion weights unavailable.",
+    "No population estimates may be computed from this calibration sample."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793025788616338579,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_sample/selected_repositories.csv",
+      "sha256": "77769072409da9aab7be60098b32cc066104461c9139799c8da7040528e10146",
+      "size_bytes": 1256
+    },
+    {
+      "mtime_ns": 1793025788617338579,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_sample/selected_occurrences.csv",
+      "sha256": "29ba7b965037eed5d5ec7355b5ddeefe3779e8d3ec7b64f16b80c0a306411185",
+      "size_bytes": 3642
+    },
+    {
+      "mtime_ns": 1793025788618122401,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_sample/stratum_coverage.csv",
+      "sha256": "9cf426dcfb32522d2c507966b69050f1f92e0ffae759ec0da0d495e2708029af",
+      "size_bytes": 329
+    }
+  ],
+  "purpose": "Technical calibration of history recovery only; this is not an inferential or confirmatory sample.",
+  "results": {
+    "available_strata": 11,
+    "covered_strata": 11,
+    "max_repositories": 11,
+    "per_stratum": 1,
+    "seed": 20261026,
+    "selected_occurrences": 14,
+    "selected_repositories": 11,
+    "stable_accessible_repositories": 603
+  },
+  "script": {
+    "mtime_ns": 1793025781025334010,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/11_select_rq2_history_calibration.py",
+    "sha256": "c87b640d27473cc39f90c424336bdfd299983950cbfd157a33341e334cdb8aed",
+    "size_bytes": 8971
+  },
+  "selection_rule": "Intersection of repositories marked accessible in every supplied probe; SHA-256 seed ranking within anchor stratum; round-robin allocation; repository deduplication."
+}

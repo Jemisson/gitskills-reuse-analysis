@@ -75,3 +75,20 @@ AnaliseGitSkills/outputs/rq1/sensitivity/
 AnaliseGitSkills/outputs/rq1/rq1_model_data_for_r*.csv
 AnaliseGitSkills/outputs/rq1/representative_repositories.csv
 AnaliseGitSkills/outputs/rq1/reuse_by_content.csv
+
+# Cache Git e históricos brutos da RQ2 (regeneráveis; manifests e resumos ficam versionáveis)
+AnaliseGitSkills/outputs/rq2/history_pilot/git_cache/
+AnaliseGitSkills/outputs/rq2/history_pilot/histories/
+AnaliseGitSkills/outputs/rq2/history_pilot_repeat/histories/
+AnaliseGitSkills/outputs/rq2/history_pilot_v2/histories/
+AnaliseGitSkills/outputs/rq2/history_pilot_v2_repeat/histories/
+AnaliseGitSkills/outputs/rq2/diff_pilot/diffs/
+AnaliseGitSkills/outputs/rq2/diff_pilot_v2/diffs/
+AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache/
+AnaliseGitSkills/outputs/rq2/history_calibration_20261026/histories/
+AnaliseGitSkills/outputs/rq2/diff_calibration_20261026/diffs/
+AnaliseGitSkills/outputs/rq2/diff_calibration_20261026_v2/diffs/
+AnaliseGitSkills/outputs/rq2/diff_pilot_v3/diffs/
+AnaliseGitSkills/outputs/rq2/history_calibration_20261026_v2/histories/
+AnaliseGitSkills/outputs/rq2/history_analytic_v1/histories/
+AnaliseGitSkills/outputs/rq2/diff_analytic_v1/diffs/

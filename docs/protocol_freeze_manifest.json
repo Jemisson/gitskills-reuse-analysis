@@ -1,0 +1,40 @@
+{
+  "freeze_id": "automated-validation-v1.0-20261026",
+  "frozen_on": "2026-10-26",
+  "git_baseline_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "status": "frozen_for_implementation",
+  "scope": "RQ2 and RQ3 automated classification and validation protocol",
+  "supersedes": [
+    "independent human annotation",
+    "double coding and adjudication",
+    "inter-rater agreement",
+    "human-labeled gold standard"
+  ],
+  "documents": [
+    {
+      "path": "docs/protocol_amendment_automated_validation.md",
+      "sha256": "78f98018707bdd71d4dc54e132681b562fa481c8336a99ee661ddac3687dcac6"
+    },
+    {
+      "path": "docs/research_protocol.md",
+      "sha256": "a8ae6b57d1a6f98fd0530a8ef1c34ee1b8acbf111a2b26558d37efd0e0cafa04"
+    },
+    {
+      "path": "docs/rq2_implementation_plan.md",
+      "sha256": "c6ca7e0832e88f25aaf1fbac26c5735cc8d9480206e834bb9a6c0e91f34b3967"
+    },
+    {
+      "path": "docs/rq3_implementation_plan.md",
+      "sha256": "e9bf991df30e96e2e23c9e8fea712bcd285ed5b35ff36133fc6458cc8fb98748"
+    },
+    {
+      "path": "docs/rq2_annotation_codebook.md",
+      "sha256": "dde813bbfb77f8ff62e53923587484ffc612d52fcfa9592dc3a0d35af9e2883b"
+    },
+    {
+      "path": "docs/paper_evidence_matrix.md",
+      "sha256": "b2b4b9dc08d706fa40ecc160bbffe28b486d0f89d367f1071ed2fd5942783b21"
+    }
+  ],
+  "interpretation": "Checksums freeze the methodological documents, not scientific results or semantic validity."
+}

@@ -1,0 +1,159 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "clone_timeout_seconds": 180.0,
+    "git_timeout_seconds": 60.0,
+    "input": "AnaliseGitSkills/outputs/rq2/analytic_sample_v1/selected_occurrences.csv",
+    "limit_repositories": 55,
+    "max_cache_bytes": 500000000,
+    "max_elapsed_seconds": 2400.0,
+    "max_total_cache_bytes": 4000000000,
+    "output_dir": "AnaliseGitSkills/outputs/rq2/history_analytic_v1",
+    "overwrite_summary": false,
+    "probe_file": [
+      "AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv"
+    ]
+  },
+  "created_at_utc": "2026-10-26T15:24:58.471747+00:00",
+  "elapsed_seconds": 328.22078329500073,
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793027959468281895,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1/selected_occurrences.csv",
+      "sha256": "c74e813039ddf698aa85bd68bb4c16e70c142fca6fdd503eeae5626452c24f62",
+      "size_bytes": 36409
+    },
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    },
+    {
+      "mtime_ns": 1792195309880326940,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a",
+      "size_bytes": 107617
+    }
+  ],
+  "limitations": [
+    "The pilot uses repositories accessible in two rapid anonymous probes and is not representative.",
+    "git log --follow is path-oriented and has known limitations across merges.",
+    "Current HEAD can differ from the July 2026 dataset snapshot.",
+    "A locally available blob does not establish cross-repository ancestry."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793028298470566507,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_analytic_v1/history_recovery_summary.csv",
+      "sha256": "3cbe7c5670bc5e902240db62da8cca3eaea514ac5162fa1959e22feb0720126e",
+      "size_bytes": 36112
+    },
+    {
+      "mtime_ns": 1793028298471629943,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_analytic_v1/repository_collection_status.csv",
+      "sha256": "d530689f374b03fd6813c4468233f4b311e0289375d5ccf6c1238bf6e9a29f39",
+      "size_bytes": 3815
+    }
+  ],
+  "results": {
+    "final_total_cache_bytes": 3323962087,
+    "occurrences_processed": 86,
+    "occurrences_with_history": 86,
+    "repository_status_counts": {
+      "collected": 52,
+      "collected_cache_size_limit_exceeded": 1,
+      "collection_failed": 2
+    },
+    "stopped_by_budget": null
+  },
+  "script": {
+    "mtime_ns": 1793025973317449650,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/09_collect_rq2_histories.py",
+    "sha256": "bc0d1fb9934e5ba9bf6c3c801ba14fe7bfa947da410e4db74ebc106b993c4fa0",
+    "size_bytes": 15702
+  },
+  "selection": {
+    "input_selection_strata": {
+      "02__all": 5,
+      "02__none": 5,
+      "02__partial": 5,
+      "03-05__none": 5,
+      "03-05__partial": 5,
+      "06-10__none": 5,
+      "06-10__partial": 5,
+      "11-50__none": 5,
+      "11-50__partial": 5,
+      "51+__none": 5,
+      "51+__partial": 5
+    },
+    "limit_repositories": 55,
+    "rule": "preselected input filtered to repositories accessible in every supplied probe; sorted repository name defines execution order",
+    "selected_occurrences": 122,
+    "selected_repositories": [
+      "Abhiman1206/obsidian-prism",
+      "Activer007/ordinary-claude-skills",
+      "Anveio/conveaux",
+      "Calm-Ay/cybersecurity-internship-report",
+      "Dalisports/BIAMANHBEO-CODE",
+      "Diottodev/runic",
+      "Fl2vio/ai-code-analyst",
+      "ForceInjection/domain-driven-design-skills",
+      "GhostFaceInterface/SilverPilot",
+      "GhostTypes/ff-5mp-api-ts",
+      "Kernel8901/ai-agent-skills-classification",
+      "KhanhLanBui03/aura-elite-residence",
+      "LoganDark/get-shit-done",
+      "M1Albert/xiaoman-openclaw-skills",
+      "MikeCheng1208/BattleTree",
+      "NguyenPhuocAnhDung/oil_forecast_tail_risk",
+      "Parallel-7/FlashForgeUI-Electron",
+      "Pato-deve/Skiller",
+      "ProyectoG007/Skill.bat",
+      "Razkaroth/serenity",
+      "RobGibbens/ConnectionsExplorer",
+      "SamuelChien/mega-skills-collection",
+      "SrivarsanK/CAD-mob",
+      "TJSNDHU/Aurem",
+      "TakebayashiNaoya/ProjectBeast",
+      "TerminalSkills/skills",
+      "TheRocketCodeMX/gsd-core",
+      "WangChangxin0809/click-rouge",
+      "advaithprabhudev/Portfolio-test-website-advaith",
+      "aibot88/sec_skill_store",
+      "aifinlab/FinClaw",
+      "ansible-community/ai-forge",
+      "ayia/NutriProfile",
+      "bangarangler/nixos-dotfiles",
+      "bnorth12/Agentic-SDLC-AI",
+      "bnorth12/FarmRTK",
+      "carlzimmerman/zimmerman-formula",
+      "dawsonblock/HERMY",
+      "ddlmanus/lovarts-drama",
+      "diberry/microsoft-mcp-doc-generation",
+      "drgaciw/cmano-clone",
+      "dvhma1994/hermes-custom",
+      "faanross/antisyphon_course_26062026",
+      "faanross/antisyphon_workshop_12062026",
+      "fedeacnn/sbrebols-adventures",
+      "flight505/skill-forge",
+      "gabrielmoreira/agent-skills-mirror",
+      "google/mcp-security",
+      "ibragimov-oasis/oasis-languages-jp",
+      "ibragimov-oasis/vibe-coder",
+      "itgoyo/multica-skills",
+      "jukeyman/jukeyman-skills",
+      "kaminocorp/hermes-alpha-hunter",
+      "kindyakov/voxel-pilot",
+      "kopiteshot/sub-management"
+    ],
+    "stable_accessible_repositories": 603
+  }
+}

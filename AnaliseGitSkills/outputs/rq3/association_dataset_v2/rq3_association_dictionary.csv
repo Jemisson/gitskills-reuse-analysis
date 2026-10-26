@@ -1,0 +1,15 @@
+variable,temporal_role,definition
+days_since_anchor,pre-event,Dias entre a âncora exata e o evento
+days_since_previous_observed_event,pre-event,Dias desde o evento anterior estritamente mais antigo
+prior_observed_events,pre-event,Eventos observados estritamente anteriores na ocorrência
+prior_divergence_events,pre-event,Divergências observadas estritamente anteriores
+repository_age_days,pre-event,Idade observável do repositório no evento
+reuse_count,baseline,Repositórios com o hash-âncora no snapshot
+occurrence_count,baseline,Ocorrências do hash-âncora no snapshot
+location_class,baseline,Classe do path no snapshot
+repo_is_fork,baseline,Indicador de fork disponível no snapshot
+parent_*,pre-event,"Características do blob pai, antes da mudança"
+is_merge,concurrent,Evento pertence a commit de merge
+change_operation,concurrent,Operação estrutural do evento
+diff_changed_lines,concurrent,Churn do evento; não usar quando for parte da definição do desfecho
+*_strict/*_broad,outcome,Candidato automatizado segundo o cenário indicado

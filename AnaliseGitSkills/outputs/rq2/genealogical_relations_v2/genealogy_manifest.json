@@ -1,0 +1,61 @@
+{
+  "arguments": {
+    "candidates": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v2/adoption_candidates.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v2",
+    "overwrite": false
+  },
+  "confidence_rules": {
+    "A": "Reserved for explicit provenance or shared reachable Git ancestry; unavailable in this dataset.",
+    "B": "Exact normalized patch, exact anchor family, strict temporal order, and identical old/new blob transition.",
+    "C": "Exact normalized patch and anchor family with strict temporal order, but blob transition differs.",
+    "D": "Direction indeterminate or required evidence absent; rejected from directed relations."
+  },
+  "created_at_utc": "2026-10-26T15:50:00.669731+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793029800352738153,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v2/adoption_candidates.csv",
+      "sha256": "d4276a5c7003d2be365b071eba52cb6d6f492e20abe880d9583ad5ceca7f6cb4",
+      "size_bytes": 1014
+    }
+  ],
+  "interpretation": "B and C are compatible adoption candidates, not proven transmission edges or origin assignments.",
+  "limitations": [
+    "No relation reaches confidence A because explicit provenance/shared ancestry was not collected.",
+    "Commit timestamps establish observed order, not causal transmission.",
+    "A common unobserved source can generate identical patches in multiple repositories."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793029800667739312,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v2/genealogical_relations.csv",
+      "sha256": "6f2559a07da13f4c6bcc26c3891ffd96854518f64bb18be830c7abbaaa1e3c3c",
+      "size_bytes": 1163
+    },
+    {
+      "mtime_ns": 1793029800669583587,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v2/rejected_relations.csv",
+      "sha256": "ccd92598a04dd7ab88864bd05ef97506e55c8633e5f95508a00df50afa71c3d8",
+      "size_bytes": 414
+    }
+  ],
+  "results": {
+    "accepted_candidate_relations": 1,
+    "ambiguous_candidate_relations": 0,
+    "confidence_B": 1,
+    "confidence_C": 0,
+    "rejected_direction_indeterminate": 0
+  },
+  "script": {
+    "mtime_ns": 1793029796623724429,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/19_score_genealogical_relations.py",
+    "sha256": "da38744b68cf2af6013d6bcb6179448821e05a0a5aa407992561b6ca0c70c201",
+    "size_bytes": 4934
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "arguments": {
+    "coverage": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v1/search_coverage.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/propagation_results_v1",
+    "overwrite": false,
+    "rejected": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v1/rejected_relations.csv",
+    "relations": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v1/genealogical_relations.csv"
+  },
+  "created_at_utc": "2026-10-26T15:49:26.926283+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793029766613613554,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v1/genealogical_relations.csv",
+      "sha256": "653569dbab3bf08beabe0b3cf71f5b7601ab288f3d75904e701fc18e9778c519",
+      "size_bytes": 3155
+    },
+    {
+      "mtime_ns": 1793029766614253044,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/genealogical_relations_v1/rejected_relations.csv",
+      "sha256": "a340110ceaff557b6511809bfff277f7d9a50e9328de5845f74a8d3e9920244e",
+      "size_bytes": 312
+    },
+    {
+      "mtime_ns": 1793029766302216488,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v1/search_coverage.csv",
+      "sha256": "29383c7d0bdde2b445218853f375596087d3357868518346a01c7bc0c6318a90",
+      "size_bytes": 6796
+    }
+  ],
+  "limitations": [
+    "Outputs are candidate relations within 53 complete repositories, not a GitHub-wide genealogy.",
+    "No origin is assigned and no B/C relation is called causal transmission.",
+    "No confidence interval or propagation rate is produced without a valid eligible denominator."
+  ],
+  "manifest_version": 1,
+  "non_estimability_reason": "Observation windows provide temporal opportunity only. The pipeline cannot establish that each non-adopting lineage retained the patch's applicable pre-change context at the source time.",
+  "outputs": [
+    {
+      "mtime_ns": 1793029766924614708,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/propagation_results_v1/propagation_candidates.csv",
+      "sha256": "653569dbab3bf08beabe0b3cf71f5b7601ab288f3d75904e701fc18e9778c519",
+      "size_bytes": 3155
+    },
+    {
+      "mtime_ns": 1793029766925614711,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/propagation_results_v1/propagation_summary.csv",
+      "sha256": "005f188c3e306b3229972672f8cee5520aa642af9b82f3231e3a69ba36c4904a",
+      "size_bytes": 763
+    },
+    {
+      "mtime_ns": 1793029766925992641,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/propagation_results_v1/propagation_by_confidence.csv",
+      "sha256": "0f66f2108988d6d41af2a862cfcba83d3213a69d51c7aa0d46c9ad1ae97589b3",
+      "size_bytes": 133
+    }
+  ],
+  "results": {
+    "directed_candidate_relations": 4,
+    "direction_indeterminate_pairs": 0,
+    "distinct_patch_signatures": 1,
+    "propagation_rate_estimable": false
+  },
+  "script": {
+    "mtime_ns": 1793029743048525933,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/20_summarize_rq2_propagation.py",
+    "sha256": "904e9a83b602edc5c580dc4177021c437f0e782283710367ae5fefa4459439a3",
+    "size_bytes": 6084
+  }
+}

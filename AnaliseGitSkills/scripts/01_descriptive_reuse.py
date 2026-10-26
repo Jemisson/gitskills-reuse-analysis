@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 from pathlib import Path
 
@@ -14,6 +15,15 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 INPUT_FILE = ROOT / "outputs" / "rq1" / "reuse_by_content.csv"
 OUTPUT_DIR = ROOT / "outputs" / "rq1"
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Gera estatísticas descritivas do reúso exato."
+    )
+    parser.add_argument("--input", default=str(INPUT_FILE))
+    parser.add_argument("--output-dir", default=str(OUTPUT_DIR))
+    return parser.parse_args()
 
 
 def gini(values: np.ndarray) -> float:
@@ -37,12 +47,15 @@ def gini(values: np.ndarray) -> float:
 
 
 def main() -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    args = parse_args()
+    input_file = Path(args.input).expanduser().resolve()
+    output_dir = Path(args.output_dir).expanduser().resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Lendo: {INPUT_FILE}")
+    print(f"Lendo: {input_file}")
 
     df = pd.read_csv(
-        INPUT_FILE,
+        input_file,
         dtype={
             "file_sha": "string",
             "occurrence_count": "int64",
@@ -141,7 +154,7 @@ def main() -> None:
     }
 
     with open(
-        OUTPUT_DIR / "descriptive_summary.json",
+        output_dir / "descriptive_summary.json",
         "w",
         encoding="utf-8",
     ) as output:
@@ -158,7 +171,7 @@ def main() -> None:
             for metric, value in summary.items()
         ]
     ).to_csv(
-        OUTPUT_DIR / "descriptive_summary.csv",
+        output_dir / "descriptive_summary.csv",
         index=False,
     )
 
@@ -168,7 +181,7 @@ def main() -> None:
             "reuse_count": percentile_values,
         }
     ).to_csv(
-        OUTPUT_DIR / "reuse_percentiles.csv",
+        output_dir / "reuse_percentiles.csv",
         index=False,
     )
 
@@ -204,7 +217,7 @@ def main() -> None:
     )
 
     bins_df.to_csv(
-        OUTPUT_DIR / "reuse_ranges.csv",
+        output_dir / "reuse_ranges.csv",
         index=False,
     )
 
@@ -237,7 +250,7 @@ def main() -> None:
         )
 
     pd.DataFrame(concentration_rows).to_csv(
-        OUTPUT_DIR / "reuse_concentration.csv",
+        output_dir / "reuse_concentration.csv",
         index=False,
     )
 
@@ -245,7 +258,7 @@ def main() -> None:
         100,
         columns=["reuse_count", "occurrence_count"],
     ).to_csv(
-        OUTPUT_DIR / "top_100_reused.csv",
+        output_dir / "top_100_reused.csv",
         index=False,
     )
 
@@ -261,7 +274,7 @@ def main() -> None:
     plt.xticks(rotation=25)
     plt.tight_layout()
     plt.savefig(
-        OUTPUT_DIR / "reuse_ranges.png",
+        output_dir / "reuse_ranges.png",
         dpi=300,
     )
     plt.close()
@@ -294,7 +307,7 @@ def main() -> None:
     plt.grid(True, which="both", alpha=0.25)
     plt.tight_layout()
     plt.savefig(
-        OUTPUT_DIR / "reuse_ccdf_loglog.png",
+        output_dir / "reuse_ccdf_loglog.png",
         dpi=300,
     )
     plt.close()
@@ -304,7 +317,7 @@ def main() -> None:
         print(f"{metric}: {value}")
 
     print("\nArquivos gerados em:")
-    print(OUTPUT_DIR)
+    print(output_dir)
 
 
 if __name__ == "__main__":

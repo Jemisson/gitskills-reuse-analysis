@@ -1,0 +1,113 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "clone_timeout_seconds": 180.0,
+    "git_timeout_seconds": 60.0,
+    "input": "AnaliseGitSkills/outputs/rq2/history_calibration_sample/selected_occurrences.csv",
+    "limit_repositories": 11,
+    "max_cache_bytes": 400000000,
+    "max_elapsed_seconds": 1200.0,
+    "max_total_cache_bytes": 1500000000,
+    "output_dir": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026_v2",
+    "overwrite_summary": false,
+    "probe_file": [
+      "AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv"
+    ]
+  },
+  "created_at_utc": "2026-10-26T14:46:19.640440+00:00",
+  "elapsed_seconds": 1.2016001880001568,
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793025788617338579,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_sample/selected_occurrences.csv",
+      "sha256": "29ba7b965037eed5d5ec7355b5ddeefe3779e8d3ec7b64f16b80c0a306411185",
+      "size_bytes": 3642
+    },
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    },
+    {
+      "mtime_ns": 1792195309880326940,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a",
+      "size_bytes": 107617
+    }
+  ],
+  "limitations": [
+    "The pilot uses repositories accessible in two rapid anonymous probes and is not representative.",
+    "git log --follow is path-oriented and has known limitations across merges.",
+    "Current HEAD can differ from the July 2026 dataset snapshot.",
+    "A locally available blob does not establish cross-repository ancestry."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793025979639636099,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026_v2/history_recovery_summary.csv",
+      "sha256": "1689df85ab8feb5a576f7512fbb68005477e0be2450aed02da31e590ae34ada4",
+      "size_bytes": 5788
+    },
+    {
+      "mtime_ns": 1793025979640322797,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026_v2/repository_collection_status.csv",
+      "sha256": "c7a79d152d122f015a38e866ddea91b6d92e78606648339dbf6a0853a12c9324",
+      "size_bytes": 597
+    }
+  ],
+  "results": {
+    "final_total_cache_bytes": 238735570,
+    "occurrences_processed": 14,
+    "occurrences_with_history": 14,
+    "repository_status_counts": {
+      "collected": 11
+    },
+    "stopped_by_budget": null
+  },
+  "script": {
+    "mtime_ns": 1793025973317449650,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/09_collect_rq2_histories.py",
+    "sha256": "bc0d1fb9934e5ba9bf6c3c801ba14fe7bfa947da410e4db74ebc106b993c4fa0",
+    "size_bytes": 15702
+  },
+  "selection": {
+    "input_selection_strata": {
+      "02__all": 1,
+      "02__none": 1,
+      "02__partial": 1,
+      "03-05__none": 1,
+      "03-05__partial": 1,
+      "06-10__none": 1,
+      "06-10__partial": 1,
+      "11-50__none": 1,
+      "11-50__partial": 1,
+      "51+__none": 1,
+      "51+__partial": 1
+    },
+    "limit_repositories": 11,
+    "rule": "preselected input filtered to repositories accessible in every supplied probe; sorted repository name defines execution order",
+    "selected_occurrences": 14,
+    "selected_repositories": [
+      "Anveio/conveaux",
+      "Diottodev/runic",
+      "Fl2vio/ai-code-analyst",
+      "M1Albert/xiaoman-openclaw-skills",
+      "RobGibbens/ConnectionsExplorer",
+      "SamuelChien/mega-skills-collection",
+      "bangarangler/nixos-dotfiles",
+      "dvhma1994/hermes-custom",
+      "flight505/skill-forge",
+      "google/mcp-security",
+      "kopiteshot/sub-management"
+    ],
+    "stable_accessible_repositories": 603
+  }
+}

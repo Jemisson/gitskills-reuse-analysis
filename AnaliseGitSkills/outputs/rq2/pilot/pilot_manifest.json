@@ -1,0 +1,62 @@
+{
+  "arguments": {
+    "frame": "AnaliseGitSkills/outputs/rq2/frame/rq2_exact_copy_occurrences.parquet",
+    "output_dir": "AnaliseGitSkills/outputs/rq2/pilot",
+    "overwrite": false,
+    "per_stratum": 5,
+    "seed": 2026
+  },
+  "created_at_utc": "2026-10-16T23:58:01.876060+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1792195077404640488,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/frame/rq2_exact_copy_occurrences.parquet",
+    "sha256": "fc16d728799657b6c63101302f6e2af488e6d3bac17d0684746effe3c26efdbc",
+    "size_bytes": 60019746
+  },
+  "invariants": {
+    "available_strata": 11,
+    "frame_anchors": 254078,
+    "frame_occurrences": 1894746,
+    "per_stratum_cap": 5,
+    "sampled_anchors": 55,
+    "sampled_occurrences": 1647,
+    "seed": 2026
+  },
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1792195081868645653,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_anchors.csv",
+      "sha256": "37f99e4cb00ad6576f7e3d58823e8cea6cf61dcb13d202b98bd90380e1ad092b",
+      "size_bytes": 5950
+    },
+    {
+      "mtime_ns": 1792195081875654435,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+      "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+      "size_bytes": 372490
+    },
+    {
+      "mtime_ns": 1792195081875794698,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_strata.csv",
+      "sha256": "b9ec441e904fad0477ca7359b392889fa75cb63ac93a0894abc0ffcfb297cfcb",
+      "size_bytes": 257
+    }
+  ],
+  "purpose": "Recoverability and protocol-calibration pilot only; not a confirmatory substantive sample.",
+  "script": {
+    "mtime_ns": 1792195032364588347,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/07_sample_rq2_pilot.py",
+    "sha256": "09120308ef84fb77be8aac8922dc649c428639879fcdb98bf257ca5fb5a220c6",
+    "size_bytes": 6200
+  },
+  "stratification": [
+    "reuse_stratum",
+    "history_stratum"
+  ]
+}

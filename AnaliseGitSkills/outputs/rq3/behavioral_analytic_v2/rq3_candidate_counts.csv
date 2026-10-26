@@ -1,0 +1,16 @@
+source,scenario,target,direction,evidence_count,event_count
+skill_text,broad,command,added,2531,112
+skill_text,broad,command,deleted,253,20
+skill_text,broad,external_access,added,513,55
+skill_text,broad,external_access,deleted,12,4
+skill_text,broad,script_reference,added,255,63
+skill_text,broad,script_reference,deleted,76,14
+skill_text,strict,command,added,309,49
+skill_text,strict,command,deleted,35,6
+skill_text,strict,external_access,added,89,23
+skill_text,strict,external_access,deleted,2,2
+skill_text,strict,script_reference,added,43,13
+skill_text,strict,script_reference,deleted,24,4
+sibling,strict,executable_candidate,added,10,8
+sibling,broad,executable_candidate,added,53,11
+sibling,broad,executable_candidate,moved_or_copied,16,1

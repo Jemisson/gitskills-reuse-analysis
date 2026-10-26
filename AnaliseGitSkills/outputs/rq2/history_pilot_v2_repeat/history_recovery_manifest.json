@@ -1,0 +1,88 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_pilot/git_cache",
+    "clone_timeout_seconds": 180.0,
+    "git_timeout_seconds": 60.0,
+    "input": "AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "limit_repositories": 3,
+    "max_cache_bytes": 1000000000,
+    "output_dir": "AnaliseGitSkills/outputs/rq2/history_pilot_v2_repeat",
+    "overwrite_summary": false,
+    "probe_file": [
+      "AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv"
+    ]
+  },
+  "created_at_utc": "2026-10-17T00:19:21.722437+00:00",
+  "elapsed_seconds": 0.11306534699906479,
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1792195081875654435,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+      "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+      "size_bytes": 372490
+    },
+    {
+      "mtime_ns": 1792195309880326940,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a",
+      "size_bytes": 107617
+    },
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    }
+  ],
+  "limitations": [
+    "The pilot uses repositories accessible in two rapid anonymous probes and is not representative.",
+    "git log --follow is path-oriented and has known limitations across merges.",
+    "Current HEAD can differ from the July 2026 dataset snapshot.",
+    "A locally available blob does not establish cross-repository ancestry."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1792196361721362849,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_pilot_v2_repeat/history_recovery_summary.csv",
+      "sha256": "738d981b2c2bbf0987e73090d74b247e9ece56a3ec75f843a8275671dcf0a196",
+      "size_bytes": 3084
+    },
+    {
+      "mtime_ns": 1792196361722325488,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_pilot_v2_repeat/repository_collection_status.csv",
+      "sha256": "8147ed6a577e184c1d72b9c3e81e45ab6ac8e7adec1951963bce77c8f2ff3817",
+      "size_bytes": 189
+    }
+  ],
+  "results": {
+    "occurrences_processed": 7,
+    "occurrences_with_history": 7,
+    "repository_status_counts": {
+      "collected": 3
+    }
+  },
+  "script": {
+    "mtime_ns": 1792196348924320614,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/09_collect_rq2_histories.py",
+    "sha256": "40890beb02962d4ea6c129f46c6a38619c9117421d1657d78642d621726c8e47",
+    "size_bytes": 13666
+  },
+  "selection": {
+    "limit_repositories": 3,
+    "rule": "accessible in every supplied probe, sorted repository name",
+    "selected_occurrences": 7,
+    "selected_repositories": [
+      "0xzgbot/forge-nps-v01",
+      "1thirteeng3/greenmoire",
+      "25sidhx/withopus"
+    ],
+    "stable_accessible_repositories": 603
+  }
+}

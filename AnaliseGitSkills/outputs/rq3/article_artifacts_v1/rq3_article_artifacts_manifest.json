@@ -1,0 +1,89 @@
+{
+  "arguments": {
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1",
+    "overwrite": false,
+    "results_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3"
+  },
+  "created_at_utc": "2026-10-26T15:59:37.257452+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793030324861253875,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_outcome_prevalence.csv",
+      "sha256": "41a4a6214603ced729ca792dd79444d6eeade21f8cfec9f0a2aae4f0a2dc73b1",
+      "size_bytes": 2372
+    },
+    {
+      "mtime_ns": 1793030324861444342,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_model_diagnostics.csv",
+      "sha256": "163dbdac022828cef302abc1a7636c870d1b9d1bc0aa9c4b8bb284758a5e5067",
+      "size_bytes": 2447
+    },
+    {
+      "mtime_ns": 1793030324863140325,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_descriptive_associations.csv",
+      "sha256": "5c2828dae4034066756e4d03d35e8b28b6b2affbfd7db68a7ac6f08051cc7a9b",
+      "size_bytes": 41554
+    },
+    {
+      "mtime_ns": 1793030324863308962,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_scenario_sensitivity.csv",
+      "sha256": "bc498af05c526afc97ea2d8aa6af0ef878caab0e1099b000150a79dcf66dfdb3",
+      "size_bytes": 552
+    }
+  ],
+  "limitations": [
+    "The weighted points are conditional estimates and the plotted Wilson intervals are unweighted.",
+    "The descriptive-pattern table is unadjusted and not multiplicity-corrected.",
+    "Figures visualize automated candidates, not validated behavior or causal effects."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793030376912835787,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1/table_rq3_prevalence.csv",
+      "sha256": "a8daca85208118e29538ba85ab91e469cbaeb3d1c15a952b8f62d77166fbbfde",
+      "size_bytes": 1826
+    },
+    {
+      "mtime_ns": 1793030376914614889,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1/table_rq3_descriptive_patterns.csv",
+      "sha256": "585da6b60c46a3c62a10b389feb54a4eb0117c7d7aedd3677807ecd793d09dd5",
+      "size_bytes": 15380
+    },
+    {
+      "mtime_ns": 1793030376914763739,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1/table_rq3_model_decisions.csv",
+      "sha256": "163dbdac022828cef302abc1a7636c870d1b9d1bc0aa9c4b8bb284758a5e5067",
+      "size_bytes": 2447
+    },
+    {
+      "mtime_ns": 1793030377133836213,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1/figure_rq3_prevalence.png",
+      "sha256": "e42fdc5589eec80db916717d709b993648a18afdf739a1b2dad44e82ad6a99fc",
+      "size_bytes": 152782
+    },
+    {
+      "mtime_ns": 1793030377257033152,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/article_artifacts_v1/figure_rq3_scenario_sensitivity.png",
+      "sha256": "4bd5f438c3b784068c76bebac84e8185c76228eb99574896e84cfb9137c17166",
+      "size_bytes": 78978
+    }
+  ],
+  "results": {
+    "descriptive_pattern_rows": 55,
+    "figures": 2,
+    "model_decision_rows": 20,
+    "nonzero_outcomes": 15
+  },
+  "script": {
+    "mtime_ns": 1793030370265823029,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/23_generate_rq3_article_artifacts.py",
+    "sha256": "b61eb795a1506ba61503c30e1218466d97376f09750fc00c18a79aaebe0f5753",
+    "size_bytes": 5962
+  }
+}

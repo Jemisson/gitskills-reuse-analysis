@@ -1,0 +1,86 @@
+{
+  "analysis_version": "rq3-descriptive-associations-v1.0",
+  "arguments": {
+    "bootstrap_replicates": 2000,
+    "input": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_events.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3",
+    "overwrite": false,
+    "seed": 20261026
+  },
+  "created_at_utc": "2026-10-26T15:58:44.863898+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793030206064877028,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_events.csv",
+      "sha256": "7f02c3b99392f3af49a588a78a956bee3adc590ecd35535fa1bcf0b0aef0d44b",
+      "size_bytes": 106539
+    }
+  ],
+  "interpretation": "Risk ratios and bootstrap intervals are descriptive, design-weighted associations in the conditioned complete-case sample; they are not adjusted, causal, or population-generalizable.",
+  "limitations": [
+    "Only 18 repositories contribute post-anchor events and one repository contributes 29 of 75 events.",
+    "No outcome passes the pre-specified 30-cluster model gate.",
+    "Automated outcomes have no independent semantic validation.",
+    "Bootstrap intervals may be unavailable when resamples have zero outcomes in a comparison group.",
+    "No p-values or FDR are produced because no inferential regression family is fitted."
+  ],
+  "manifest_version": 1,
+  "model_gate": {
+    "minimum_events": 50,
+    "minimum_negative_repositories": 5,
+    "minimum_positive_events": 10,
+    "minimum_positive_repositories": 5,
+    "minimum_repository_clusters": 30
+  },
+  "outputs": [
+    {
+      "mtime_ns": 1793030324861253875,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_outcome_prevalence.csv",
+      "sha256": "41a4a6214603ced729ca792dd79444d6eeade21f8cfec9f0a2aae4f0a2dc73b1",
+      "size_bytes": 2372
+    },
+    {
+      "mtime_ns": 1793030324861444342,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_model_diagnostics.csv",
+      "sha256": "163dbdac022828cef302abc1a7636c870d1b9d1bc0aa9c4b8bb284758a5e5067",
+      "size_bytes": 2447
+    },
+    {
+      "mtime_ns": 1793030324863140325,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_descriptive_associations.csv",
+      "sha256": "5c2828dae4034066756e4d03d35e8b28b6b2affbfd7db68a7ac6f08051cc7a9b",
+      "size_bytes": 41554
+    },
+    {
+      "mtime_ns": 1793030324863308962,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_scenario_sensitivity.csv",
+      "sha256": "bc498af05c526afc97ea2d8aa6af0ef878caab0e1099b000150a79dcf66dfdb3",
+      "size_bytes": 552
+    },
+    {
+      "mtime_ns": 1793030324863628392,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_results_v3/rq3_broad_cooccurrence.csv",
+      "sha256": "e6fec0fcdff51b4f02e7a706f297f94f51f57c0524d85f03c036cdf5a3bfcabd",
+      "size_bytes": 608
+    }
+  ],
+  "results": {
+    "descriptive_associations": 280,
+    "events": 75,
+    "exposures": 14,
+    "outcomes": 20,
+    "outcomes_supporting_multivariable_model": 0,
+    "repositories": 18
+  },
+  "script": {
+    "mtime_ns": 1793030307921707883,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/22_analyze_rq3_associations.py",
+    "sha256": "31651001c9fa8b7c932e787d1e492c3a90930b97b2151a5aa03669c1853c966a",
+    "size_bytes": 12729
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "arguments": {
+    "cache_root": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "git_timeout_seconds": 60.0,
+    "input": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_calibration_20261026_v2/diff_events.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3",
+    "overwrite": false
+  },
+  "classifier_version": "rq2-structured-diff-v1.0",
+  "created_at_utc": "2026-10-26T15:06:44.046885+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1793025939942860739,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_calibration_20261026_v2/diff_events.csv",
+    "sha256": "f9e1dd7fa261527651488e24f09d19b649b5ab825300eebd6edacc4dfe1e8e90",
+    "size_bytes": 20546
+  },
+  "limitations": [
+    "Semantic scopes are automated candidates, not externally validated meanings.",
+    "Line-based matching does not infer moved blocks within edited documents.",
+    "Code and URL detection identifies textual evidence, not execution or network access.",
+    "No inter-rater agreement or gold-standard performance metric is available."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793027204032426646,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_events.csv",
+      "sha256": "0a04af31a6f0b4c5d5e8760a364b7ec634d3a5bf909beb699ef0b763dff350cb",
+      "size_bytes": 25562
+    },
+    {
+      "mtime_ns": 1793027204046229237,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_evidence.csv",
+      "sha256": "977df6877fce47e0225a8e5ea69b2d6a1b1f65ef237fb01342eaa32450031812",
+      "size_bytes": 1216370
+    },
+    {
+      "mtime_ns": 1793027204046454209,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_category_counts.csv",
+      "sha256": "377b4c1c7732eeb1daab107879548885574f177ac23b99b2e0db135c2082ff6e",
+      "size_bytes": 1705
+    }
+  ],
+  "results": {
+    "behavior_relevance_candidates": 22,
+    "classified_events": 26,
+    "evidence_rows": 4483,
+    "failed_events": 0,
+    "input_change_events": 26,
+    "input_parent_comparisons": 35,
+    "operation_counts": {
+      "addition": 18,
+      "modification": 7,
+      "movement": 1
+    },
+    "verified_raw_diffs": 26
+  },
+  "rules": {
+    "semantic_candidates": [
+      "name",
+      "description",
+      "front_matter_other",
+      "instruction_candidate",
+      "example_candidate",
+      "command_code_candidate",
+      "network_url_candidate",
+      "reference_candidate"
+    ],
+    "structural": [
+      "front_matter",
+      "heading",
+      "list_item",
+      "code_fence",
+      "code_block",
+      "indented_code",
+      "blockquote",
+      "table",
+      "paragraph",
+      "blank"
+    ]
+  },
+  "script": {
+    "mtime_ns": 1793027195693185330,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/12_classify_rq2_structured_diffs.py",
+    "sha256": "aa59a085d12f3114a973abd101e35f802142803ef06744558c811fb50395ba6b",
+    "size_bytes": 18869
+  }
+}

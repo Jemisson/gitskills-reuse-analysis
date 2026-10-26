@@ -1,0 +1,53 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_pilot/git_cache",
+    "git_timeout_seconds": 60.0,
+    "history_dir": "AnaliseGitSkills/outputs/rq2/history_pilot_v2",
+    "output_dir": "AnaliseGitSkills/outputs/rq2/diff_pilot_v3",
+    "overwrite": false
+  },
+  "created_at_utc": "2026-10-26T14:45:54.045622+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1792196361330361567,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_pilot_v2/history_recovery_summary.csv",
+    "sha256": "738d981b2c2bbf0987e73090d74b247e9ece56a3ec75f843a8275671dcf0a196",
+    "size_bytes": 3084
+  },
+  "limitations": [
+    "Path reconstruction is conservative and unresolved events are retained as counts.",
+    "Full-history traversal context is retained separately from actual path changes.",
+    "A diff is intrarepository evidence only and does not establish cross-repository ancestry.",
+    "Raw diffs are local regeneration artifacts and are not tracked by Git."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793025954044438068,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_pilot_v3/diff_events.csv",
+      "sha256": "4f7253be156c7c78255a3a91f6850e0d27236d85408545e722374e6061033074",
+      "size_bytes": 4890
+    }
+  ],
+  "results": {
+    "ambiguous_path_events": 0,
+    "change_event_rows": 8,
+    "merge_parent_comparisons": 0,
+    "occurrences": 7,
+    "parent_comparisons": 8,
+    "path_absent_context_comparisons": 0,
+    "unchanged_context_comparisons": 0,
+    "unique_commits": 4,
+    "unresolved_comparisons": 0
+  },
+  "script": {
+    "mtime_ns": 1793025931622424592,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/10_extract_rq2_diffs.py",
+    "sha256": "34ae40206e3c2e2111ab0c2406a8c4c7f64b6a955e2c9f23b5f69353cbe2d867",
+    "size_bytes": 11956
+  }
+}

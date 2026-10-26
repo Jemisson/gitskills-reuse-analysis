@@ -1,0 +1,53 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "git_timeout_seconds": 60.0,
+    "history_dir": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026",
+    "output_dir": "AnaliseGitSkills/outputs/rq2/diff_calibration_20261026_v2",
+    "overwrite": false
+  },
+  "created_at_utc": "2026-10-26T14:45:39.942961+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1793025864372384168,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026/history_recovery_summary.csv",
+    "sha256": "1689df85ab8feb5a576f7512fbb68005477e0be2450aed02da31e590ae34ada4",
+    "size_bytes": 5788
+  },
+  "limitations": [
+    "Path reconstruction is conservative and unresolved events are retained as counts.",
+    "Full-history traversal context is retained separately from actual path changes.",
+    "A diff is intrarepository evidence only and does not establish cross-repository ancestry.",
+    "Raw diffs are local regeneration artifacts and are not tracked by Git."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793025939942860739,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_calibration_20261026_v2/diff_events.csv",
+      "sha256": "f9e1dd7fa261527651488e24f09d19b649b5ab825300eebd6edacc4dfe1e8e90",
+      "size_bytes": 20546
+    }
+  ],
+  "results": {
+    "ambiguous_path_events": 0,
+    "change_event_rows": 26,
+    "merge_parent_comparisons": 12,
+    "occurrences": 14,
+    "parent_comparisons": 35,
+    "path_absent_context_comparisons": 3,
+    "unchanged_context_comparisons": 6,
+    "unique_commits": 26,
+    "unresolved_comparisons": 0
+  },
+  "script": {
+    "mtime_ns": 1793025931622424592,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/10_extract_rq2_diffs.py",
+    "sha256": "34ae40206e3c2e2111ab0c2406a8c4c7f64b6a955e2c9f23b5f69353cbe2d867",
+    "size_bytes": 11956
+  }
+}

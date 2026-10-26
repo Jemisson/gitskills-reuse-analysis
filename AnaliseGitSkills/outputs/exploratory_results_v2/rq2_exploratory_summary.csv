@@ -1,0 +1,16 @@
+metric,numerator,denominator,estimate,ci_low,ci_high,method
+selected_repositories,55,,,,,count
+selected_occurrences,122,,,,,count
+eligible_occurrences,82,122,0.6721311475409836,,,sample_flow
+anchor_resolved_occurrences,80,82,0.975609756097561,,,eligible_complete_case
+diverged_after_anchor_unweighted,6,80,0.075,0.03482524929300514,0.15412016081219287,Wilson_95_unweighted
+diverged_after_anchor_weighted_conditional,6,80,0.009762900976290099,0.0027297769061152524,0.019239768653678515,design_weighted_cluster_bootstrap_2000
+post_anchor_parent_comparisons,75,80,0.9375,,,descriptive
+post_anchor_operation_addition,27,75,0.36,,,event_comparison_descriptive
+post_anchor_operation_addition_weighted_conditional,27,75,0.48731343283582085,0.17220543806646527,0.8128502054538662,design_weighted_cluster_bootstrap_2000
+post_anchor_operation_modification,24,75,0.32,,,event_comparison_descriptive
+post_anchor_operation_modification_weighted_conditional,24,75,0.12723880597014925,0.005048380311316786,0.24032609611309277,design_weighted_cluster_bootstrap_2000
+post_anchor_operation_movement,19,75,0.25333333333333335,,,event_comparison_descriptive
+post_anchor_operation_movement_weighted_conditional,19,75,0.37276119402985064,0.12522414823670056,0.7663838988032022,design_weighted_cluster_bootstrap_2000
+post_anchor_operation_removal,5,75,0.06666666666666667,,,event_comparison_descriptive
+post_anchor_operation_removal_weighted_conditional,5,75,0.012686567164179102,0.0023743569449940637,0.022490628904623073,design_weighted_cluster_bootstrap_2000

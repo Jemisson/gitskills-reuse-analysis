@@ -1,0 +1,11 @@
+metric,value,unit,interpretation
+directed_candidate_relations,4.0,count,B+C candidates; not proven propagation
+confidence_B_relations,4.0,count,strong operational candidates
+confidence_C_relations,0.0,count,weaker operational candidates
+distinct_patch_signatures,1.0,count,among directed candidates
+direction_indeterminate_pairs,0.0,count,timestamp ties excluded from directed relations
+median_delay_days,77.2396875,days,descriptive among directed candidates
+minimum_delay_days,77.11961805555555,days,descriptive among directed candidates
+maximum_delay_days,77.35975694444444,days,descriptive among directed candidates
+sources_with_temporal_opportunity,2.0,count,context eligibility remains unknown
+propagation_rate,,not_estimable,no context-eligible denominator

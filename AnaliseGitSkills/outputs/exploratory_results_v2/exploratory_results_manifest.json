@@ -1,0 +1,95 @@
+{
+  "arguments": {
+    "bootstrap_replicates": 2000,
+    "diffs": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_analytic_v1/diff_events.csv",
+    "flow": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_recovery_v1/analytic_recovery_flow.csv",
+    "history_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_analytic_v1",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2",
+    "overwrite": false,
+    "rq3": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_behavioral_events.csv",
+    "seed": 20261026,
+    "structured": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_events.csv"
+  },
+  "created_at_utc": "2026-10-26T15:32:22.376565+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "estimand_scope": "Exploratory complete-case results for the probe-conditioned analytic sample; design weights do not correct nonresponse or probe selection bias.",
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793028367616955724,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_recovery_v1/analytic_recovery_flow.csv",
+      "sha256": "870ca13bbe5c7094a67365325d157a358dd903231aa75266a57a9b5a97440295",
+      "size_bytes": 72194
+    },
+    {
+      "mtime_ns": 1793028426918717943,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/diff_analytic_v1/diff_events.csv",
+      "sha256": "c7004f30dab27b8d2c9e0c21dc6535f37a3a2808716fd49343f5791b94647a15",
+      "size_bytes": 163629
+    },
+    {
+      "mtime_ns": 1793028433205914622,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_events.csv",
+      "sha256": "cec2a35ca3e648ab664e6036ebccd4896f9bbf15424e5203d80f7a2d624a852a",
+      "size_bytes": 161811
+    },
+    {
+      "mtime_ns": 1793028540821720593,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_behavioral_events.csv",
+      "sha256": "b4fde7d1bb42277105653e31249de5fd049c416fc7fc478d5d787dc6e6738c1e",
+      "size_bytes": 190307
+    }
+  ],
+  "limitations": [
+    "Commit timestamps order observations but do not prove authorship or transmission.",
+    "Equal timestamps are not ordered and are excluded by the strict-later rule.",
+    "Parent comparisons in merges are dependent and are not independent events.",
+    "Wilson intervals ignore repository/family dependence; the weighted divergence interval uses a stratified repository bootstrap.",
+    "Automated RQ3 labels have no independent semantic validation.",
+    "Results do not generalize beyond the conditioned frame without additional assumptions."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793028742372570557,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/rq2_occurrence_outcomes.csv",
+      "sha256": "c5ea0762fcf1b5ae439a7b49b75d6f6f716fd5a8e2a4ad9a7e88492f3429506c",
+      "size_bytes": 27815
+    },
+    {
+      "mtime_ns": 1793028742375623252,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/post_anchor_events.csv",
+      "sha256": "cf6c570b5892470ce4f932d257fc71595ed84c6896095da3e0ea3599f97a69ea",
+      "size_bytes": 88505
+    },
+    {
+      "mtime_ns": 1793028742375776540,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/rq2_exploratory_summary.csv",
+      "sha256": "fff95f1fa11e33f55eaca39830e53111fc065fed1bdfd99c05c1494fcb68e52a",
+      "size_bytes": 1539
+    },
+    {
+      "mtime_ns": 1793028742376145405,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/rq3_exploratory_summary.csv",
+      "sha256": "f9ac106cd0344da2e2c282ed0a1a54406a81627bac51ecb9ab084296a5e78f57",
+      "size_bytes": 2917
+    }
+  ],
+  "results": {
+    "anchor_resolved_occurrences": 80,
+    "anchor_unresolved_occurrences": 2,
+    "diverged_occurrences": 6,
+    "eligible_occurrences": 82,
+    "post_anchor_parent_comparisons": 75
+  },
+  "script": {
+    "mtime_ns": 1793028737390319509,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/16_generate_exploratory_rq2_rq3_results.py",
+    "sha256": "a3e8ddcda0237e7ef16c348a218df1c7030718ecd3e42b590d581f7984fb2b78",
+    "size_bytes": 17883
+  },
+  "temporal_rule": "Anchor is the earliest observed commit-time at which the child blob equals the snapshot anchor SHA. Only comparisons with strictly later commit-time are post-anchor."
+}

@@ -1,0 +1,12 @@
+pilot_stratum,eligible_repositories,target_repositories,selected_repositories,selected_occurrences
+02__all,7,1,1,1
+02__none,7,1,1,1
+02__partial,6,1,1,1
+03-05__none,13,1,1,1
+03-05__partial,7,1,1,1
+06-10__none,16,1,1,1
+06-10__partial,21,1,1,2
+11-50__none,67,1,1,1
+11-50__partial,84,1,1,2
+51+__none,163,1,1,1
+51+__partial,334,1,1,2

@@ -1,0 +1,12 @@
+selection_stratum,selected_repositories,selected_occurrences,complete_repositories,eligible_occurrences,repository_recovery_fraction,occurrence_recovery_fraction
+02__all,5,43,4,4,0.8,0.09302325581395349
+02__none,5,5,4,4,0.8,0.8
+02__partial,5,5,5,5,1.0,1.0
+03-05__none,5,5,5,5,1.0,1.0
+03-05__partial,5,12,5,12,1.0,1.0
+06-10__none,5,9,5,9,1.0,1.0
+06-10__partial,5,8,5,8,1.0,1.0
+11-50__none,5,10,5,10,1.0,1.0
+11-50__partial,5,6,5,6,1.0,1.0
+51+__none,5,11,5,11,1.0,1.0
+51+__partial,5,8,5,8,1.0,1.0

@@ -1,0 +1,85 @@
+{
+  "arguments": {
+    "cache_root": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "events": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_events.csv",
+    "evidence": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_evidence.csv",
+    "git_timeout_seconds": 60.0,
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_calibration_v2",
+    "overwrite": false
+  },
+  "classifier_version": "rq3-behavioral-candidates-v1.0",
+  "created_at_utc": "2026-10-26T15:16:26.772181+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793027204032426646,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_events.csv",
+      "sha256": "0a04af31a6f0b4c5d5e8760a364b7ec634d3a5bf909beb699ef0b763dff350cb",
+      "size_bytes": 25562
+    },
+    {
+      "mtime_ns": 1793027204046229237,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_calibration_v3/structured_diff_evidence.csv",
+      "sha256": "977df6877fce47e0225a8e5ea69b2d6a1b1f65ef237fb01342eaa32450031812",
+      "size_bytes": 1216370
+    }
+  ],
+  "limitations": [
+    "All labels are automated candidates without independent human validation.",
+    "Textual commands do not establish execution and URLs do not establish network access.",
+    "Sibling executable candidates use Git mode, shebang, or extension; none proves execution.",
+    "Calibration counts are not population prevalence estimates."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793027786768216423,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_calibration_v2/rq3_behavioral_events.csv",
+      "sha256": "bed0fe90be17195d163a04ae672847163ef6281212bcdb69d095826727fca1bd",
+      "size_bytes": 30413
+    },
+    {
+      "mtime_ns": 1793027786771174021,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_calibration_v2/rq3_text_evidence.csv",
+      "sha256": "475c8fd3c8964f9f8888cd567769920c000a4ea1805fa951c6bee912eddaf5dc",
+      "size_bytes": 230310
+    },
+    {
+      "mtime_ns": 1793027786771540783,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_calibration_v2/rq3_sibling_evidence.csv",
+      "sha256": "8e87cae88a21124f0466cfb137cd80d67d560a32cdfa38d8aa7601441727acff",
+      "size_bytes": 932
+    },
+    {
+      "mtime_ns": 1793027786771853415,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_calibration_v2/rq3_candidate_counts.csv",
+      "sha256": "171358b71e9ee866261094144cac79213b649520d8d0570527dfb1b0137c3dcb",
+      "size_bytes": 583
+    }
+  ],
+  "results": {
+    "classified_events": 26,
+    "events_with_any_broad_text_candidate": 22,
+    "events_with_any_strict_text_candidate": 10,
+    "events_with_broad_executable_sibling_candidate": 1,
+    "events_with_strict_executable_sibling_candidate": 1,
+    "failed_events": 0,
+    "input_events": 26,
+    "sibling_evidence_rows": 2,
+    "text_evidence_rows": 813
+  },
+  "scenario_definitions": {
+    "broad": "Strict evidence plus code-shaped text, explicit URL, script path, or executable extension.",
+    "strict": "Operational command/network token or sibling executable mode/shebang."
+  },
+  "script": {
+    "mtime_ns": 1793027781513537632,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/13_classify_rq3_behavioral_changes.py",
+    "sha256": "f4d913eefc683e23cc6790a7fe7f555eace5e1aa96e9424ea5ea9cc44171909a",
+    "size_bytes": 19626
+  }
+}

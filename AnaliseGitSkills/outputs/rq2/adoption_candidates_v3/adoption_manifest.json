@@ -1,0 +1,62 @@
+{
+  "arguments": {
+    "observations": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/patch_signatures_v1/occurrence_observation.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v3",
+    "overwrite": false,
+    "signatures": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/patch_signatures_v1/patch_signatures.csv"
+  },
+  "candidate_rule": "Same exact normalized patch signature, same exact-content anchor family, distinct repositories, and both events are observed post-anchor divergences. Repeated paths/commits are collapsed to the first repository-level episode. Timestamp ties retain indeterminate direction.",
+  "created_at_utc": "2026-10-26T15:51:45.871127+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793029761151869358,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/patch_signatures_v1/patch_signatures.csv",
+      "sha256": "3ee1c02e087b6a209ba72b1d4aa0f3eb48e20b99c17d4cb0e4c8eaf367d2b6fb",
+      "size_bytes": 91372
+    },
+    {
+      "mtime_ns": 1793029761152931755,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/patch_signatures_v1/occurrence_observation.csv",
+      "sha256": "c93d151fc56800b3d95e5a487e8ee3bd8d7732dadf665aac0abf9f4412806424",
+      "size_bytes": 24487
+    }
+  ],
+  "limitations": [
+    "Candidate identity does not prove copying or ancestry.",
+    "Repository-level collapse prevents repeated paths or branch events from creating pseudoreplication.",
+    "The search universe is the analytic complete-case corpus, not GitHub.",
+    "Temporal opportunity is not context eligibility; no propagation rate denominator is claimed."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793029905869121858,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v3/adoption_candidates.csv",
+      "sha256": "d4276a5c7003d2be365b071eba52cb6d6f492e20abe880d9583ad5ceca7f6cb4",
+      "size_bytes": 1014
+    },
+    {
+      "mtime_ns": 1793029905870547876,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/adoption_candidates_v3/search_coverage.csv",
+      "sha256": "c115f96e6873b5b17c4c9c64fbe74c2ba2e7b4156905fa9f5c96635541ea6613",
+      "size_bytes": 3736
+    }
+  ],
+  "results": {
+    "candidate_pairs": 1,
+    "source_events_with_temporal_opportunity": 1,
+    "strictly_ordered_pairs": 1,
+    "timestamp_ties": 0
+  },
+  "script": {
+    "mtime_ns": 1793029901674106760,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/18_find_cross_repository_adoptions.py",
+    "sha256": "2fa180b25fc5b747a7e9f5e14e3b12013f8ff15635068f41371f4847b15c6722",
+    "size_bytes": 9988
+  }
+}

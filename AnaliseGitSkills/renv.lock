@@ -1,0 +1,69 @@
+{
+  "R": {
+    "Version": "4.3.3",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
+      }
+    ]
+  },
+  "Packages": {
+    "MASS": {
+      "Package": "MASS",
+      "Version": "7.3-60.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "grDevices", "graphics", "methods", "stats", "utils"],
+      "Hash": "b765b28387acc8ec9e9c1530713cb19c"
+    },
+    "data.table": {
+      "Package": "data.table",
+      "Version": "1.14.10",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "methods"],
+      "Hash": "6ea17a32294d8ca00455825ab0cf71b9"
+    },
+    "lattice": {
+      "Package": "lattice",
+      "Version": "0.22-5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "grDevices", "graphics", "grid", "stats", "utils"],
+      "Hash": "7c5e89f04e72d6611c77451f6331a091"
+    },
+    "lmtest": {
+      "Package": "lmtest",
+      "Version": "0.9-40",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "graphics", "stats", "zoo"],
+      "Hash": "c6fafa6cccb1e1dfe7f7d122efd6e6a7"
+    },
+    "pscl": {
+      "Package": "pscl",
+      "Version": "1.5.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["MASS", "datasets", "grDevices", "graphics", "stats", "utils"],
+      "Hash": "23c877cb455d19c0e771df8b4831edbd"
+    },
+    "sandwich": {
+      "Package": "sandwich",
+      "Version": "3.1-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "stats", "utils", "zoo"],
+      "Hash": "1cf6ae532f0179350862fefeb0987c9b"
+    },
+    "zoo": {
+      "Package": "zoo",
+      "Version": "1.8-12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": ["R", "grDevices", "graphics", "lattice", "stats", "utils"],
+      "Hash": "5c715954112b45499fb1dadc6ee6ee3e"
+    }
+  }
+}

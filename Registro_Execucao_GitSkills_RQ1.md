@@ -827,3 +827,34 @@ Já existe evidência quantitativa para responder à primeira parte da RQ1:
 - o coeficiente de Gini do reúso é aproximadamente 0,398.
 
 A segunda parte da RQ1, referente às características associadas à propagação, ainda depende da conclusão e validação do hurdle model. Nenhuma relação causal será alegada, pois o desenho é observacional.
+
+---
+
+## Adendo de 16 de outubro de 2026 — auditoria e continuidade
+
+Este adendo preserva o registro de 1º de outubro como documento histórico. Depois daquela data, os logs e artefatos comprovam que:
+
+1. a binomial negativa truncada também apresentou solução degenerada em R;
+2. foi adotado um modelo em duas partes com regressão logística e PPML condicional;
+3. foram executados erros HC1, erros agrupados pelo repositório representante, sensibilidade sem megarepositórios e sensibilidade à cauda P99,5;
+4. foi aplicada correção Benjamini–Hochberg separadamente aos componentes;
+5. foram geradas as tabelas e a figura final da RQ1.
+
+A auditoria de continuidade implementou as etapas antes não versionadas:
+
+- geração de `reuse_by_content.csv` e `representative_repositories.csv` a partir do SQLite;
+- exportação dos dados para R e registro dos megarepositórios excluídos;
+- correção FDR-BH;
+- parametrização de paths para execução isolada;
+- manifests, checksums, lockfile R, `sessionInfo()` e testes de invariantes.
+
+Verificações independentes:
+
+- o CSV de reúso reproduzido possui SHA-256 idêntico ao histórico;
+- o CSV completo usado no R possui SHA-256 idêntico ao histórico;
+- os representantes são semanticamente idênticos após ordenar por SHA;
+- o subconjunto sem megarepositórios é semanticamente equivalente, com diferenças apenas de serialização decimal até `8,88e-16`;
+- os q-values reproduzidos diferem no máximo `2,22e-16` e preservam todas as decisões de significância;
+- as principais tabelas finais foram reproduzidas com SHA-256 idêntico.
+
+Este adendo não transforma identidade de conteúdo em ancestralidade, não atribui origem ao representante e não altera a natureza associativa dos resultados.

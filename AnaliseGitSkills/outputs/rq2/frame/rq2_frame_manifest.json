@@ -1,0 +1,54 @@
+{
+  "arguments": {
+    "batch_size": 20000,
+    "db": "Banco/agent_skills_release.db",
+    "output_dir": "AnaliseGitSkills/outputs/rq2/frame",
+    "overwrite": false,
+    "reuse_file": "/tmp/gitskills_inputs_audit/reuse_by_content.csv"
+  },
+  "created_at_utc": "2026-10-16T23:57:57.466369+00:00",
+  "elapsed_seconds": 26.56143727199924,
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1789853237975802779,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/Banco/agent_skills_release.db",
+      "size_bytes": 44388249600
+    },
+    {
+      "mtime_ns": 1792194748943259141,
+      "path": "/tmp/gitskills_inputs_audit/reuse_by_content.csv",
+      "sha256": "fb143a8083cceef17ba3fea9f817a1716b69016bca8d1800dce147ac8b93d3e6",
+      "size_bytes": 73025052
+    }
+  ],
+  "invariants": {
+    "anchor_hashes": 254078,
+    "distinct_repositories": 91529,
+    "expected_occurrence_rows": 1894746,
+    "hashes_with_count_mismatch": 0,
+    "occurrence_rows": 1894746,
+    "repository_placements": 1405714
+  },
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1792195077404640488,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/frame/rq2_exact_copy_occurrences.parquet",
+      "sha256": "fc16d728799657b6c63101302f6e2af488e6d3bac17d0684746effe3c26efdbc",
+      "size_bytes": 60019746
+    }
+  ],
+  "query": "SELECT\n    a.file_sha,\n    a.repo_full_name,\n    a.path,\n    a.location_class,\n    a.discovered_at,\n    a.dedup_primary,\n    a.history_fetched,\n    a.first_commit_at,\n    a.last_commit_at,\n    a.commit_count,\n    r.is_fork,\n    r.created_at,\n    r.pushed_at\nFROM artifacts AS a\nLEFT JOIN repos AS r\n    ON r.full_name = a.repo_full_name\nWHERE a.filename = 'SKILL.md'\n  AND a.file_sha IS NOT NULL",
+  "scope": "Exact-content anchors reused in at least two repositories; not genealogical families and not proof of ancestry.",
+  "script": {
+    "mtime_ns": 1792195032331588308,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/06_build_rq2_occurrence_frame.py",
+    "sha256": "5dc171aefa9c01c778ffbdf9bc32fdc35725faaf720df893af03c48db2a6de30",
+    "size_bytes": 7527
+  }
+}

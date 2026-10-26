@@ -1,0 +1,61 @@
+{
+  "arguments": {
+    "attempts": 3,
+    "cache_file": "AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+    "input": "AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "limit_repositories": 20,
+    "output_dir": "AnaliseGitSkills/outputs/rq2/probe_retry_smoke",
+    "overwrite": false,
+    "requests_per_second": 2.0,
+    "retry_base_seconds": 1.0,
+    "timeout_seconds": 20.0,
+    "workers": 4
+  },
+  "classification_note": "Anonymous git failures are inconclusive unless the remote explicitly reports repository not found. Repeated full probes must not be used to estimate availability without retry/backoff and stability checks.",
+  "created_at_utc": "2026-10-17T00:19:34.536585+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1792195081875654435,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+    "size_bytes": 372490
+  },
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1792196374535404553,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/probe_retry_smoke/repository_probe.csv",
+      "sha256": "a7b5bd415d054c3fecbbeafd8e63f1b37b97f70e849308ce9a102ac194af1ebb",
+      "size_bytes": 2565
+    }
+  ],
+  "retry_policy": {
+    "attempts": 3,
+    "cache_policy": "reuse accessible rows with a non-null HEAD only",
+    "deterministic_jitter_fraction": "[0, 1] times retry_base_seconds",
+    "exponential_base_seconds": 1.0,
+    "global_requests_per_second": 2.0
+  },
+  "scope": {
+    "cached_accessible_repositories": 19,
+    "complete_pilot_probe": false,
+    "network_probed_repositories": 1,
+    "probe_only": "Accessibility of current Git HEAD; this does not establish that the snapshot path or complete history is recoverable.",
+    "probed_repositories": 20,
+    "total_unique_pilot_repositories": 973
+  },
+  "script": {
+    "mtime_ns": 1792196214339949277,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/08_probe_rq2_repositories.py",
+    "sha256": "fa385396b71d2693836d0af3d28e56374fc667759493a1b568a627474f6f8c18",
+    "size_bytes": 10399
+  },
+  "status_counts": {
+    "accessible": 19,
+    "inconclusive_access_failure": 1
+  }
+}

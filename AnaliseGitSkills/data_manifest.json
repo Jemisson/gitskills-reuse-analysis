@@ -1,0 +1,23 @@
+{
+  "manifest_version": 1,
+  "status": "verified_local_snapshot_not_official_upstream_checksum",
+  "snapshot_documented_as": "July 2026",
+  "verified_at": "2026-10-16",
+  "database": {
+    "logical_path": "Banco/agent_skills_release.db",
+    "size_bytes": 44388249600,
+    "sha256": "062d14bdbd00befde4b26451de43745e8d911bfc6f2a0b67b94e16da469b7d09",
+    "wal_size_bytes_at_verification": 0,
+    "sqlite_version": "3.45.1"
+  },
+  "verified_table_counts": {
+    "artifacts": 3797117,
+    "repos": 282200,
+    "artifact_siblings": 7264865
+  },
+  "notes": [
+    "The database is intentionally not tracked by Git.",
+    "This checksum identifies the local snapshot used for the audit; it has not been matched to an upstream published checksum.",
+    "The SHM file is transient and is not part of the scientific data identity."
+  ]
+}

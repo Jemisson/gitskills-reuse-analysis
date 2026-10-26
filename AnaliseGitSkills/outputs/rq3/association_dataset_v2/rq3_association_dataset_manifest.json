@@ -1,0 +1,73 @@
+{
+  "arguments": {
+    "cache_root": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "events": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/post_anchor_events.csv",
+    "flow": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_recovery_v1/analytic_recovery_flow.csv",
+    "git_timeout_seconds": 60.0,
+    "outcomes": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/rq2_occurrence_outcomes.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_dataset_v2",
+    "overwrite": false
+  },
+  "created_at_utc": "2026-10-26T15:56:46.065578+00:00",
+  "dataset_version": "rq3-association-dataset-v1.0",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793028742375623252,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/post_anchor_events.csv",
+      "sha256": "cf6c570b5892470ce4f932d257fc71595ed84c6896095da3e0ea3599f97a69ea",
+      "size_bytes": 88505
+    },
+    {
+      "mtime_ns": 1793028742372570557,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/exploratory_results_v2/rq2_occurrence_outcomes.csv",
+      "sha256": "c5ea0762fcf1b5ae439a7b49b75d6f6f716fd5a8e2a4ad9a7e88492f3429506c",
+      "size_bytes": 27815
+    },
+    {
+      "mtime_ns": 1793028367616955724,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_recovery_v1/analytic_recovery_flow.csv",
+      "sha256": "870ca13bbe5c7094a67365325d157a358dd903231aa75266a57a9b5a97440295",
+      "size_bytes": 72194
+    }
+  ],
+  "limitations": [
+    "The dataset contains only post-anchor comparisons in analytic complete cases.",
+    "Parent text indicators use the same unvalidated automated rules as the outcomes.",
+    "Concurrent event characteristics are separated from genuinely pre-event variables.",
+    "Repository metadata is snapshot-derived and may not represent historical state exactly."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793030206064877028,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_events.csv",
+      "sha256": "7f02c3b99392f3af49a588a78a956bee3adc590ecd35535fa1bcf0b0aef0d44b",
+      "size_bytes": 106539
+    },
+    {
+      "mtime_ns": 1793030206065094506,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_dictionary.csv",
+      "sha256": "38a7fa0ddd4a40f9b900231241d74b3ee58fe39fce53b3f135da04846a6ac2bd",
+      "size_bytes": 1054
+    }
+  ],
+  "results": {
+    "anchor_families": 17,
+    "events": 75,
+    "occurrences": 25,
+    "outcomes": 20,
+    "parent_blob_available": 48,
+    "repositories": 18
+  },
+  "script": {
+    "mtime_ns": 1793030202930534684,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/21_build_rq3_association_dataset.py",
+    "sha256": "80f210e16147bd8049f1c0f190b51618900a6a7eb19685373f69179da5e96a84",
+    "size_bytes": 9711
+  }
+}

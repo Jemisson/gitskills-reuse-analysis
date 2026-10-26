@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 from pathlib import Path
 
 import pandas as pd
@@ -26,13 +27,31 @@ OUTPUT_FILE = (
 )
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Associa cada conteúdo ao repositório representante."
+    )
+    parser.add_argument("--model-file", default=str(MODEL_FILE))
+    parser.add_argument(
+        "--repository-file", default=str(REPOSITORY_FILE)
+    )
+    parser.add_argument("--output", default=str(OUTPUT_FILE))
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    model_file = Path(args.model_file).expanduser().resolve()
+    repository_file = Path(args.repository_file).expanduser().resolve()
+    output_file = Path(args.output).expanduser().resolve()
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
     print("Lendo dataset do modelo...")
-    model = pd.read_parquet(MODEL_FILE)
+    model = pd.read_parquet(model_file)
 
     print("Lendo repositórios representantes...")
     repositories = pd.read_csv(
-        REPOSITORY_FILE,
+        repository_file,
         dtype={
             "file_sha": "string",
             "representative_repository": "string",
@@ -66,7 +85,7 @@ def main():
         )
 
     merged.to_parquet(
-        OUTPUT_FILE,
+        output_file,
         index=False,
         compression="zstd",
     )
@@ -76,7 +95,7 @@ def main():
         "Repositórios distintos: "
         f"{merged['representative_repository'].nunique():,}"
     )
-    print(f"Arquivo salvo em: {OUTPUT_FILE}")
+    print(f"Arquivo salvo em: {output_file}")
 
 
 if __name__ == "__main__":

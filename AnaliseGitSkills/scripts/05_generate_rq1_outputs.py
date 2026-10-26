@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 from pathlib import Path
 
 import matplotlib
@@ -34,7 +35,6 @@ TAIL_FILE = (
 )
 
 OUTPUT_DIR = BASE / "final"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 TERM_ORDER = [
@@ -75,14 +75,25 @@ COMPONENT_LABELS = {
 }
 
 
-def carregar_dados():
-    principal = pd.read_csv(MAIN_FILE)
-    sem_mega = pd.read_csv(NO_MEGA_FILE)
-    cauda = pd.read_csv(TAIL_FILE)
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Consolida tabelas e figura final da RQ1."
+    )
+    parser.add_argument("--main-file", default=str(MAIN_FILE))
+    parser.add_argument("--no-mega-file", default=str(NO_MEGA_FILE))
+    parser.add_argument("--tail-file", default=str(TAIL_FILE))
+    parser.add_argument("--output-dir", default=str(OUTPUT_DIR))
+    return parser.parse_args()
+
+
+def carregar_dados(main_file, no_mega_file, tail_file):
+    principal = pd.read_csv(main_file)
+    sem_mega = pd.read_csv(no_mega_file)
+    cauda = pd.read_csv(tail_file)
     return principal, sem_mega, cauda
 
 
-def preparar_efeitos_principais(principal):
+def preparar_efeitos_principais(principal, output_dir):
     efeitos = principal[
         principal["term"].isin(TERM_ORDER)
     ].copy()
@@ -116,14 +127,14 @@ def preparar_efeitos_principais(principal):
     ]
 
     efeitos[colunas].to_csv(
-        OUTPUT_DIR / "rq1_main_effects.csv",
+        output_dir / "rq1_main_effects.csv",
         index=False,
     )
 
     return efeitos
 
 
-def gerar_grafico(efeitos):
+def gerar_grafico(efeitos, output_dir):
     componentes = [
         "reuse_probability",
         "positive_reuse_intensity",
@@ -221,7 +232,7 @@ def gerar_grafico(efeitos):
     plt.tight_layout(rect=[0, 0.05, 1, 0.95])
 
     fig.savefig(
-        OUTPUT_DIR / "rq1_effects_forest_plot.png",
+        output_dir / "rq1_effects_forest_plot.png",
         dpi=300,
         bbox_inches="tight",
     )
@@ -233,6 +244,7 @@ def gerar_comparacao_sensibilidade(
     principal,
     sem_mega,
     cauda,
+    output_dir,
 ):
     colunas_base = [
         "component",
@@ -286,39 +298,47 @@ def gerar_comparacao_sensibilidade(
     comparacao[
         comparacao["term"].isin(TERM_ORDER)
     ].to_csv(
-        OUTPUT_DIR / "rq1_sensitivity_comparison.csv",
+        output_dir / "rq1_sensitivity_comparison.csv",
         index=False,
     )
 
 
-def gerar_tabela_contextual(principal):
+def gerar_tabela_contextual(principal, output_dir):
     mascara = (
         principal["term"].str.startswith("repo_language_group")
         | principal["term"].str.startswith("location_class")
     )
 
     principal[mascara].to_csv(
-        OUTPUT_DIR / "rq1_contextual_effects.csv",
+        output_dir / "rq1_contextual_effects.csv",
         index=False,
     )
 
 
 def main():
-    principal, sem_mega, cauda = carregar_dados()
+    args = parse_args()
+    output_dir = Path(args.output_dir).expanduser().resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+    principal, sem_mega, cauda = carregar_dados(
+        Path(args.main_file).expanduser().resolve(),
+        Path(args.no_mega_file).expanduser().resolve(),
+        Path(args.tail_file).expanduser().resolve(),
+    )
 
-    efeitos = preparar_efeitos_principais(principal)
-    gerar_grafico(efeitos)
+    efeitos = preparar_efeitos_principais(principal, output_dir)
+    gerar_grafico(efeitos, output_dir)
 
     gerar_comparacao_sensibilidade(
         principal,
         sem_mega,
         cauda,
+        output_dir,
     )
 
-    gerar_tabela_contextual(principal)
+    gerar_tabela_contextual(principal, output_dir)
 
     print("Arquivos gerados:")
-    for arquivo in sorted(OUTPUT_DIR.iterdir()):
+    for arquivo in sorted(output_dir.iterdir()):
         print(f"- {arquivo.resolve()}")
 
 

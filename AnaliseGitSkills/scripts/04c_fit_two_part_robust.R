@@ -204,6 +204,11 @@ saveRDS(
   file.path(output_dir, "ppml_model.rds")
 )
 
+writeLines(
+  capture.output(sessionInfo()),
+  file.path(output_dir, "session_info.txt")
+)
+
 cat("\nResultados principais:\n")
 print(metricas)
 

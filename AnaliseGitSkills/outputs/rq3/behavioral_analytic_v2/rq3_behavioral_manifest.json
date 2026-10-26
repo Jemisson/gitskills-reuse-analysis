@@ -1,0 +1,85 @@
+{
+  "arguments": {
+    "cache_root": "AnaliseGitSkills/outputs/rq2/history_calibration_20261026/git_cache",
+    "events": "AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_events.csv",
+    "evidence": "AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_evidence.csv",
+    "git_timeout_seconds": 60.0,
+    "output_dir": "AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2",
+    "overwrite": false
+  },
+  "classifier_version": "rq3-behavioral-candidates-v1.0",
+  "created_at_utc": "2026-10-26T15:29:00.837532+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1793028433205914622,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_events.csv",
+      "sha256": "cec2a35ca3e648ab664e6036ebccd4896f9bbf15424e5203d80f7a2d624a852a",
+      "size_bytes": 161811
+    },
+    {
+      "mtime_ns": 1793028433284026333,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/structured_diff_analytic_v1/structured_diff_evidence.csv",
+      "sha256": "2682111da056cd3830a78fda310bf5b31494758c9ec66ab221f5e4d30729c104",
+      "size_bytes": 6606263
+    }
+  ],
+  "limitations": [
+    "All labels are automated candidates without independent human validation.",
+    "Textual commands do not establish execution and URLs do not establish network access.",
+    "Sibling executable candidates use Git mode, shebang, or extension; none proves execution.",
+    "Calibration counts are not population prevalence estimates."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793028540821720593,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_behavioral_events.csv",
+      "sha256": "b4fde7d1bb42277105653e31249de5fd049c416fc7fc478d5d787dc6e6738c1e",
+      "size_bytes": 190307
+    },
+    {
+      "mtime_ns": 1793028540835824068,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_text_evidence.csv",
+      "sha256": "c0ce92dfcda4a0df75cfe54d1820dbdfe8e7c6bff2ba62ea3e12abd98f380130",
+      "size_bytes": 1172490
+    },
+    {
+      "mtime_ns": 1793028540836996637,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_sibling_evidence.csv",
+      "sha256": "1c72a6065605d5e0d84a0ec496e99d11d0108391cf1076f52d4aa48d1c42051d",
+      "size_bytes": 25244
+    },
+    {
+      "mtime_ns": 1793028540837175283,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq3/behavioral_analytic_v2/rq3_candidate_counts.csv",
+      "sha256": "f251a000087d6ea3cf03d87e63f5a7d2451821b44951d13e9d8340ad181ea588",
+      "size_bytes": 742
+    }
+  ],
+  "results": {
+    "classified_events": 173,
+    "events_with_any_broad_text_candidate": 133,
+    "events_with_any_strict_text_candidate": 66,
+    "events_with_broad_executable_sibling_candidate": 12,
+    "events_with_strict_executable_sibling_candidate": 8,
+    "failed_events": 0,
+    "input_events": 173,
+    "sibling_evidence_rows": 69,
+    "text_evidence_rows": 4142
+  },
+  "scenario_definitions": {
+    "broad": "Strict evidence plus code-shaped text, explicit URL, script path, or executable extension.",
+    "strict": "Operational command/network token or sibling executable mode/shebang."
+  },
+  "script": {
+    "mtime_ns": 1793028507584994649,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/13_classify_rq3_behavioral_changes.py",
+    "sha256": "630b71494c095cb01bb271c76daa7c64d140b22819ad5147e7dfc7de2fb0046d",
+    "size_bytes": 19847
+  }
+}

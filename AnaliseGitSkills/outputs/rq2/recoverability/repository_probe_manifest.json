@@ -1,0 +1,48 @@
+{
+  "arguments": {
+    "input": "AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "limit_repositories": null,
+    "output_dir": "AnaliseGitSkills/outputs/rq2/recoverability",
+    "overwrite": false,
+    "timeout_seconds": 20.0,
+    "workers": 8
+  },
+  "classification_note": "not_publicly_accessible_or_missing combines private, removed and renamed repositories because unauthenticated git ls-remote cannot distinguish them reliably.",
+  "created_at_utc": "2026-10-17T00:04:16.448503+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "input": {
+    "mtime_ns": 1792195081875654435,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+    "size_bytes": 372490
+  },
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    }
+  ],
+  "scope": {
+    "complete_pilot_probe": true,
+    "probe_only": "Accessibility of current Git HEAD; this does not establish that the snapshot path or complete history is recoverable.",
+    "probed_repositories": 973,
+    "total_unique_pilot_repositories": 973
+  },
+  "script": {
+    "mtime_ns": 1792195195538777020,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/08_probe_rq2_repositories.py",
+    "sha256": "ec504b2304c4c87283aa9add4364f6c560152b6619028570a441e8724e4495ca",
+    "size_bytes": 6578
+  },
+  "status_counts": {
+    "accessible": 603,
+    "not_publicly_accessible_or_missing": 370
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "arguments": {
+    "anchors": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_anchors.csv",
+    "occurrences": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+    "output_dir": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1",
+    "overwrite": false,
+    "per_stratum": 5,
+    "probe_file": null,
+    "seed": 20261026
+  },
+  "created_at_utc": "2026-10-26T15:19:19.468718+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "estimand_scope": "Repositories in the 55-anchor RQ2 pilot that were marked accessible in both historical anonymous probes, under deterministic primary-stratum assignment.",
+  "git_commit": "a242ddeba5d7ad3498636866a1bdc9902bdb19fe",
+  "inputs": [
+    {
+      "mtime_ns": 1792195081875654435,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_occurrences.csv",
+      "sha256": "a01defedf17c7d1cd3fbb0eacad645735597af5fb4b8c7a22dce1cc13a91c8fe",
+      "size_bytes": 372490
+    },
+    {
+      "mtime_ns": 1792195081868645653,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/pilot/pilot_anchors.csv",
+      "sha256": "37f99e4cb00ad6576f7e3d58823e8cea6cf61dcb13d202b98bd90380e1ad092b",
+      "size_bytes": 5950
+    },
+    {
+      "mtime_ns": 1792195456447852422,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability/repository_probe.csv",
+      "sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90",
+      "size_bytes": 135138
+    },
+    {
+      "mtime_ns": 1792195309880326940,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/recoverability_v2/repository_probe.csv",
+      "sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a",
+      "size_bytes": 107617
+    }
+  ],
+  "limitations": [
+    "Probabilities and weights apply only to the conditioned 603-repository frame.",
+    "Historical probe instability can induce selection bias relative to GitSkills.",
+    "Primary-stratum assignment is deterministic but changes the stratum estimand.",
+    "This is an exploratory analytic sample, not a population-representative sample."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1793027959466229367,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1/repository_sampling_frame.csv",
+      "sha256": "21f28562180cc5700d81f500523a98877724ec4be07d809493e6704f7f31883c",
+      "size_bytes": 68899
+    },
+    {
+      "mtime_ns": 1793027959466426951,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1/selected_repositories.csv",
+      "sha256": "33e182d217065dd7161216121c7b1967b508121647814458ede76d1c61631dc8",
+      "size_bytes": 8007
+    },
+    {
+      "mtime_ns": 1793027959468281895,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1/selected_occurrences.csv",
+      "sha256": "c74e813039ddf698aa85bd68bb4c16e70c142fca6fdd503eeae5626452c24f62",
+      "size_bytes": 36409
+    },
+    {
+      "mtime_ns": 1793027959468417612,
+      "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/outputs/rq2/analytic_sample_v1/sampling_strata.csv",
+      "sha256": "759b85f796c6f503f986810982828a5f7d346a3a19cb298d05bb9781deeb32a4",
+      "size_bytes": 540
+    }
+  ],
+  "results": {
+    "per_stratum": 5,
+    "repository_frame_size": 603,
+    "seed": 20261026,
+    "selected_occurrences": 122,
+    "selected_repositories": 55,
+    "stable_accessible_repositories": 603,
+    "strata": 11
+  },
+  "script": {
+    "mtime_ns": 1793027949376707824,
+    "path": "/home/james/Documents/Doutorado/TESSII/Trabalho/AnaliseGitSkills/scripts/14_select_rq2_analytic_sample.py",
+    "sha256": "b20a3202efa8279107c4040d2c665f03e4353f33d3f14a0458bd1c5aafde1a59",
+    "size_bytes": 9289
+  },
+  "selection_rule": "Assign each repository to its rarest eligible anchor stratum, breaking ties lexicographically; rank by SHA-256(seed, stratum, repository); select the first n without replacement within each assigned stratum."
+}

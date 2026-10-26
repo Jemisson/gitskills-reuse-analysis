@@ -1,0 +1,25 @@
+{
+  "status": "inconclusive_instrument_diagnostic",
+  "pilot_repositories": 973,
+  "run_1": {
+    "created_at_utc": "2026-10-17T00:01:49.880901+00:00",
+    "accessible": 869,
+    "anonymous_failure": 104,
+    "csv_sha256": "db81ecbf7a4b4d7eacc1051021af614347a28c6bd5607243ff8d4add90ddd88a"
+  },
+  "run_2": {
+    "created_at_utc": "2026-10-17T00:04:16.448503+00:00",
+    "accessible": 603,
+    "anonymous_failure": 370,
+    "csv_sha256": "34ba162183ecee16d21faada4c7993498c9eacb9fec62eb79ddc2c6623486f90"
+  },
+  "comparison": {
+    "accessible_in_both": 603,
+    "accessible_only_in_run_1": 266,
+    "accessible_only_in_run_2": 0,
+    "anonymous_failure_in_both": 104,
+    "changed_classification": 266
+  },
+  "interpretation": "The anonymous ls-remote probe is unstable under repeated load and cannot estimate repository availability without caching, spaced retries, backoff and a validated failure taxonomy.",
+  "scientific_use": "diagnostic_only_not_a_substantive_result"
+}

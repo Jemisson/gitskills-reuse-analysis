@@ -1,0 +1,14 @@
+outcome_base,strict_events,broad_events,broad_only_events,strict_subset_of_broad,jaccard_strict_broad
+command_added,11,40,29,True,0.275
+command_deleted,5,16,11,True,0.3125
+executable_sibling_added,1,1,0,True,1.0
+executable_sibling_modified,0,0,0,True,1.0
+executable_sibling_moved_or_copied,0,1,1,True,0.0
+executable_sibling_removed,0,0,0,True,1.0
+external_access_added,3,9,6,True,0.3333333333333333
+external_access_deleted,1,1,0,True,1.0
+script_reference_added,1,21,20,True,0.047619047619047616
+script_reference_deleted,4,11,7,True,0.36363636363636365
+x_parent_has_command,11,36,25,True,0.3055555555555556
+x_parent_has_external_access,9,13,4,True,0.6923076923076923
+x_parent_has_script_reference,4,29,25,True,0.13793103448275862

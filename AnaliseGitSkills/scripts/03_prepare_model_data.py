@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 from pathlib import Path
 
 import numpy as np
@@ -54,6 +55,23 @@ LOG_VARIABLES = [
 ]
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Prepara o dataset estatístico da RQ1."
+    )
+    parser.add_argument("--input", default=str(INPUT_FILE))
+    parser.add_argument(
+        "--output", default=str(OUTPUT_FILE)
+    )
+    parser.add_argument(
+        "--parameters-output", default=str(PARAMETERS_FILE)
+    )
+    parser.add_argument(
+        "--missingness-output", default=str(MISSING_FILE)
+    )
+    return parser.parse_args()
+
+
 def winsorize_and_standardize(
     series: pd.Series,
     output_name: str,
@@ -93,10 +111,18 @@ def winsorize_and_standardize(
 
 
 def main():
-    print(f"Lendo {INPUT_FILE}...")
+    args = parse_args()
+    input_file = Path(args.input).expanduser().resolve()
+    output_file = Path(args.output).expanduser().resolve()
+    parameters_file = Path(args.parameters_output).expanduser().resolve()
+    missing_file = Path(args.missingness_output).expanduser().resolve()
+    for path in [output_file, parameters_file, missing_file]:
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+    print(f"Lendo {input_file}...")
 
     df = pd.read_parquet(
-        INPUT_FILE,
+        input_file,
         columns=REQUIRED_COLUMNS,
     )
 
@@ -119,7 +145,7 @@ def main():
     )
 
     missingness.to_csv(
-        MISSING_FILE,
+        missing_file,
         index=False,
     )
 
@@ -280,18 +306,18 @@ def main():
         )
 
     model_df.to_parquet(
-        OUTPUT_FILE,
+        output_file,
         index=False,
         compression="zstd",
     )
 
     pd.DataFrame(parameter_rows).to_csv(
-        PARAMETERS_FILE,
+        parameters_file,
         index=False,
     )
 
-    print(f"Dataset salvo em: {OUTPUT_FILE}")
-    print(f"Parâmetros salvos em: {PARAMETERS_FILE}")
+    print(f"Dataset salvo em: {output_file}")
+    print(f"Parâmetros salvos em: {parameters_file}")
     print("Preparação concluída.")
 
 
