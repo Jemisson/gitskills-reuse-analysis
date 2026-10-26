@@ -52,103 +52,177 @@ Estudos de clones de código distinguem mudanças consistentes e inconsistentes 
 
 \section{Método}
 
-\subsection{Conceitos e níveis de evidência}
+Este estudo empírico adota uma abordagem quantitativa e observacional, baseada na mineração de repositórios de software e na análise de artefatos \textit{Agent Skills}. A investigação utiliza um snapshot do dataset GitSkills, referente a julho de 2026, e está organizada em três etapas complementares: caracterização do reúso exato (RQ1), análise da evolução e investigação de possíveis relações de propagação (RQ2), e identificação de mudanças potencialmente relevantes ao comportamento das skills (RQ3).
 
-Para evitar que proximidade textual seja interpretada indevidamente como evidência de transmissão, distinguimos quatro conceitos ao longo da análise. A identidade de conteúdo é estabelecida pela igualdade do hash do blob, enquanto a similaridade serve apenas à recuperação de candidatos e, isoladamente, não comprova ancestralidade. A evolução, por sua vez, corresponde a mudanças pai--filho observadas no grafo Git de uma ocorrência. A caracterização de propagação exige evidência adicional: uma alteração comparável, ordem temporal, repositórios distintos e oportunidade de observação. Consequentemente, o repositório representante empregado na deduplicação não é presumido como a origem do conteúdo.
+As etapas possuem unidades de análise e níveis de evidência distintos. A RQ1 considera conteúdos identificados por hash, enquanto as RQs 2 e 3 utilizam históricos Git recuperados de uma amostra condicionada. Consequentemente, os resultados longitudinais são tratados como exploratórios, sem pressupor representatividade da população integral ou estabelecer relações causais.
 
-Com base nessa distinção, organizamos as relações genealógicas em quatro níveis de evidência, de A a D. O nível A, o mais forte, requer proveniência explícita ou ancestralidade Git compartilhada. Na ausência dessa evidência direta, uma relação é classificada no nível B quando apresenta modificação exata, pertence à mesma família-âncora, reproduz uma transição idêntica entre blobs não vazios e respeita ordem temporal estrita. O nível C abrange candidatos temporalmente compatíveis, mas sustentados por evidência menos específica; por fim, os casos em que não é possível estabelecer direção ou reunir evidência suficiente permanecem no nível D.
+A caracterização da distribuição utilizou estatísticas descritivas, percentis, coeficiente de Gini e distribuição complementar acumulada (CCDF). O Gini quantifica a desigualdade do alcance entre conteúdos, enquanto a CCDF permite examinar a frequência de conteúdos com alcance igual ou superior a diferentes limiares. A legibilidade textual foi operacionalizada pelo índice Flesch, considerando suas limitações para documentos técnicos e multilíngues. Como múltiplas características foram examinadas simultaneamente, aplicou-se a correção de Benjamini--Hochberg, separadamente em cada componente, para controlar a taxa esperada de falsas descobertas.
 
-\subsection{População e análise da RQ1}
 
-% Evidência: AnaliseGitSkills/reports/RQ1_Resultados.md; outputs/rq1/final/.
-A população foi extraída de um snapshot local do GitSkills em SQLite~\cite{gitskills}. Foram mantidos registros representantes da deduplicação, com nome \texttt{SKILL.md}, conteúdo recuperado, hash validado e front matter válido. A unidade foi o conteúdo distinto identificado por hash. O reúso foi definido como o número de repositórios distintos contendo esse hash.
+\subsection{População e caracterização do reúso}
 
-Foram modelados dois desfechos: ocorrência de reúso, por regressão logística, e quantidade de reutilizações adicionais entre conteúdos reutilizados. A binomial negativa truncada inicialmente planejada produziu solução degenerada em implementações independentes; por isso, a intensidade foi estimada por Poisson de pseudomáxima verossimilhança. Ambos os componentes utilizaram erros-padrão agrupados pelo repositório representante. Variáveis numéricas assimétricas foram transformadas por \texttt{log1p}, winsorizadas nos percentis 0,5 e 99,5 e padronizadas. O controle de falsos achados empregou Benjamini--Hochberg separadamente em cada componente.
+A população da RQ1 foi constituída a partir de registros do dataset GitSkills correspondentes a arquivos \texttt{SKILL.md}. Foram considerados conteúdos recuperados, com hash validado, \textit{front matter} válido e identificação primária de deduplicação.
 
-\subsection{Amostragem e recuperação histórica}
+A unidade de análise corresponde a um conteúdo distinto, identificado pelo campo \texttt{file\_sha}. Para cada conteúdo, o reúso foi operacionalizado como o número de repositórios distintos nos quais o mesmo hash foi observado:
 
-% Evidência: outputs/rq2/analytic_sample_v1; analytic_recovery_v1.
-O frame longitudinal partiu dos hashes exatos presentes em pelo menos dois repositórios, preservando todas as ocorrências repositório--path. A sondagem de acesso anônimo foi instável; portanto, a análise subsequente foi explicitamente condicionada aos 603 repositórios classificados como acessíveis em duas sondagens. Foram sorteados cinco repositórios em cada um de 11 estratos primários mutuamente exclusivos, com seed 20261026, totalizando 55 repositórios e 122 ocorrências.
+\begin{equation}
+R(h)=|\{r:h\in r\}|,
+\end{equation}
 
-Dois repositórios tiveram coleta incompleta. Para evitar mistura de linhas parciais, todas as suas 40 ocorrências foram excluídas sem reposição. Restaram 82 ocorrências em 53 repositórios completos. Probabilidades e pesos corrigem apenas a seleção dentro do frame condicionado; não corrigem não resposta, instabilidade da sondagem ou cobertura do GitHub.
+em que $R(h)$ representa o alcance do conteúdo $h$ e $r$ identifica um repositório.
 
-\subsection{Reconstrução da evolução}
+Foram definidos dois desfechos complementares: a ocorrência de reúso, quando $R(h)>1$, e a intensidade do reúso, expressa por $R(h)-1$. A contagem por repositórios distintos evita que múltiplas ocorrências do mesmo conteúdo em diferentes caminhos de um único repositório sejam interpretadas como reutilizações independentes.
 
-% Evidência: scripts/09--16; outputs/exploratory_results_v2.
-Para cada ocorrência, a âncora temporal foi o primeiro timestamp de commit observado em que o blob coincide com o hash exato do snapshot. Somente comparações com timestamp estritamente posterior foram classificadas como pós-âncora. Cada pai de merge foi preservado como comparação distinta. Diffs unificados registraram paths, blobs, churn e operação estrutural: adição, modificação, movimento ou remoção.
+As variáveis explicativas compreenderam características textuais, estruturais e contextuais. Entre elas, foram examinados comprimento do texto e da descrição, legibilidade, quantidade de URLs, blocos de código, cabeçalhos, listas, presença de scripts e referências, arquivos relacionados e metadados do repositório representante. Este último não foi considerado necessariamente a origem ou o autor do conteúdo.
 
-Um classificador determinístico separou front matter, títulos, parágrafos, listas, código, tabelas, citações e linhas vazias. A inferência longitudinal foi limitada a casos com âncora resolvida. Proporções não ponderadas receberam intervalos de Wilson; estimativas condicionais ponderadas receberam intervalos por bootstrap estratificado com reamostragem de repositórios e 2.000 réplicas.
 
-\subsection{Busca de propagação entre repositórios}
+\subsection{Modelagem estatística da RQ1}
 
-% Evidência: scripts/17--20; outputs/rq2/propagation_results_v4.
-Patches foram normalizados por Unicode NFC, remoção de espaços periféricos e colapso de espaços internos; a assinatura SHA-256 preservou operação, direção e ordem das linhas. Movimentos puros e patches vazios foram excluídos. A busca exigiu mesma família de hash-âncora, assinatura idêntica, divergência pós-âncora e repositórios diferentes. Repetições em paths ou commits do mesmo repositório foram colapsadas na primeira adoção observada. Igualdade de assinatura foi tratada como mecanismo de recuperação, não como prova de transmissão.
+Para investigar as características associadas ao reúso de Agent Skills, foi empregado um modelo estatístico em duas partes, considerando separadamente a ocorrência e a intensidade da reutilização. A primeira parte utiliza regressão logística para estimar a associação entre as características textuais, estruturais e contextuais e as chances de um conteúdo aparecer em mais de um repositório. A segunda utiliza Poisson de pseudomáxima verossimilhança (PPML) para estimar a intensidade do reúso, medida pelo número de reutilizações adicionais entre os conteúdos efetivamente reutilizados.
+
+O PPML estima a média condicional da variável resposta por meio de uma função de ligação logarítmica, sem exigir equidispersão para a consistência dos coeficientes, desde que a média condicional esteja corretamente especificada e as demais condições estatísticas sejam atendidas. Sua utilização decorreu da inadequação computacional da binomial negativa truncada, inicialmente prevista para o segundo componente, cujas estimações apresentaram soluções degeneradas em implementações independentes em Python e R.
+
+Para a preparação dos dados, as variáveis numéricas assimétricas foram transformadas por meio da função \texttt{log1p}, winsorizadas nos percentis 0,5 e 99,5 e padronizadas. A inferência estatística utilizou erros-padrão robustos agrupados pelo repositório representante, visando considerar a dependência entre observações associadas ao mesmo agrupamento. 
+Os testes de significância dos coeficientes foram submetidos à correção de Benjamini--Hochberg, separadamente por componente, para controlar a taxa de falsas descobertas (FDR).
+
+
+Os coeficientes exponenciados foram interpretados como razões de chances no componente logístico e razões de médias condicionais no componente PPML. Em ambos os casos, valores superiores a um indicam associações positivas com o respectivo desfecho, enquanto valores inferiores a um indicam associações negativas, mantidas constantes as demais covariáveis.
+
+A robustez dos resultados foi examinada por análises de sensibilidade envolvendo a exclusão de megarepositórios e o tratamento da cauda extrema da distribuição do reúso. Considerando o caráter observacional da pesquisa, todas as estimativas foram interpretadas como associações estatísticas, sem atribuição de relações causais.
+
+
+\subsection{Amostragem e recuperação dos históricos}
+
+A investigação longitudinal partiu das famílias de conteúdos exatos presentes em pelo menos dois repositórios. A sondagem inicial de acessibilidade apresentou instabilidade, razão pela qual o quadro amostral foi limitado a 603 repositórios classificados como acessíveis em duas sondagens consecutivas.
+
+Os repositórios foram distribuídos em 11 estratos primários mutuamente exclusivos. A seleção utilizou ordenação pseudoaleatória determinística com semente \texttt{20261026}, selecionando cinco repositórios por estrato, sem reposição. Foram obtidos 55 repositórios e 122 ocorrências de skills.
+
+A recuperação histórica foi realizada por repositório, preservando informações de commits, blobs, caminhos e renomeações. Para evitar a utilização de históricos parciais, os repositórios cuja coleta não foi concluída foram integralmente excluídos da análise, sem reposição. Permaneceram 53 repositórios completos e 82 ocorrências elegíveis.
+
+As probabilidades de seleção e os pesos registrados referem-se exclusivamente ao quadro condicionado de 603 repositórios. Esses pesos não corrigem a instabilidade das sondagens, a ausência de resposta durante a recuperação histórica ou a cobertura limitada do ecossistema GitHub.
+
+\subsection{Evolução e propagação de alterações}
+
+Para cada ocorrência, definiu-se uma âncora temporal como o primeiro timestamp de commit observado cujo blob correspondia exatamente ao hash registrado no snapshot. Foram consideradas posteriores à âncora apenas comparações com timestamp estritamente maior.
+
+A evolução foi reconstruída mediante comparações entre commits filhos e seus respectivos pais. Em commits de merge, cada pai foi analisado separadamente. Os diffs permitiram identificar adições, modificações, movimentos e remoções, além das regiões estruturais afetadas nos documentos \textit{Markdown}.
+
+Para investigar possíveis relações de propagação entre repositórios, foram construídas assinaturas normalizadas de patches, preservando a operação, a direção e a ordem das alterações. A identificação de candidatos exigiu pertencimento à mesma família de conteúdo exato, assinatura compatível, divergência posterior à âncora, repositórios distintos e ordenação temporal estrita.
+
+As relações candidatas foram classificadas em níveis de evidência de A a D, distinguindo proveniência ou ancestralidade explícita, compatibilidade histórica mais forte, relações candidatas menos específicas e casos ambíguos ou insuficientes.
+
+A igualdade entre assinaturas e a precedência temporal foram consideradas evidências para recuperação de candidatos, não demonstrações de transmissão. A estimação de uma taxa de propagação depende adicionalmente da identificação de linhagens elegíveis nas quais o contexto anterior à alteração permanecia aplicável.
 
 \subsection{Classificação e análise da RQ3}
 
-% Evidência: scripts/13, 21--23; outputs/rq3/association_results_v4.
-As regras estritas reconheceram comandos conhecidos em regiões de código, tokens operacionais de rede, invocações explícitas de scripts e siblings com modo executável ou shebang. As regras amplas acrescentaram linhas com forma de comando, URLs explícitas, menções a paths de scripts e extensões executáveis. Um evento pôde receber múltiplos rótulos.
+A RQ3 investigou alterações potencialmente relevantes ao comportamento das skills, considerando adição e remoção de comandos, referências a acesso externo, referências a scripts e mudanças em arquivos executáveis relacionados.
 
-A base associativa contém somente covariáveis anteriores ao evento ou marcadas explicitamente como concorrentes. As características anteriores incluem idade desde a âncora, eventos e divergências anteriores, intensidade de reúso, classe do path e conteúdo do blob pai. Churn, merge e operação são concorrentes e não são tratados como causas antecedentes. Características do pai foram avaliadas somente nos 48 eventos com blob pai.
+As classificações foram realizadas por regras determinísticas, em dois cenários operacionais. O cenário estrito reconheceu padrões explícitos de comandos, operações de rede e invocações de scripts, além de evidências estruturais como permissões executáveis e \textit{shebang}. O cenário amplo incorporou padrões textuais adicionais, incluindo URLs, caminhos de scripts e linhas compatíveis com comandos.
 
-Antes dos modelos foi aplicado um gate: ao menos 50 eventos, dez positivos, cinco repositórios positivos, cinco negativos e 30 clusters. Quando o gate falhasse, o protocolo determinava análise descritiva. Razões de risco ponderadas e intervalos bootstrap foram produzidos apenas como contrastes exploratórios, sem valores de \(p\), FDR ou interpretação causal.
+Os eventos foram classificados de forma multirrótulo, permitindo que uma mesma alteração atendesse a mais de uma categoria. As classificações representam candidatos identificados no texto e na estrutura dos artefatos, não comportamentos efetivamente executados.
+
+A análise de associações empregou comparações pai--filho posteriores à âncora como unidade observacional. As características foram separadas entre informações anteriores ao evento, como idade da linhagem, intensidade de reúso e propriedades do blob pai, e características concorrentes, como churn, operação e presença de merge.
+
+Antes do ajuste de modelos multivariados, foi aplicado um critério de viabilidade que exigia, por desfecho, pelo menos 50 eventos, dez eventos positivos, cinco repositórios positivos, cinco negativos e 30 clusters de repositório. Na ausência desses requisitos, o protocolo estabelecia a utilização de análises descritivas não ajustadas, sem interpretação causal ou testes de significância.
 
 \subsection{Validação e reprodutibilidade}
 
-Por restrição operacional, não houve anotação humana independente. As categorias de RQ2 e RQ3 são definições automatizadas, não estimativas de acurácia semântica. A validação empregou fixtures, invariantes, taxonomia explícita de falhas, cenários estrito/amplo, manifests com checksums e reexecuções em diretórios novos. Trinta e dois testes automatizados foram aprovados; os artefatos finais das etapas longitudinais, de propagação e de associação foram reproduzidos byte a byte.
+A confiabilidade computacional foi examinada mediante testes automatizados, \textit{fixtures}, verificação de invariantes, controle de versões dos classificadores e reexecução determinística. Manifestos registraram entradas, saídas, parâmetros, versões e checksums dos artefatos.
+
+As classificações foram verificadas quanto à repetibilidade computacional, mas não passaram por validação humana independente. Assim, a reprodução dos resultados não garante a correção semântica das categorias identificadas.
+
+A ausência de um padrão impede estimar precisão, revocação ou concordância entre avaliadores. Assim, as conclusões das RQs 2 e 3 permanecem condicionadas às definições operacionais, à recuperabilidade dos históricos e aos casos completos observados.
+
+
 
 \section{Resultados}
 
-\subsection{RQ1: distribuição e fatores associados ao reúso}
 
-% Evidência: paper_evidence_matrix.md, RQ1-E01--E19.
-Foram observados 1.586.188 conteúdos distintos. Destes, 1.332.110 (83,98\%) apareceram em um único repositório e 254.078 (16,02\%) em pelo menos dois. A mediana foi um repositório, a média 1,73, o máximo 937 e o Gini 0,398. Embora minoritário entre conteúdos distintos, o reúso respondeu por 42,06\% das colocações adicionais.
+\subsection{RQ1: Distribuição e características associadas ao reúso}
 
-\begin{figure}[t]
+A população analisada compreendeu 1.586.188 conteúdos distintos de arquivos \texttt{SKILL.md}, identificados por hash. Desse total, 1.332.110 (83,98\%) foram observados em apenas um repositório, enquanto 254.078 (16,02\%) ocorreram em pelo menos dois. Embora o reúso exato seja minoritário entre os conteúdos distintos, as 1.151.636 presenças adicionais representam 42,06\% dos 2.737.824 pares conteúdo/repositório identificados.
+
+A distribuição apresentou significativa assimetria, com média de 1,73 repositório por conteúdo e mediana de um. O percentil 90 correspondeu a dois repositórios, o percentil 95 a três e o percentil 99 a 15. Entretanto, o maior alcance observado foi de 937 repositórios. O coeficiente de Gini de 0,398 indica uma distribuição desigual do alcance, caracterizada pela concentração de conteúdos com poucas presenças e por uma cauda longa de conteúdos com alcance elevado, conforme ilustrado na Fig.~\ref{fig:reuse-ccdf}.
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{reuse_ccdf_loglog.png}
-    \caption{Distribuição complementar do reúso exato. O eixo log--log evidencia a cauda longa.}
+    \caption{Distribuição complementar acumulada do reúso exato em escala logaritmica.}
     \label{fig:reuse-ccdf}
 \end{figure}
 
-A Tabela~\ref{tab:rq1-effects} resume os efeitos principais que permaneceram após correção FDR. As razões correspondem a um desvio-padrão na variável transformada, exceto indicadores binários.
+Para investigar as características associadas ao alcance do reúso, foram analisados 1.584.628 conteúdos por meio de modelos logístico e PPML. Após a correção de Benjamini--Hochberg, cinco características permaneceram significativamente associadas à ocorrência de reúso e seis à sua intensidade condicional. A Tabela~\ref{tab:rq1-effects} apresenta os efeitos estimados para as características com associação significativa em pelo menos um dos componentes.
 
-\begin{table}[t]
-\caption{Associações principais da RQ1 após FDR}
+\begin{table}[h]
+\caption{Características associadas ao reúso exato}
 \label{tab:rq1-effects}
 \centering
 \footnotesize
 \begin{tabular}{lcc}
 \toprule
-Característica & Probabilidade & Intensidade \\
+Característica & OR & Razão PPML \\
 \midrule
-Descrição & 0,924 & 0,867 \\
-Legibilidade Flesch & 0,778 & 0,903 \\
-URLs & -- & 1,075 \\
-Blocos de código & -- & 0,920 \\
-Cabeçalhos & 1,241 & 1,106 \\
-Arquivos irmãos & 1,121 & -- \\
-Estrelas & -- & 0,838 \\
-Inatividade & 1,223 & -- \\
+\multicolumn{3}{l}{\textit{Textuais}} \\
+Descrição & 0,924* & 0,867* \\
+Legibilidade Flesch & 0,778* & 0,903* \\
+Cabeçalhos & 1,241* & 1,106* \\
+URLs & 1,077 & 1,075* \\
+Blocos de código & 1,115 & 0,920* \\
+\midrule
+\multicolumn{3}{l}{\textit{Estruturais}} \\
+Arquivos irmãos & 1,121* & 1,044 \\
+\midrule
+\multicolumn{3}{l}{\textit{Contextuais}} \\
+Estrelas & 1,106 & 0,838* \\
+Inatividade & 1,223* & 1,037 \\
 \bottomrule
 \end{tabular}
+
+\vspace{1mm}
+\parbox{\columnwidth}{\footnotesize
+\textit{Nota:} OR = razão de chances da regressão logística; razão PPML = razão da média condicional de reutilizações adicionais; * indica significância após a correção Benjamini--Hochberg ($q_{\mathrm{BH}}<0{,}05$).}
 \end{table}
 
-Os erros agrupados foram, na mediana, 10,95 vezes maiores que os erros HC1, mostrando a importância da dependência intrarrepositório. Após remover 16 megarepositórios, as 28 associações das 14 características principais mantiveram direção. A winsorização da cauda positiva também preservou direção e classificação de significância dos 37 coeficientes de intensidade. Esses resultados são associações observacionais, não mecanismos causais de adoção.
+Entre as características textuais, a quantidade de cabeçalhos apresentou associação positiva nos dois componentes, com razão de chances de 1,241 e razão de média condicional de 1,106. Em contrapartida, o comprimento da descrição e a legibilidade Flesch apresentaram associações negativas em ambos os modelos. A quantidade de URLs esteve positivamente associada apenas à intensidade condicional, enquanto os blocos de código apresentaram associação negativa nesse componente. A interpretação da legibilidade requer cautela, pois a métrica Flesch utilizada foi desenvolvida para o inglês e apresenta limitações quando aplicada a conteúdos técnicos e potencialmente multilíngues.
 
-\subsection{RQ2: estabilidade, divergência e propagação}
+Quanto às características estruturais, a quantidade de arquivos irmãos apresentou associação positiva com a ocorrência de reúso (OR = 1,121), mas não permaneceu significativa no componente de intensidade após a correção para múltiplos testes. A presença de scripts e referências também foi examinada, mas não apresentou associações estatisticamente significativas nos componentes analisados.
 
-% Evidência: exploratory_rq2_rq3_results_report.md; rq2_propagation_candidate_report.md.
-Das 82 ocorrências elegíveis, 80 tiveram âncora resolvida. Seis divergiram posteriormente: 7,5\% sem ponderação (IC95\% de Wilson: 3,5--15,4\%) e 1,0\% na estimativa ponderada condicional (bootstrap: 0,3--1,9\%). Foram observadas 75 comparações pós-âncora: 27 adições, 24 modificações, 19 movimentos e cinco remoções. A concentração em poucos repositórios produziu intervalos amplos para a composição ponderada dos eventos.
+No contexto dos repositórios representantes, a inatividade apresentou associação positiva com a ocorrência de reúso (OR = 1,223), enquanto o número de estrelas apresentou associação negativa com a intensidade condicional (razão = 0,838). Como o repositório representante não corresponde necessariamente à origem da skill, essas associações descrevem propriedades do contexto observado, sem permitir identificar fatores determinantes de sua adoção.
 
-A assinatura foi calculável para 151 dos 173 eventos de mudança do corpus histórico completo. Dezenove grupos apareciam em mais de um repositório antes dos filtros substantivos. Após exigir divergência pós-âncora, mesma família, ordem temporal e colapso por repositório, restou uma relação candidata: remoção do mesmo conteúdo observada cerca de 77,12 dias depois em outro repositório. Por ser uma remoção de baixa especificidade, recebeu confiança C. Nenhuma relação alcançou A ou B, e nenhum repositório foi denominado origem.
+As análises de sensibilidade mostraram que os 28 efeitos correspondentes às 14 características principais, considerados nos dois componentes, preservaram sua direção após a exclusão de 16 megarepositórios. No tratamento da cauda extrema, os 37 coeficientes do componente de intensidade também mantiveram sua direção e classificação de significância pelo critério nominal de $p<0{,}05$. Adicionalmente, os erros-padrão agrupados por repositório representante foram, na mediana, 10,95 vezes superiores aos erros robustos HC1 não agrupados, evidenciando a relevância da dependência intrarrepositório para a inferência estatística.
 
-Não foi possível estimar uma taxa de propagação: a janela temporal mostra oportunidade de observação, mas não demonstra que o contexto ao qual o patch se aplicaria permanecia presente nas linhagens não adotantes. Assim, a evidência sustenta divergência intrarrepositório, mas não transmissão inter-repositórios.
+Assim, os resultados respondem à RQ1 ao mostrar que a reutilização exata apresenta distribuição assimétrica e concentrada, na qual uma parcela minoritária dos conteúdos alcança múltiplos repositórios e responde por uma proporção substancial das presenças adicionais. Também foram identificadas associações estatisticamente significativas com características textuais, estruturais e contextuais, cujas direções e significâncias variam entre a ocorrência e a intensidade do reúso. Essas relações são observacionais e não permitem estabelecer causalidade, ancestralidade ou mecanismos de propagação entre repositórios.
 
-\subsection{RQ3: candidatos comportamentais e associações}
 
-% Evidência: outputs/rq3/article_artifacts_v3; rq3_association_results_report.md.
-A Tabela~\ref{tab:rq3-counts} apresenta os desfechos com maior frequência. As diferenças entre cenários são substantivas. O Jaccard entre eventos estritos e amplos foi 0,275 para comandos adicionados, 0,333 para acesso externo adicionado e somente 0,048 para referências a scripts adicionadas.
+
+
+
+
+\subsection{RQ2: Estabilidade, divergência e propagação de alterações}
+
+A análise longitudinal foi realizada sobre a amostra condicionada de 55 repositórios e 122 ocorrências inicialmente selecionadas. Após a aplicação dos critérios de completude histórica, permaneceram 53 repositórios e 82 ocorrências elegíveis. Dessas ocorrências, 80 apresentaram uma âncora temporal resolvida no histórico Git.
+
+Entre as 80 ocorrências com âncora resolvida, seis apresentaram divergência posterior ao conteúdo exato inicialmente identificado. A proporção não ponderada foi de 7,5\%, com intervalo de confiança de 95\% de Wilson entre 3,5\% e 15,4\%. A estimativa ponderada condicional foi de aproximadamente 1,0\%, com intervalo bootstrap por repositório entre 0,3\% e 1,9\%.
+
+A diferença entre as estimativas ponderada e não ponderada deve ser interpretada considerando o desenho amostral condicionado, os pesos desiguais e a concentração das divergências observadas em poucos repositórios. Nenhuma dessas estimativas representa a população integral do GitSkills.
+
+Foram identificadas 75 comparações pai--filho posteriores à âncora, distribuídas em 27 adições, 24 modificações, 19 movimentos e cinco remoções. As frequências relativas não ponderadas corresponderam, respectivamente, a 36,0\%, 32,0\%, 25,3\% e 6,7\%.
+
+As estimativas ponderadas condicionais foram de 48,7\% para adições, 12,7\% para modificações, 37,3\% para movimentos e 1,3\% para remoções. Os intervalos bootstrap apresentaram amplitudes elevadas em algumas categorias, especialmente adições e movimentos, refletindo a concentração dos eventos e a limitada quantidade de repositórios observados.
+
+A investigação de possíveis relações de propagação utilizou 173 eventos de mudança presentes nos históricos recuperados. Desse conjunto, 151 produziram assinaturas de patches elegíveis. Inicialmente, 19 grupos de assinaturas ocorreram em mais de um repositório. Entretanto, a aplicação dos critérios de família-âncora, divergência posterior, ordenação temporal e consolidação das repetições por repositório reduziu o resultado a uma única relação candidata dirigida.
+
+Essa relação correspondeu à remoção de um mesmo conteúdo observada em dois repositórios, com diferença temporal de aproximadamente 77,12 dias entre os eventos. A relação recebeu classificação C, por apresentar evidência de baixa especificidade. Nenhuma relação alcançou os níveis de confiança A ou B.
+
+Apesar da identificação dessa candidata, não foi possível estimar uma taxa de propagação. A observação de uma janela temporal compatível não demonstra que os repositórios sem adoção observada mantinham o contexto necessário à aplicação da mesma alteração. Dessa forma, não foi estabelecido um denominador de linhagens efetivamente elegíveis.
+
+Os resultados da RQ2 sustentam a identificação de estabilidade e divergência intrarrepositório após a âncora de conteúdo exato, mas não demonstram transmissão dirigida de alterações entre repositórios. A ausência de relações com evidência mais forte também não permite concluir que a propagação não ocorra no ecossistema.
+
+\subsection{RQ3: Candidatos a mudanças comportamentais}
+
+A análise da RQ3 considerou as 75 comparações pai--filho posteriores à âncora, provenientes de 25 ocorrências distribuídas em 18 repositórios e 17 famílias-âncora.
+
+Os classificadores automatizados identificaram candidatos a alterações envolvendo comandos, acesso externo, referências a scripts e arquivos executáveis. A Tabela~\ref{tab:rq3-counts} apresenta as frequências observadas nos cenários estrito e amplo.
 
 \begin{table}[t]
 \caption{Candidatos comportamentais em 75 comparações}
@@ -157,7 +231,7 @@ A Tabela~\ref{tab:rq3-counts} apresenta os desfechos com maior frequência. As d
 \footnotesize
 \begin{tabular}{lrr}
 \toprule
-Alvo e direção & Estrito & Amplo \\
+Categoria de alteração & Estrito & Amplo \\
 \midrule
 Comando adicionado & 11 & 40 \\
 Comando removido & 5 & 16 \\
@@ -165,22 +239,51 @@ Acesso externo adicionado & 3 & 9 \\
 Acesso externo removido & 1 & 1 \\
 Referência a script adicionada & 1 & 21 \\
 Referência a script removida & 4 & 11 \\
-Sibling executável adicionado & 1 & 1 \\
-Sibling movido/copiado & 0 & 1 \\
+Executável relacionado adicionado & 1 & 1 \\
+Executável movido/copiado & 0 & 1 \\
 \bottomrule
 \end{tabular}
+
+\parbox{\columnwidth}{\footnotesize
+\textit{Nota:} Categorias não mutuamente exclusivas. Os valores representam eventos identificados por regras automatizadas, não execuções verificadas.}
 \end{table}
+
+A adição de comandos foi identificada em 11 eventos (14,7\%) no cenário estrito e em 40 (53,3\%) no cenário amplo. Para referências a scripts adicionadas, foram observados um evento (1,3\%) e 21 eventos (28,0\%), respectivamente. No caso de candidatos a acesso externo adicionado, as contagens passaram de três (4,0\%) para nove (12,0\%).
+
+Essas diferenças demonstram sensibilidade das frequências à definição operacional utilizada. O índice de Jaccard entre os conjuntos de eventos classificados como positivos nos cenários estrito e amplo foi de 0,275 para comandos adicionados, 0,333 para acesso externo adicionado e 0,048 para referências a scripts adicionadas.
+
+A Fig.~\ref{fig:rq3-sensitivity} apresenta a comparação entre os cenários, destacando a sobreposição dos eventos classificados pelas duas definições.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figure_rq3_scenario_sensitivity.png}
-    \caption{Sobreposição entre as definições estrita e ampla. Categorias sem eventos nos dois cenários foram omitidas.}
+    \caption{Sensibilidade das classificações comportamentais às definições estrita e ampla.}
     \label{fig:rq3-sensitivity}
 \end{figure}
 
-No cenário amplo, 16 dos 40 eventos que adicionaram comandos também adicionaram referências a scripts; os nove candidatos de adição de acesso externo também receberam o rótulo de comando adicionado. A coocorrência pode decorrer da mesma linha acionando regras distintas e não implica mecanismos independentes.
+Também foram observadas coocorrências entre categorias. No cenário amplo, 16 dos 40 eventos classificados como adição de comandos também receberam o rótulo de adição de referência a script. Os nove eventos classificados como adição de acesso externo também foram identificados como adição de comandos.
 
-Somente 18 repositórios contribuíram com eventos, e um deles concentrou 29 das 75 comparações. Nenhum desfecho passou o gate para regressão multivariada. Entre os 280 contrastes não ajustados, idade desde a âncora, intensidade de reúso, conteúdo do pai e classe de localização apresentaram diferenças descritivas. Entretanto, os contrastes foram sensíveis aos pesos e à concentração; características concorrentes como churn e merge também aumentam mecanicamente a oportunidade de detecção. A resposta defensável à RQ3 é, portanto, descritiva: não há suporte para identificar características independentemente associadas aos desfechos.
+Essas coocorrências não devem ser interpretadas como mecanismos independentes, pois uma mesma alteração textual pode satisfazer simultaneamente diferentes regras de classificação.
+
+A distribuição dos eventos apresentou concentração entre repositórios. Embora 18 repositórios tenham contribuído com comparações pós-âncora, apenas um deles concentrou 29 dos 75 eventos.
+
+O critério pré-especificado de viabilidade estatística exigia pelo menos 30 clusters de repositório para a regressão multivariada. Como esse requisito não foi atendido, nenhum dos 20 desfechos analisados foi considerado elegível para o ajuste multivariado.
+
+Foram produzidos 280 contrastes descritivos não ajustados, envolvendo características temporais, intensidade de reúso, propriedades do conteúdo anterior e características das alterações. Alguns contrastes apresentaram diferenças de frequência, mas mostraram sensibilidade à ponderação, à concentração por repositório e à definição dos desfechos.
+
+Consequentemente, os resultados não sustentam a identificação de características independentemente associadas às mudanças comportamentais por meio de modelos ajustados.
+
+A resposta à RQ3 permanece descritiva e exploratória. Os resultados evidenciam diferenças nas frequências de candidatos a mudanças segundo as regras utilizadas, mas não permitem inferir execução efetiva, impacto de segurança ou relações causais entre características das skills e alterações de comportamento.
+
+
+
+
+
+
+
+
+
+
 
 \section{Discussão}
 
