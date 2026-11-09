@@ -13,6 +13,7 @@
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{url}
+\usepackage{tcolorbox}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\pendencia}[1]{\textbf{[PREENCHER: #1]}}
 
@@ -67,7 +68,7 @@ Realizamos um estudo observacional baseado no snapshot do GitSkills. A RQ1 adota
 
 Definimos \textbf{conteúdo} como o texto identificado por \texttt{file\_sha} e \textbf{ocorrência} como sua presença em um caminho de um repositório. A \textbf{família-âncora} agrupa ocorrências pelo conteúdo exato de referência. Cada \textbf{comparação} corresponde ao diff entre um commit filho e um de seus pais, considerando separadamente os pais de merges. Os repositórios constituem unidades de seleção e agrupamento; seus metadados contextuais são atribuídos pelo representante da deduplicação, sem atribuição de origem ou autoria.
 
-Selecionamos registros com \texttt{dedup\_primary=1}, nome exato \texttt{SKILL.md}, conteúdo recuperado, hash validado e \textit{front matter} válido. Para cada conteúdo $h$, calculamos o alcance $R(h)$ pelo número de repositórios distintos. Definimos como desfechos a ocorrência de reúso, $I\{R(h)>1\}$, e a intensidade adicional, $R(h)-1$, analisada somente entre conteúdos reutilizados. Calculamos a proporção de presenças adicionais por $\sum_h[R(h)-1]/\sum_hR(h)$, utilizando pares conteúdo--repositório no denominador.
+Selecionamos registros com \texttt{dedup\_primary=1}, nome exato \texttt{SKILL.md}, conteúdo recuperado, hash validado e \textit{front matter} válido. Para cada conteúdo $h$, calculamos o alcance $R(h)$ pelo número de repositórios distintos. Definimos como desfechos a ocorrência de reúso, $I\{R(h)>1\}$, e a intensidade adicional, $R(h)-1$, analisada somente entre conteúdos reutilizados. Calculamos a proporção de presenças adicionais por $\sum_h[R(h)-1]/\sum_hR(h)$, utilizando pares conteúdo/repositório no denominador.
 
 As covariáveis compreendem tamanho do texto e da descrição, Flesch, URLs, blocos de código, cabeçalhos, listas, scripts, referências, arquivos irmãos, localização e composição truncada, além de linguagem, estrelas, idade e inatividade do representante. Excluímos a variável de fork e os registros com covariáveis ausentes.
 
@@ -77,7 +78,7 @@ Aplicamos \texttt{log1p}, winsorização nos percentis 0,5 e 99,5 e padronizaç�
 
 \subsection{Amostragem, âncora e propagação na RQ2}
 
-Definimos o quadro amostral pelos 603 repositórios acessíveis em duas sondagens consecutivas. Selecionamos cinco repositórios sem reposição em cada um de 11 estratos primários mutuamente exclusivos, mediante ordenação pseudoaleatória com semente \texttt{20261026}. Excluímos integralmente, sem reposição, repositórios com recuperação incompleta. A ponderação considerou as probabilidades de seleção no quadro condicionado.
+O quadro amostral reuniu 603 repositórios do piloto de 55 conteúdos-âncora que permaneceram acessíveis em duas sondagens consecutivas.. Selecionamos cinco repositórios sem reposição em cada um de 11 estratos primários mutuamente exclusivos, mediante ordenação pseudoaleatória com semente \texttt{20261026}. Excluímos integralmente, sem reposição, repositórios com recuperação incompleta. A ponderação considerou as probabilidades de seleção no quadro condicionado.
 
 Para cada ocorrência, estabelecemos a âncora de conteúdo exato pelo primeiro timestamp observado cujo blob coincide com o hash do snapshot. Selecionamos comparações com timestamp estritamente posterior à âncora e excluímos ocorrências sem âncora resolvida do cálculo de divergência. Definimos estabilidade pela ausência de divergência de conteúdo na janela recuperada, distinguindo alterações de bytes de movimentos que preservam o conteúdo.
 
@@ -85,8 +86,6 @@ Construímos assinaturas \texttt{exact-\allowbreak normalized-\allowbreak patch-
 
 Classificamos os candidatos em quatro níveis: A, proveniência explícita ou ancestralidade Git compartilhada; B, modificação exata com transição idêntica entre blobs não vazios, mesma família e ordem temporal; C, patches exatos de menor especificidade, incluindo adições e remoções; e D, evidência ambígua ou insuficiente.
 
-% [PREENCHER: incluir critérios operacionais completos
-% do nível D no protocolo.]
 
 Estimamos a proporção não ponderada de divergência com IC de Wilson de 95\% e a proporção ponderada com bootstrap estratificado por repositório. Condicionamos a estimação da taxa de propagação à identificação das linhagens cujo contexto anterior permanecia aplicável ao patch.
 
@@ -109,7 +108,7 @@ Apesar dessa menor frequência entre conteúdos, as 1.151.636 presenças adicion
 
 O coeficiente de Gini de 0,3978 complementa essa caracterização da desigualdade do alcance, sem que a cauda longa observada estabeleça uma distribuição de lei de potência. A participação dos conteúdos de maior alcance foi mais expressiva nas presenças adicionais do que no total de pares conteúdo/repositório. Os dez primeiros responderam por 0,5877\% das presenças adicionais e 0,2476\% dos pares. Para os 100 primeiros, essas participações foram de 2,7300\% e 1,1520\%; para os 1.000 primeiros, de 10,8565\% e 4,6032\%, respectivamente.
 
-Na análise das características associadas ao reúso, os modelos retiveram 1.584.628 conteúdos, vinculados a 218.408 repositórios representantes, após a exclusão de 1.560 registros com dados ausentes (aproximadamente 0,10\%). O PPML considerou apenas o subconjunto com reúso positivo. % [PREENCHER: informar o tamanho efetivo do subconjunto PPML.]
+Na análise das características associadas ao reúso, os modelos retiveram 1.584.628 conteúdos, vinculados a 218.408 repositórios representantes, após a exclusão de 1.560 registros com dados ausentes (aproximadamente 0,10\%). O PPML considerou apenas o subconjunto com reúso positivo.
 
 Os resultados diferiram entre ocorrência e intensidade como vemos na Tabela~\ref{tab:efeitos}. Após a correção BH, cinco efeitos principais atenderam ao critério de significância na ocorrência e seis na intensidade. A quantidade de cabeçalhos apresentou associação positiva com ambos os desfechos, enquanto o tamanho da descrição e o índice Flesch apresentaram associações negativas. Arquivos irmãos e inatividade atenderam ao critério somente na ocorrência; URLs, blocos de código e estrelas, somente na intensidade. A presença de scripts e referências não apresentou associação estatisticamente significativa após a correção em nenhum dos componentes.
 
@@ -145,7 +144,19 @@ Efeitos por desvio-padrão na escala preparada; erros agrupados pelo representan
 
 Os erros agrupados foram, na mediana, 10,95 vezes os HC1. Na parte positiva, média=4,53, variância=154,30 e dispersão de Pearson=16,47. Excluir 16 megarepositórios com mais de 5.000 conteúdos (183.623 registros; 11,59\%) preservou as direções dos 28 efeitos principais, com mudanças de significância limítrofes e maior instabilidade nas linguagens. Limitar em 70 os 1.267 casos acima de P99,5 preservou direção e classificação nominal ($p<0{,}05$) dos 37 coeficientes PPML, sem demonstrar invariância BH; diferença média absoluta=0,0308 e dispersão=9,23. Entre teste de 100.000 registros e população, 71/74 coeficientes HC1 preservaram direção, com diferença média absoluta=0,0684.
 
-Em resposta à RQ1, o reúso é minoritário entre conteúdos, mas substancial nas presenças, com distribuição assimétrica e associações distintas entre ocorrência e intensidade. Os coeficientes não identificam causas, origem ou mecanismos de propagação.
+\begin{tcolorbox}[
+    colback=gray!15,
+    colframe=gray!50,
+    boxrule=0.4pt,
+    arc=1mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+]
+\textbf{Resposta da RQ1: } Em resposta à RQ1, a maioria dos conteúdos apareceu em apenas um repositório, enquanto uma parcela menor alcançou muitos. Embora somente 16,02\% dos conteúdos tenham sido reutilizados, suas presenças adicionais representaram 42,06\% dos pares conteúdo--repositório. Conteúdos com mais cabeçalhos, descrições menores e menor pontuação Flesch apresentaram maior ocorrência e intensidade de reúso. Mais arquivos relacionados e maior inatividade do repositório estiveram associados apenas à ocorrência. Entre os conteúdos reutilizados, mais URLs, menos blocos de código e menos estrelas no repositório representante estiveram associados a maior intensidade. Esses resultados indicam relações estatísticas, sem demonstrar que tais características causem o reúso.
+\end{tcolorbox}
+
 
 \subsection{RQ2: estabilidade, divergência e propagação}
 O fluxo foi 55 repositórios/122 ocorrências selecionados, 53/82 completos, 80 âncoras resolvidas e seis ocorrências divergentes; separadamente, observaram-se 75 comparações posteriores à âncora. Essas unidades não são intercambiáveis. A divergência não ponderada foi 7,5\% (IC Wilson de 95\%: 3,5--15,4\%); a ponderada condicional, aproximadamente 1,0\% (bootstrap: 0,3--1,9\%). Pesos desiguais e concentração explicam diferenças; nenhuma estimativa representa toda a população.
@@ -154,7 +165,19 @@ As comparações incluem 27 adições, 24 modificações, 19 movimentos e cinco 
 
 Dos 173 eventos históricos, 151 produziram assinaturas elegíveis; 19 grupos apareceram em múltiplos repositórios considerando todo o histórico. Após filtros temporais, de família e colapso por repositório, restou um candidato, antes artificialmente repetido em quatro pares. Trata-se de remoções compatíveis separadas por aproximadamente 77,12 dias, classificadas como confiança C. Remover o mesmo conteúdo produz naturalmente patches iguais, de baixa especificidade; não houve relações A/B. Precedência observada não atribui origem.
 
-Em atendimento RQ2, seis de 80 ocorrências divergiram. O único candidato C não demonstra propagação; não foi encontrada evidência forte de transmissão. A taxa não foi estimável porque faltou estabelecer contextos elegíveis, sem que isso demonstre inexistência de propagação.
+
+\begin{tcolorbox}[
+    colback=gray!15,
+    colframe=gray!50,
+    boxrule=0.4pt,
+    arc=1mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+]
+\textbf{Resposta da RQ2: } Em resposta à RQ2, predominou a estabilidade observada: 74 das 80 ocorrências com âncora resolvida não divergiram na janela analisada, enquanto seis apresentaram divergência. A busca entre repositórios identificou um candidato de confiança C, caracterizado pela remoção do mesmo conteúdo em momentos distintos, sem evidência de transmissão entre eles. Assim, a amostra de casos completos revelou estabilidade e divergência após a âncora, mas não evidência forte de propagação. A taxa de propagação permaneceu não estimável pela ausência de um denominador de ocorrências com contexto elegível para a alteração.
+\end{tcolorbox}
 
 \subsection{RQ3: candidatos e sensibilidade das regras}
 As 75 comparações abrangem 25 ocorrências, 18 repositórios e 17 famílias-âncora; 48 possuem blob pai. A Tabela~\ref{tab:categorias} reúne as categorias com contagens disponíveis. Comandos adicionados passam de 14,7\% a 53,3\%; referências a scripts adicionadas, de 1,3\% a 28,0\%; e acesso externo adicionado, de 4,0\% a 12,0\%, entre estrito e amplo. Jaccard baixo indica muitos positivos exclusivos da definição ampla, sem determinar qual cenário é semanticamente correto.
@@ -187,7 +210,18 @@ No amplo, 16/40 eventos de comando adicionado também adicionam referência a sc
 
 Um repositório concentra 29/75 eventos. Nenhum dos 20 desfechos passou pelo gate: 18 clusters são menos que 30, independentemente dos demais requisitos. Os 280 contrastes entre 14 exposições e 20 desfechos são descritivos, não ajustados, sem $p$ ou FDR. Idade, reúso, conteúdo do pai e características concorrentes exibem contrastes sensíveis a pesos, concentração e regras; churn e merge também ampliam a oportunidade de detectar candidatos.
 
-N RQ3, as frequências são sensíveis às definições estrita/ampla. Nenhum modelo multivariado foi viável; não foi possível identificar associações independentes ou comprovar execução.
+\begin{tcolorbox}[
+    colback=gray!15,
+    colframe=gray!50,
+    boxrule=0.4pt,
+    arc=1mm,
+    left=2mm,
+    right=2mm,
+    top=1mm,
+    bottom=1mm
+]
+\textbf{Resposta da RQ3: } As frequências são sensíveis às definições estrita/ampla. Nenhum modelo multivariado foi viável; não foi possível identificar associações independentes ou comprovar execução.
+\end{tcolorbox}
 
 \section{Discussão}
 Na RQ1, alcance e presença adicional descrevem composição, sem revelar circulação temporal. Uma hipótese não testada é que cabeçalhos acompanhem documentação reutilizável; outra é que reflitam convenções de agregadores. Flesch negativo não recomenda reduzir legibilidade, nem estrelas negativas indicam que menor popularidade favoreça adoção, pois o contexto é o do representante.
@@ -212,8 +246,6 @@ Os artefatos estão disponíveis em \url{https://github.com/Jemisson/gitskills-r
 \begin{thebibliography}{00}
 \bibitem{gitskills}
 G. Destefanis, D. Graziotin, M. Vaccargiu e M. Ortu, ``GitSkills: A Dataset of Agent Skills on GitHub,'' em \emph{Proc. 24th Int. Conf. on Mining Software Repositories (MSR)}, 2027, a publicar. arXiv:2608.10906.
-
-
 \bibitem{agentskills-spec}
 Agent Skills, ``Agent Skills Specification,'' especificação aberta, Apache-2.0. [Online]. Disponível: \url{https://agentskills.io}. Acesso em: 26 out. 2026.
 \bibitem{authoring-skills}
