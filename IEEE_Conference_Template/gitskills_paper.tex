@@ -62,42 +62,31 @@ Este trabalho articula essas perspectivas ao analisar a distribuição do reúso
 
 \section{Método}
 
-Realizamos um estudo observacional baseado no snapshot do GitSkills. A RQ1 adota uma análise transversal, enquanto as RQs 2 e 3 seguem uma abordagem longitudinal exploratória, condicionada à acessibilidade dos repositórios e à recuperação completa dos históricos.
+Realizamos um estudo observacional sobre o snapshot do GitSkills. O processo foi dividido em uma etapa transversal, destinada a caracterizar o reúso exato (RQ1), e uma etapa longitudinal exploratória, destinada a reconstruir a evolução posterior das ocorrências (RQs 2 e 3). Esta última foi condicionada à acessibilidade dos repositórios e à recuperação completa de seus históricos Git.
 
-\subsection{Unidades e análise da RQ1}
+\subsection{Preparação dos dados e análise transversal}
 
-Definimos \textbf{conteúdo} como o texto identificado por \texttt{file\_sha} e \textbf{ocorrência} como sua presença em um caminho de um repositório. A \textbf{família-âncora} agrupa ocorrências pelo conteúdo exato de referência. Cada \textbf{comparação} corresponde ao diff entre um commit filho e um de seus pais, considerando separadamente os pais de merges. Os repositórios constituem unidades de seleção e agrupamento; seus metadados contextuais são atribuídos pelo representante da deduplicação, sem atribuição de origem ou autoria.
+Inicialmente, selecionamos registros com \texttt{dedup\_primary=1}, nome exato \texttt{SKILL.md}, conteúdo recuperado, hash validado e \textit{front matter} válido. Definimos \textbf{conteúdo} como o texto identificado por \texttt{file\_sha} e \textbf{ocorrência} como a presença desse conteúdo em um caminho de um repositório. Assim, hashes iguais representaram reúso exato, independentemente do caminho do arquivo. Os metadados contextuais foram os do repositório representante da deduplicação, sem interpretá-lo como autor ou origem do conteúdo.
 
-Selecionamos registros com \texttt{dedup\_primary=1}, nome exato \texttt{SKILL.md}, conteúdo recuperado, hash validado e \textit{front matter} válido. Para cada conteúdo $h$, calculamos o alcance $R(h)$ pelo número de repositórios distintos. Definimos como desfechos a ocorrência de reúso, $I\{R(h)>1\}$, e a intensidade adicional, $R(h)-1$, analisada somente entre conteúdos reutilizados. Calculamos a proporção de presenças adicionais por $\sum_h[R(h)-1]/\sum_hR(h)$, utilizando pares conteúdo/repositório no denominador.
+Para cada conteúdo $h$, calculamos o alcance $R(h)$ como o número de repositórios distintos em que ele ocorreu. A ocorrência de reúso foi definida por $I\{R(h)>1\}$; sua intensidade, por $R(h)-1$, somente entre conteúdos reutilizados. A participação das presenças adicionais foi calculada por $\sum_h[R(h)-1]/\sum_hR(h)$, tendo pares conteúdo--repositório como denominador. Extraímos como covariáveis tamanho do texto e da descrição, legibilidade Flesch, URLs, blocos de código, cabeçalhos, listas, scripts, referências, arquivos irmãos, localização e composição truncada, além de linguagem, estrelas, idade e inatividade do repositório representante. Excluímos a variável de fork e registros com covariáveis ausentes.
 
-As covariáveis compreendem tamanho do texto e da descrição, Flesch, URLs, blocos de código, cabeçalhos, listas, scripts, referências, arquivos irmãos, localização e composição truncada, além de linguagem, estrelas, idade e inatividade do representante. Excluímos a variável de fork e os registros com covariáveis ausentes.
+Descrevemos a distribuição do reúso por frequências, percentis e coeficiente de Gini. Em seguida, ajustamos um modelo em duas partes: regressão logística para estimar a associação das covariáveis com a ocorrência de reúso e Poisson de pseudomáxima verossimilhança (PPML), com ligação logarítmica, para estimar a média condicional da intensidade positiva. Nas variáveis numéricas assimétricas, aplicamos \texttt{log1p}, winsorização nos percentis 0,5 e 99,5 e padronização. Reportamos \textit{odds ratios} na logística e razões de médias condicionais no PPML, por desvio-padrão da variável preparada, com IC de 95\%, erros-padrão agrupados pelo representante e correção Benjamini--Hochberg separada por componente ($q<0{,}05$). Avaliamos a sensibilidade mediante exclusão de megarepositórios, limitação da cauda positiva e comparação entre a amostra de teste e a população modelada.
 
-Descrevemos a distribuição por percentis e coeficiente de Gini. Ajustamos regressão logística para ocorrência e Poisson de pseudomáxima verossimilhança (PPML), com ligação logarítmica, para a média condicional da intensidade positiva.
+\subsection{Recuperação histórica e análise longitudinal}
 
-Aplicamos \texttt{log1p}, winsorização nos percentis 0,5 e 99,5 e padronização às variáveis numéricas assimétricas. Apresentamos os coeficientes exponenciados como OR na logística e razões de médias condicionais no PPML, por desvio-padrão na escala preparada. Utilizamos erros-padrão agrupados pelo representante, IC de 95\% e correção Benjamini--Hochberg separada por componente, com $q<0{,}05$. As análises de sensibilidade compreenderam exclusão de megarepositórios, limitação da cauda positiva e comparação entre a amostra de teste e a população modelada.
+Para a RQ2, construímos o quadro amostral com 603 repositórios, pertencentes a 55 conteúdos-âncora do piloto, que permaneceram acessíveis em duas sondagens consecutivas. Em cada um de 11 estratos primários mutuamente exclusivos, selecionamos cinco repositórios sem reposição por ordenação pseudoaleatória, usando a semente \texttt{20261026}. Repositórios com recuperação incompleta foram excluídos integralmente, sem substituição; os pesos preservaram as probabilidades de seleção no quadro condicionado.
 
-\subsection{Amostragem, âncora e propagação na RQ2}
+Para cada ocorrência, percorremos o histórico e fixamos como \textbf{âncora} o primeiro timestamp observado cujo blob coincidiu com o hash do snapshot. Comparamos cada commit posterior com cada um de seus pais, inclusive separando os pais de merges, e excluímos do cálculo de divergência ocorrências sem âncora resolvida. Classificamos como estáveis as ocorrências sem alteração de conteúdo na janela recuperada e distinguimos alterações de bytes de movimentos que preservaram o conteúdo.
 
-O quadro amostral reuniu 603 repositórios do piloto de 55 conteúdos-âncora que permaneceram acessíveis em duas sondagens consecutivas.. Selecionamos cinco repositórios sem reposição em cada um de 11 estratos primários mutuamente exclusivos, mediante ordenação pseudoaleatória com semente \texttt{20261026}. Excluímos integralmente, sem reposição, repositórios com recuperação incompleta. A ponderação considerou as probabilidades de seleção no quadro condicionado.
+Dos diffs posteriores à âncora, produzimos assinaturas \texttt{exact-normalized-patch-v1.0}, preservando operação, direção e ordem das linhas após normalização de Unicode e espaços. Excluímos movimentos puros e patches sem linhas alteradas. Um candidato a propagação exigiu a mesma família-âncora, divergência posterior, repositórios distintos e ordem temporal estrita; repetições foram consolidadas na primeira ocorrência do patch em cada repositório. Classificamos a evidência como A (proveniência explícita ou ancestralidade Git compartilhada), B (mesma transição entre blobs não vazios), C (patch exato menos específico, incluindo adição ou remoção) ou D (evidência insuficiente). Estimamos a divergência não ponderada com IC de Wilson e a ponderada com bootstrap estratificado por repositório; a taxa de propagação somente seria estimada quando o contexto anterior do patch fosse aplicável às linhagens comparadas.
 
-Para cada ocorrência, estabelecemos a âncora de conteúdo exato pelo primeiro timestamp observado cujo blob coincide com o hash do snapshot. Selecionamos comparações com timestamp estritamente posterior à âncora e excluímos ocorrências sem âncora resolvida do cálculo de divergência. Definimos estabilidade pela ausência de divergência de conteúdo na janela recuperada, distinguindo alterações de bytes de movimentos que preservam o conteúdo.
+\subsection{Classificação das mudanças e validação}
 
-Construímos assinaturas \texttt{exact-\allowbreak normalized-\allowbreak patch-\allowbreak v1.0}, preservando operação, direção e ordem das linhas, com normalização de Unicode e espaços. Excluímos movimentos puros e patches sem linhas alteradas. A identificação de candidatos exigiu mesma família-âncora, divergência posterior à âncora, repositórios distintos e ordenação temporal estrita. Consolidamos repetições na primeira ocorrência observada do patch por repositório.
+Na RQ3, aplicamos regras multirrótulo aos diffs para identificar candidatos a mudanças em comandos, acesso externo, scripts e executáveis. A definição estrita incluiu comandos, operações de rede, invocações explícitas, modo executável e \textit{shebang}; a ampla acrescentou URLs, caminhos e linhas compatíveis com comandos. Comparamos suas frequências, verificamos se o conjunto estrito estava contido no amplo e calculamos a similaridade de Jaccard.
 
-Classificamos os candidatos em quatro níveis: A, proveniência explícita ou ancestralidade Git compartilhada; B, modificação exata com transição idêntica entre blobs não vazios, mesma família e ordem temporal; C, patches exatos de menor especificidade, incluindo adições e remoções; e D, evidência ambígua ou insuficiente.
+Organizamos uma linha por comparação, com 20 desfechos e covariáveis anteriores ao evento. Para cada desfecho, exigimos ao menos 50 eventos, dez positivos, cinco repositórios positivos, cinco negativos e 30 clusters para modelagem multivariada. Quando o critério não foi atendido, aplicamos apenas contrastes descritivos ponderados, com bootstrap estratificado por repositório e 2.000 réplicas, sem testes confirmatórios.
 
-
-Estimamos a proporção não ponderada de divergência com IC de Wilson de 95\% e a proporção ponderada com bootstrap estratificado por repositório. Condicionamos a estimação da taxa de propagação à identificação das linhagens cujo contexto anterior permanecia aplicável ao patch.
-
-\subsection{Classificação e viabilidade da RQ3}
-
-Aplicamos regras multirrótulo para identificar candidatos a mudanças envolvendo comandos, acesso externo, referências a scripts e executáveis relacionados. O cenário estrito considera comandos, operações de rede e invocações explícitas, modo executável e \textit{shebang}. O amplo acrescenta URLs, caminhos e linhas compatíveis com comandos. Comparamos frequências e similaridade de Jaccard, $|S\cap A|/|S\cup A|$, verificando a inclusão do conjunto estrito no amplo.
-
-Organizamos a base com uma linha por comparação e 20 desfechos. As covariáveis pré-evento incluem idade desde a âncora, eventos e divergências anteriores, intensidade de reúso, localização e características do blob pai. Tratamos churn, operação e merge como características concorrentes. Restringimos exposições derivadas do pai aos eventos com blob disponível, sem codificar adições como ausência dessas características.
-
-Estabelecemos como critério de viabilidade, por desfecho, pelo menos 50 eventos, dez positivos, cinco repositórios positivos, cinco negativos e 30 clusters de repositório. Na ausência desses requisitos, o protocolo prevê contrastes descritivos não ajustados, ponderados, com bootstrap estratificado por repositório e 2.000 réplicas, sem testes confirmatórios ou correção de multiplicidade.
-
-A validação computacional compreendeu testes automatizados, fixtures, verificação de invariantes e reexecuções determinísticas. Registramos versões, parâmetros e checksums para rastrear entradas, procedimentos e saídas. A validação restringiu-se à reprodução das regras, sem avaliação humana independente ou execução controlada.
+Por fim, validamos o pipeline com testes automatizados, \textit{fixtures}, invariantes e reexecuções determinísticas. Registramos versões, parâmetros e checksums das entradas e saídas. Essa validação verificou a reprodução das regras, mas não sua validade semântica, pois não houve avaliação humana independente nem execução controlada.
 
 
 \section{Resultados}
@@ -154,7 +143,7 @@ Os erros agrupados foram, na mediana, 10,95 vezes os HC1. Na parte positiva, mé
     top=1mm,
     bottom=1mm
 ]
-\textbf{Resposta da RQ1: } Em resposta à RQ1, a maioria dos conteúdos apareceu em apenas um repositório, enquanto uma parcela menor alcançou muitos. Embora somente 16,02\% dos conteúdos tenham sido reutilizados, suas presenças adicionais representaram 42,06\% dos pares conteúdo--repositório. Conteúdos com mais cabeçalhos, descrições menores e menor pontuação Flesch apresentaram maior ocorrência e intensidade de reúso. Mais arquivos relacionados e maior inatividade do repositório estiveram associados apenas à ocorrência. Entre os conteúdos reutilizados, mais URLs, menos blocos de código e menos estrelas no repositório representante estiveram associados a maior intensidade. Esses resultados indicam relações estatísticas, sem demonstrar que tais características causem o reúso.
+\textbf{Resposta da RQ1: } O reúso exato ocorreu em 16,02\% dos conteúdos, mas suas presenças adicionais representaram 42,06\% dos pares conteúdo--repositório. Mais cabeçalhos, descrições menores e menor índice Flesch estiveram associados à ocorrência e à intensidade do reúso; as demais características apresentaram associações específicas a cada desfecho. Esses resultados são associativos e não indicam causalidade.
 \end{tcolorbox}
 
 
@@ -176,7 +165,7 @@ Dos 173 eventos históricos, 151 produziram assinaturas elegíveis; 19 grupos ap
     top=1mm,
     bottom=1mm
 ]
-\textbf{Resposta da RQ2: } Em resposta à RQ2, predominou a estabilidade observada: 74 das 80 ocorrências com âncora resolvida não divergiram na janela analisada, enquanto seis apresentaram divergência. A busca entre repositórios identificou um candidato de confiança C, caracterizado pela remoção do mesmo conteúdo em momentos distintos, sem evidência de transmissão entre eles. Assim, a amostra de casos completos revelou estabilidade e divergência após a âncora, mas não evidência forte de propagação. A taxa de propagação permaneceu não estimável pela ausência de um denominador de ocorrências com contexto elegível para a alteração.
+\textbf{Resposta da RQ2: } Predominou a estabilidade: 74 das 80 ocorrências com âncora resolvida não divergiram, enquanto seis apresentaram divergência. Foi identificado apenas um candidato de propagação de baixa confiança (nível C), sem evidência de transmissão entre os repositórios. Portanto, não houve evidência forte de propagação, e sua taxa permaneceu não estimável.
 \end{tcolorbox}
 
 \subsection{RQ3: candidatos e sensibilidade das regras}
@@ -220,7 +209,7 @@ Um repositório concentra 29/75 eventos. Nenhum dos 20 desfechos passou pelo gat
     top=1mm,
     bottom=1mm
 ]
-\textbf{Resposta da RQ3: } As frequências são sensíveis às definições estrita/ampla. Nenhum modelo multivariado foi viável; não foi possível identificar associações independentes ou comprovar execução.
+\textbf{Resposta da RQ3: } As frequências de mudanças potencialmente comportamentais foram sensíveis às definições estrita e ampla, com mais candidatos identificados pela definição ampla. Nenhum desfecho apresentou suporte amostral para modelagem multivariada. Assim, os resultados são descritivos e não comprovam execução nem associações independentes.
 \end{tcolorbox}
 
 \section{Discussão}
@@ -241,8 +230,10 @@ Na RQ1, reúso exato é minoritário entre conteúdos, mas substancial nas prese
 
 Os artefatos estão disponíveis em \url{https://github.com/Jemisson/gitskills-reuse-analysis}; banco obtido separadamente conforme os autores do GitSkills~\cite{gitskills}.
 
+\section{Use of Generative Artificial Intelligence}
+Generative AI tools were used to review scripts and correct spelling in the manuscript. All content was critically reviewed by the author, who assumes full responsibility for the originality and accuracy of the final text, in accordance with CNPq Ordinance No. 2,664/2026.
 
-\clearpage
+
 \begin{thebibliography}{00}
 \bibitem{gitskills}
 G. Destefanis, D. Graziotin, M. Vaccargiu e M. Ortu, ``GitSkills: A Dataset of Agent Skills on GitHub,'' em \emph{Proc. 24th Int. Conf. on Mining Software Repositories (MSR)}, 2027, a publicar. arXiv:2608.10906.

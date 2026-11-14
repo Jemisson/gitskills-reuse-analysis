@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1794267309.30122 "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" "gitskills_paper.pdf" "gitskills_paper" 1794267309.82035 0
+["pdflatex"] 1794688603.5644 "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" "gitskills_paper.pdf" "gitskills_paper" 1794688604.06054 0
   "/etc/texmf/web2c/texmf.cnf" 1776438932.43822 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" 1794267308.50219 28248 f249d1e13df6c36c7ce69c71faf4d879 ""
+  "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" 1794688602.91445 27684 4fe4da4039f0fa6df7d8bb0e31893d67 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -145,8 +145,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776438948.07191 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776438967 8214145 ab53c90a287f929189c967db4dc9eb67 ""
   "IEEEtran.cls" 1792210626 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
-  "gitskills_paper.aux" 1794267309.74919 2604 d09107cd6162a310cc669dbce78586c6 "pdflatex"
-  "gitskills_paper.tex" 1794267308.50219 28248 f249d1e13df6c36c7ce69c71faf4d879 ""
+  "gitskills_paper.aux" 1794688604.00345 2769 5deb3ca983b839a517a7ca405a8aba1e "pdflatex"
+  "gitskills_paper.tex" 1794688602.91445 27684 4fe4da4039f0fa6df7d8bb0e31893d67 ""
   (generated)
   "gitskills_paper.aux"
   "gitskills_paper.log"
