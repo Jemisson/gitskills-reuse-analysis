@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1794700642.12422 "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" "gitskills_paper.pdf" "gitskills_paper" 1794700642.63163 0
+["pdflatex"] 1794701297.26514 "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" "gitskills_paper.pdf" "gitskills_paper" 1794701297.76423 0
   "/etc/texmf/web2c/texmf.cnf" 1776438932.43822 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" 1794700641.96933 26938 484d5f70602bd20608a5d2d8d6b72127 ""
+  "/home/james/Documents/Doutorado/TESSII/Trabalho/IEEE_Conference_Template/gitskills_paper.tex" 1794701297.14686 26839 bc9dc046b5eb9e919eb8ea9e4fab35dc ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -48,8 +48,10 @@
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/times/ptmrc8t.vf" 1136768653 3608 78e4c999d9e69f03f448158d01821741 ""
   "/usr/share/texlive/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf" 1136768653 2328 6cd7df782b09b29cfc4d93e55b6b9a59 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
-  "/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf" 1625860693 6591 308dec8ccec5a8d302be8a046d473dd3 ""
+  "/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf" 1496785618 7008 9ff5fdcc865b01beca2b0fe4a46231d4 ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty" 1704662920 150008 7a05b0fdc0167c04e192003e780ab195 ""
+  "/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-en.ini" 1661803479 3966 caeee5a9e5771d4446aa1ca9015ba1b2 ""
+  "/usr/share/texlive/texmf-dist/tex/generic/babel/locale/en/babel-english.tex" 1498512262 336 ed676b5e7dfd862bc78d634f6a973f37 ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def" 1704662920 6948 df63e25be1d2bc35bbad5a0141f41348 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex" 1673816307 1016 1c2b89187d12a2768764b83b4945667c ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex" 1601326656 43820 1fef971b75380574ab35a0d37fd92608 ""
@@ -145,8 +147,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776438948.07191 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776438967 8214145 ab53c90a287f929189c967db4dc9eb67 ""
   "IEEEtran.cls" 1792210626 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
-  "gitskills_paper.aux" 1794700642.57633 2595 2373b55650d5574a785828bcdaa6968f "pdflatex"
-  "gitskills_paper.tex" 1794700641.96933 26938 484d5f70602bd20608a5d2d8d6b72127 ""
+  "gitskills_paper.aux" 1794701297.71034 2573 68836e431aa9fbd3ab115b7f98cf6549 "pdflatex"
+  "gitskills_paper.tex" 1794701297.14686 26839 bc9dc046b5eb9e919eb8ea9e4fab35dc ""
   (generated)
   "gitskills_paper.aux"
   "gitskills_paper.log"
