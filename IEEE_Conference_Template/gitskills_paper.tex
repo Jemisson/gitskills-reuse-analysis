@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 \usepackage{microtype}
 \usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
@@ -24,7 +25,7 @@
 \maketitle
 
 \begin{abstract}
-\textbf{Context:} Agent Skills are versionable artifacts whose sharing does not imply traceability. \textbf{Objective:} To characterize exact reuse, post-anchor evolution, and candidates for potentially behavioral changes. \textbf{Methods:} GitSkills was analyzed using descriptive statistics, logistic regression, and conditional PPML; in a conditioned historical sample of complete cases, \textit{patches} and strict/broad classifications were compared. \textbf{Results:} Among 1,586,188 distinct contents, 16.02\% appeared in multiple repositories. The 1,151,636 additional presences accounted for 42.06\% of the 2,737,824 content--repository pairs. The models used 1,584,628 contents. Of the 55 repositories and 122 occurrences selected, 53 repositories and 82 complete occurrences remained; 80 had resolved anchors, and six diverged. Only one confidence-level C propagation candidate was found, providing insufficient evidence to demonstrate transmission; the rate could not be estimated. Across 75 post-anchor comparisons from 18 repositories, the frequencies of behavioral-change candidates were sensitive to the classification rules. No multivariate model was feasible for RQ3. \textbf{Conclusions:} Reuse occurs in a minority of contents but accounts for a substantial share of presences. The longitudinal results are exploratory and conditional on the sample; identity, similarity, ancestry, and propagation require distinct forms of evidence.
+\textbf{Context:} Agent Skills are versionable artifacts whose sharing does not imply traceability. \textbf{Objective:} To characterize exact reuse, subsequent evolution, and candidates for potentially behavioral changes. \textbf{Methods:} GitSkills was analyzed using descriptive statistics, logistic regression, and conditional PPML; \textit{patches} and strict/broad classifications were compared in a conditioned recovered-history sample. \textbf{Results:} Among 1,586,188 distinct contents, 16.02\% appeared in multiple repositories. The 1,151,636 additional presences accounted for 42.06\% of the 2,737,824 content--repository pairs. The models used 1,584,628 contents. Of 55 repositories/122 occurrences selected, 53/82 were eligible after recovery; 80 had a reference version, 55 had no subsequent comparison, and six diverged. Only one evidence-category C propagation candidate was found, providing insufficient evidence to demonstrate transmission; the rate could not be estimated. Across 75 subsequent comparisons from 18 repositories, the frequencies of behavioral-change candidates were sensitive to the classification rules. No outcome met the eligibility criteria for multivariable modeling in RQ3. \textbf{Conclusions:} Reuse occurs in a minority of contents but accounts for a substantial share of presences. The longitudinal results are exploratory and conditional on the sample; identity, similarity, ancestry, and propagation require distinct forms of evidence.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -32,33 +33,43 @@ Agent Skills, exact reuse, repository mining, software evolution
 \end{IEEEkeywords}
 
 \section{Introduction}
-Agent Skills organize instructions and resources for agents in a folder centered on \texttt{SKILL.md}, optionally accompanied by scripts and references~\cite{agentskills-spec}. Treating them as versionable artifacts requires considering interfaces, dependencies, and maintenance~\cite{authoring-skills}. However, shared content without traceability makes it difficult to distinguish coordinated updates, independent adaptations, and the influence of unobserved common sources.
+Agent Skills package reusable procedural knowledge for language-model agents in folders centered on \texttt{SKILL.md}, optionally accompanied by scripts and references~\cite{agentskills-spec,gitskills}. Unlike conventional source files, they are predominantly written in natural language, and an agent may select them probabilistically at run time. Treating skills as versionable software artifacts therefore raises questions about interfaces, dependencies, evaluation, and maintenance in addition to textual quality~\cite{authoring-skills}.
 
-Exact reuse refers to the presence of identical content, identified by a hash, in different repositories. Similarity allows differences; evolution describes changes to an occurrence; ancestry requires evidence of descent; and propagation requires evidence that changes were transmitted. Content or patch identity does not establish the latter relationships. Likewise, commands and URLs in the text do not demonstrate execution.
+The emerging ecosystem lacks a central registry or package manager, and public skills commonly spread by copying folders between repositories~\cite{gitskills}. This differs from ecosystems such as Maven, in which releases and dependency relations are declared explicitly and update adoption can be measured against a registry~\cite{berretta2025}. Copy-based sharing preserves no necessary link to an upstream artifact, making it difficult to distinguish coordinated updates from independent adaptations or an unobserved common source.
 
-GitSkills enables the investigation of reuse and maintenance~\cite{gitskills}. The research gap addressed here is the integration of cross-sectional reach, recoverable evolution, and the strength of cross-repository evidence. The objective is to characterize these phenomena while preserving their distinct evidentiary requirements:
+These mechanisms also require distinct empirical concepts. \emph{Exact reuse} is the presence of identical content, identified here by a hash, in multiple repositories; similarity permits content differences; evolution describes changes to an observed occurrence; ancestry requires evidence of descent; and propagation requires evidence that a particular change was transmitted. Content identity, patch identity, and temporal precedence alone do not establish ancestry or transmission. Similarly, the presence of commands, URLs, or script references does not demonstrate their execution.
+
+Prior work provides relevant but incomplete perspectives. Clone studies show that duplicated code may change consistently or inconsistently and that conclusions depend on the historical granularity used~\cite{krinke2007,bettenburg2012}. More recent studies examine clone genealogies and persistence in contributions produced with coding agents~\cite{sousa2026genealogy,uchoa2026lifecycle}, while studies of generated code and agent-authored pull requests characterize how such artifacts are integrated and modified~\cite{grewal2024,ogenrwot2026}. Agent Skills, however, combine natural language, operational instructions, and related files, so findings about code fragments cannot be transferred without qualification.
+
+GitSkills makes it possible to study this new artifact at scale by retaining occurrences, content hashes, repository metadata, and partial histories~\cite{gitskills}. The remaining gap is to integrate cross-sectional reach, recoverable post-copy evolution, and the strength of cross-repository evidence without treating shared presence as propagation. The objective of this study is to characterize the distribution of exact Agent Skill reuse, reconstruct the subsequent evolution of occurrences with recoverable histories, and assess the evidence for cross-repository change propagation and potentially behavioral changes. Accordingly, this study asks:
 \begin{itemize}
 \item \textbf{RQ1:} How is the exact reuse of Agent Skills distributed, and which textual, structural, and contextual characteristics are associated with its occurrence and intensity?
-\item \textbf{RQ2:} Among occurrences with complete histories and resolved temporal anchors, what patterns of stability and divergence are observed, and what evidence exists of change propagation across repositories?
-\item \textbf{RQ3:} Which potentially behavioral changes are identified after the anchor, and how sensitive are their frequencies to the strict and broad definitions?
+\item \textbf{RQ2:} Among occurrences with recovered Git histories, how often is divergence observed after the first version matching the snapshot content, and what evidence exists of change propagation across repositories?
+\item \textbf{RQ3:} Which potentially behavioral changes are identified after the reference version, and how sensitive are their frequencies to the strict and broad definitions?
 \end{itemize}
-We contribute a characterization of exact reuse and its associations, an exploratory reconstruction of post-anchor evolution, a search for propagation candidates with explicit confidence levels, and an assessment of rule sensitivity and the limitations of multivariate inference.
+We contribute a population-level characterization of exact reuse and its associations for RQ1, together with an exploratory reconstruction of subsequent evolution in a conditioned recovered-history sample for RQs 2 and 3. We also provide a search for propagation candidates with explicit evidence categories and an assessment of rule sensitivity. The longitudinal evidence is deliberately bounded: automated classifications support reproducible candidate detection, not semantic validation, execution claims, or population-wide inference.
 
 
 \section{Related Work}
+GitSkills brings together \texttt{SKILL.md} files, occurrences, hashes, metadata, folder contents, and sampled histories, while retaining the distinction between unique content and its placements~\cite{gitskills}. Destefanis argues that skills should be engineered as software artifacts, emphasizing single responsibility, interface--implementation separation, low coupling, token economy, behavioral evaluation, and trust in third-party skills~\cite{authoring-skills}. These works motivate studying both artifact reach and maintenance, but neither identity nor a representative repository identifies the author or origin of copied content.
 
-GitSkills brings together \texttt{SKILL.md} files, their occurrences, hashes, metadata, and part of their change histories, providing a basis for investigating the reuse and maintenance of Agent Skills~\cite{gitskills}. This capability aligns with the perspective of Destefanis~\cite{authoring-skills}, who proposes treating skills as software artifacts, considering their versioning, interfaces, and dependencies. From this perspective, understanding reuse involves examining both the presence of content across different repositories and the changes observed throughout its maintenance.
+The distribution mechanism matters. Research on Maven describes adoption reach and lifespan using explicit releases and downstream dependency relations~\cite{berretta2025}. Skills currently lack comparable registry-level links~\cite{gitskills}; consequently, a later occurrence of the same content can establish shared presence but not an update relationship. This contrast motivates the stricter evidentiary vocabulary used in this study.
 
-The literature on code clones provides a related perspective for this analysis. Krinke~\cite{krinke2007} and Bettenburg et al.~\cite{bettenburg2012} investigate consistent and inconsistent changes to clones, highlighting the importance of historical context. For skills, however, this comparison requires caution: these artifacts combine natural language, commands, and related resources, and identical content or patches are insufficient to establish ancestry or change transmission.
+Code-clone research provides methods for relating duplicated fragments across versions. Krinke found that consistent change cannot be assumed across clone groups, while Bettenburg et al. showed that revision and release-level analyses can yield different assessments of inconsistent changes and quality impact~\cite{krinke2007,bettenburg2012}. Both results make history and observation granularity central, rather than treating similarity as sufficient evidence of coordinated maintenance.
 
-The presence of these different elements also motivates the examination of potentially behavioral changes. The structure defined in the Agent Skills specification~\cite{agentskills-spec} allows both the document and related files to be considered, but identifying commands, URLs, or script references does not demonstrate that they were executed. Therefore, the automated classifications in this study are treated as candidates whose frequencies depend on the rules applied.
+Recent work extends this perspective to human--agent development. Sousa et al. reconstruct 350 clone lineages in six collaborative projects and report that humans introduced most clones and performed much of the maintenance of agent-created lineages~\cite{sousa2026genealogy}. Uchoa et al. analyze clones across commits in agent-authored pull requests and find that recurring clones often persist to merge~\cite{uchoa2026lifecycle}. These studies concern source-code fragments within project histories. A skill may additionally contain prose, commands, metadata, and sibling files; therefore, their clone categories and authorship labels do not by themselves establish cross-repository skill ancestry.
 
-This work brings these perspectives together by analyzing the distribution of exact reuse, evolution after the content anchor, and the sensitivity of automated classifications. The analysis distinguishes shared presence, evolution, and propagation, explicitly identifying the denominators and limitations of the available evidence for each research question.
+DevGPT links shared developer--ChatGPT conversations to commits, pull requests, issues, and other development artifacts, enabling studies of generated code in use~\cite{devgpt2024}. Using these links, Grewal et al. studied 3,044 generated snippets: the integrated code usually remained unchanged, and the 76 subsequently changed snippets were commonly modified early through minor functional changes or reorganization~\cite{grewal2024}. This evidence shows how explicit links can support longitudinal reconstruction, but its self-selected conversations and code snippets differ from unlabelled copies of skills.
+
+Together, clone and generated-code studies distinguish presence, persistence, modification, and lineage. This study adds an explicit propagation test: a repeated change must be linked to the same exact-content family, appear in distinct repositories, and satisfy temporal and contextual evidence. Even then, an identical patch can result from independent action, particularly for low-specificity additions or removals.
+
+Autonomous coding agents operate at repository scale and can create multi-file pull requests. Large-scale comparisons find structural differences between agent and human-authored changes~\cite{ogenrwot2026}; longitudinal evidence also associates observable agent adoption with heterogeneous velocity effects and increases in static-analysis warnings and complexity measures~\cite{agarwal2026}. Separately, Fu et al. used static-analysis tools on 733 AI-generated snippets and identified candidates spanning multiple CWE categories~\cite{fu2025security}. These findings motivate scrutiny of operational changes, but tool warnings and textual indicators are not equivalent to executed behavior or exploited vulnerabilities.
+
+Accordingly, the Agent Skills specification permits analysis of both the document and its related resources~\cite{agentskills-spec}, but our command, external-access, script, and executable labels remain candidates. The study connects exact reuse, evolution after the reference version, and rule sensitivity while keeping their units, denominators, and evidentiary limits explicit.
 
 
 \section{Method}
-
-We conducted an observational study using the GitSkills snapshot. The process was divided into a cross-sectional stage to characterize exact reuse (RQ1) and an exploratory longitudinal stage to reconstruct the subsequent evolution of occurrences (RQs 2 and 3). The latter was conditional on repository accessibility and the complete recovery of their Git histories.
+We conducted an observational study using the GitSkills snapshot. The process comprised a cross-sectional stage for exact reuse (RQ1) and an exploratory longitudinal stage for subsequent evolution (RQs 2 and 3). The latter was conditional on repository accessibility and the recovery eligibility criteria; unavailable branches or Git objects may remain unobserved.
 
 \subsection{Data Preparation and Cross-Sectional Analysis}
 
@@ -66,15 +77,15 @@ We initially selected records with \texttt{dedup\_primary=1}, the exact filename
 
 For each content $h$, we calculated its reach $R(h)$ as the number of distinct repositories in which it occurred. Reuse occurrence was defined as $I\{R(h)>1\}$, and reuse intensity as $R(h)-1$, considering only reused contents. The share of additional presences was calculated as $\sum_h[R(h)-1]/\sum_hR(h)$, using content--repository pairs as the denominator. We extracted text and description lengths, Flesch readability, URLs, code blocks, headings, lists, scripts, references, sibling files, location, and truncation-related composition as covariates, along with the language, stars, age, and inactivity of the representative repository. We excluded the fork variable and records with missing covariates.
 
-We described the reuse distribution using frequencies, percentiles, and the Gini coefficient. We then fitted a two-part model: logistic regression to estimate the association between covariates and reuse occurrence, and Poisson pseudo-maximum likelihood (PPML), with a log link, to estimate the conditional mean of positive reuse intensity. For skewed numerical variables, we applied \texttt{log1p}, winsorization at the 0.5th and 99.5th percentiles, and standardization. We reported \textit{odds ratios} for logistic regression and conditional mean ratios for PPML, per standard deviation of the prepared variable, with 95\% confidence intervals, standard errors clustered by representative repository, and separate Benjamini--Hochberg corrections for each component ($q<0{,}05$). We assessed sensitivity by excluding megarepositories, limiting the positive tail, and comparing the test sample with the modeled population.
+We described the reuse distribution using frequencies, percentiles, and the Gini coefficient. We then fitted a two-part model: logistic regression to estimate the association between covariates and reuse occurrence, and Poisson pseudo-maximum likelihood (PPML), with a log link, to estimate the conditional mean of positive reuse intensity. For skewed numerical variables, we applied \texttt{log1p}, winsorization at the 0.5th and 99.5th percentiles, and standardization. We reported \textit{odds ratios} for logistic regression and conditional mean ratios for PPML, per standard deviation of the prepared variable, with 95\% confidence intervals, standard errors clustered by representative repository, and separate Benjamini--Hochberg corrections for each component ($q<0.05$). We assessed sensitivity by excluding megarepositories, limiting the positive tail, and comparing the test sample with the modeled population.
 
 \subsection{Historical Recovery and Longitudinal Analysis}
 
-For RQ2, we constructed a sampling frame comprising 603 repositories belonging to 55 pilot anchor contents that remained accessible in two consecutive probes. Within each of 11 mutually exclusive primary strata, we selected five repositories without replacement through pseudorandom ordering, using the seed \texttt{20261026}. Repositories with incomplete recovery were excluded entirely, without replacement; weights preserved the selection probabilities within the conditioned frame.
+For RQ2, we constructed a sampling frame comprising 603 repositories associated with 55 exact contents selected in the pilot that remained accessible in two consecutive probes. Within each of 11 mutually exclusive primary strata, we selected five repositories without replacement through pseudorandom ordering, using the seed \texttt{20261026}. Eligibility required completed repository collection, a processed occurrence, an available snapshot blob, and a nonempty recovered path history. Failed repositories were excluded without replacement; weights preserved selection probabilities within the conditioned frame.
 
-For each occurrence, we traversed its history and defined the \textbf{anchor} as the first observed timestamp at which the blob matched the snapshot hash. We compared each subsequent commit with each of its parents, treating merge parents separately, and excluded occurrences without a resolved anchor from divergence calculations. Occurrences with no content changes within the recovered window were classified as stable, and byte-level changes were distinguished from movements that preserved content.
+For each eligible occurrence, we defined the \textbf{reference version} as the first version in its recovered path history whose blob hash matched the snapshot hash. This comparison point does not establish origin, authorship, or the first global occurrence. We compared each subsequent commit with each parent, treating merge parents separately, and excluded occurrences without a matching version from divergence calculations. We distinguished occurrences with no subsequent comparison, with subsequent comparisons but no observed divergence, and with observed divergence; byte-level changes were separated from content-preserving movements.
 
-From post-anchor diffs, we generated \texttt{exact-normalized-patch-v1.0} signatures, preserving the operation, direction, and line order after Unicode and whitespace normalization. We excluded pure movements and patches without changed lines. A propagation candidate required the same anchor family, subsequent divergence, distinct repositories, and strict temporal ordering; repeated instances were consolidated into the first occurrence of the patch in each repository. We classified evidence as A (explicit provenance or shared Git ancestry), B (the same transition between nonempty blobs), C (a less specific exact patch, including addition or removal), or D (insufficient evidence). We estimated unweighted divergence using a Wilson confidence interval and weighted divergence using a repository-stratified bootstrap; the propagation rate would be estimable only when the patch's preceding context was applicable to the compared lineages.
+From diffs subsequent to the reference version, we generated normalized exact-patch signatures (version 1.0), preserving the operation, direction, and line order after Unicode and whitespace normalization. We excluded pure movements and patches without changed lines. A propagation candidate required the same exact-content family, subsequent divergence, distinct repositories, and strict temporal ordering; repeated instances were consolidated into the first occurrence of the patch in each repository. We classified evidence as A (explicit provenance or shared Git ancestry), B (the same transition between nonempty blobs), C (a less specific exact patch, including addition or removal), or D (insufficient evidence). We estimated unweighted divergence using a Wilson confidence interval and weighted divergence using a repository-stratified bootstrap; the propagation rate would be estimable only when the patch's preceding context was applicable to the compared lineages.
 
 \subsection{Change Classification and Validation}
 
@@ -97,8 +108,8 @@ In the analysis of characteristics associated with reuse, the models retained 1,
 
 The results differed between occurrence and intensity, as shown in Table~\ref{tab:efeitos}. After BH correction, five main effects met the significance criterion for occurrence and six for intensity. The number of headings was positively associated with both outcomes, while description length and the Flesch score showed negative associations. Sibling files and inactivity met the criterion only for occurrence; URLs, code blocks, and stars met it only for intensity. The presence of scripts and references showed no statistically significant association after correction in either component.
 
-\begin{table}[h!]
-\caption{Main effects with $q_{\mathrm{BH}}<0{,}05$}
+\begin{table}[h]
+\caption{Main effects with $q_{\mathrm{BH}}<0.05$}
 \label{tab:efeitos}
 \centering\footnotesize
 \begin{tabular}{@{}lccc@{}}
@@ -106,19 +117,19 @@ The results differed between occurrence and intensity, as shown in Table~\ref{ta
 Characteristic & Ratio & 95\% CI & $q_{\mathrm{BH}}$ \\
 \midrule
 \multicolumn{4}{@{}l}{\textit{Occurrence: OR}} \\
-Description & 0,924 & 0,869--0,982 & 0,0482 \\
-Flesch & 0,778 & 0,721--0,839 & $<0{,}0001$ \\
-Headings & 1,241 & 1,145--1,345 & $<0{,}0001$ \\
-Sibling files & 1,121 & 1,029--1,220 & 0,0458 \\
-Inactivity & 1,223 & 1,071--1,395 & 0,0211 \\
+Description & 0.924 & 0.869--0.982 & 0.0482 \\
+Flesch & 0.778 & 0.721--0.839 & $<0.0001$ \\
+Headings & 1.241 & 1.145--1.345 & $<0.0001$ \\
+Sibling files & 1.121 & 1.029--1.220 & 0.0458 \\
+Inactivity & 1.223 & 1.071--1.395 & 0.0211 \\
 \midrule
 \multicolumn{4}{@{}l}{\textit{Positive intensity: PPML ratio}} \\
-Description & 0,867 & 0,814--0,924 & 0,0001 \\
-Flesch & 0,903 & 0,866--0,942 & $<0{,}0001$ \\
-URLs & 1,075 & 1,048--1,103 & $<0{,}0001$ \\
-Code blocks & 0,920 & 0,877--0,964 & 0,0023 \\
-Headings & 1,106 & 1,043--1,172 & 0,0026 \\
-Stars & 0,838 & 0,762--0,922 & 0,0013 \\
+Description & 0.867 & 0.814--0.924 & 0.0001 \\
+Flesch & 0.903 & 0.866--0.942 & $<0.0001$ \\
+URLs & 1.075 & 1.048--1.103 & $<0.0001$ \\
+Code blocks & 0.920 & 0.877--0.964 & 0.0023 \\
+Headings & 1.106 & 1.043--1.172 & 0.0026 \\
+Stars & 0.838 & 0.762--0.922 & 0.0013 \\
 \bottomrule
 \end{tabular}
 \par\smallskip
@@ -127,7 +138,11 @@ Effects per standard deviation on the prepared scale; standard errors clustered 
 \end{minipage}
 \end{table}
 
-Clustered standard errors were, at the median, 10.95 times the HC1 standard errors. In the positive component, the mean was 4.53, the variance was 154.30, and Pearson dispersion was 16.47. Excluding 16 megarepositories with more than 5,000 contents (183,623 records; 11.59\%) preserved the directions of all 28 main effects, with changes in borderline significance and greater instability across languages. Capping the 1,267 cases above P99.5 at 70 preserved the direction and nominal significance classification ($p<0{,}05$) of all 37 PPML coefficients, without demonstrating BH invariance; the mean absolute difference was 0.0308 and dispersion was 9.23. Between the 100,000-record test sample and the population, 71/74 HC1 coefficients preserved their direction, with a mean absolute difference of 0.0684.
+Clustered standard errors were, at the median, 10.95 times the HC1 standard errors. In the positive component, the mean was 4.53, the variance was 154.30, and Pearson dispersion was 16.47.
+
+The sensitivity analyses generally preserved coefficient directions. Excluding 16 megarepositories with more than 5,000 contents (183,623 records; 11.59\%) preserved the directions of all 28 main effects, with changes in borderline significance and greater instability across languages.
+
+Capping the 1,267 cases above P99.5 at 70 preserved the direction and nominal significance classification ($p<0.05$) of all 37 PPML coefficients, without demonstrating BH invariance; the mean absolute difference was 0.0308 and dispersion was 9.23. Between the 100,000-record test sample and the population, 71/74 HC1 coefficients preserved their direction, with a mean absolute difference of 0.0684.
 
 \begin{tcolorbox}[
     colback=gray!15,
@@ -139,16 +154,28 @@ Clustered standard errors were, at the median, 10.95 times the HC1 standard erro
     top=1mm,
     bottom=1mm
 ]
-\textbf{Answer to RQ1: } Exact reuse occurred in 16.02\% of contents, but additional presences accounted for 42.06\% of content--repository pairs. More headings, shorter descriptions, and lower Flesch scores were associated with both reuse occurrence and intensity; the remaining characteristics showed outcome-specific associations. These results are associational and do not imply causality.
+\textbf{Answer to RQ1: } Exact reuse occurred in 16.02\% of contents, while additional presences accounted for 42.06\% of content–repository pairs; reach was right-skewed (median 1, maximum 937; Gini 0.3978). Among textual characteristics, shorter descriptions and lower Flesch scores were associated with both reuse occurrence and positive intensity. Structural characteristics, more headings were associated with both components, sibling files only with occurrence, and more URLs and fewer code blocks only with positive intensity; scripts and references showed no statistically significant association after BH correction. Contextual characteristics, greater inactivity was associated only with occurrence, whereas fewer stars were associated only with positive intensity. These associations do not imply causality.
 \end{tcolorbox}
 
 
-\subsection{RQ2: Stability, Divergence, and Propagation}
-The selection and recovery process comprised 55 selected repositories/122 occurrences, 53/82 complete cases, 80 resolved anchors, and six divergent occurrences; separately, 75 post-anchor comparisons were observed. These units are not interchangeable. Unweighted divergence was 7.5\% (95\% Wilson CI: 3.5--15.4\%); conditional weighted divergence was approximately 1.0\% (bootstrap: 0.3--1.9\%). Unequal weights and concentration explain the differences; neither estimate represents the entire population.
+\subsection{RQ2: Observed Divergence and Propagation}
+The recovery flow comprised 55 selected repositories of 122 occurrences and 53/82 eligible after filtering. Of 80 occurrences with a reference version, 55 had no subsequent comparison, 19 had comparisons without observed divergence, and 6 diverged. Thus, the reported unweighted divergence was 6/80 (7.5\%; 95\% Wilson CI: 3.5--15.4\%), while 6/25 occurrences with at least one subsequent comparison diverged. Conditional weighted divergence over the 80 occurrences was approximately 1.0\% (bootstrap: 0.3--1.9\%). Unequal follow-up, weights, and concentration explain the differences; neither estimate represents the entire population.
 
-The comparisons include 27 additions, 24 modifications, 19 movements, and five removals: 36.0\%, 32.0\%, 25.3\%, and 6.7\% unweighted; 48.7\%, 12.7\%, 37.3\%, and 1.3\% weighted. Bootstrap bounds by operation were not provided; the manuscript reports wide ranges, particularly for additions and movements.
+The comparisons include 27 additions, 24 modifications, 19 movements, and five removals: 36.0\%, 32.0\%, 25.3\%, and 6.7\% unweighted, respectively. The corresponding weighted conditional proportions were 48.7\% for additions (bootstrap interval: 17.2\%--81.3\%), 12.7\% for modifications (0.5\%--24.0\%), 37.3\% for movements (12.5\%--76.6\%), and 1.3\% for removals (0.2\%--2.2\%). The wide intervals for additions and movements reflect the small and concentrated conditioned sample.
 
-Of the 173 historical events, 151 produced eligible signatures; 19 groups appeared in multiple repositories when considering the entire history. After temporal and family filters and repository-level consolidation, one candidate remained, having previously been artificially repeated across four pairs. This candidate involved compatible removals separated by approximately 77.12 days and was classified as confidence level C. Removing identical content naturally produces identical, low-specificity patches; no A/B relationships were found. Observed temporal precedence does not establish origin.
+Among the six divergent occurrences, the first observed divergence occurred 52 to 204 days after the reference version (median 114 days). Given the small number of events and unequal observation windows, these times are descriptive; no survival curve was estimated.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/boxplot_rq3_changed_lines_by_operation.pdf}
+\caption{Changed lines by operation across the 75 subsequent comparisons. The vertical axis uses $\log(1+x)$; boxes show the median and interquartile range, whiskers extend to 1.5 IQR, and points represent individual observations. Counts indicate the number of events, not the magnitude or statistical weight of each group.}
+\label{fig:rq2-changed-lines-boxplot}
+\end{figure}
+
+Figure~\ref{fig:rq2-changed-lines-boxplot} complements these frequencies by showing the unweighted distribution of changed lines. Additions were comparatively concentrated around a median of 174 changed lines, whereas modifications had a lower median (9.5) and substantially greater relative dispersion (range: 2--280). Movements had zero changed lines because they preserved the observed content. Removals had the highest median (460), but this estimate is based on only five events, four of which had the same value; it should therefore not be interpreted as evidence that removals are generally larger. The boxplot describes the conditioned sample and does not support population-wide comparisons among operations.
+
+
+Of the 173 historical events, 151 produced eligible signatures; 19 groups appeared in multiple repositories when considering the entire history. After temporal and family filters and repository-level consolidation, one candidate remained, having previously been artificially repeated across four pairs. This candidate involved compatible removals separated by approximately 77 days and was classified in evidence category C. Removing identical content naturally produces identical, low-specificity patches; no category A/B relationships were found. Observed temporal precedence does not establish origin.
 
 
 \begin{tcolorbox}[
@@ -161,33 +188,34 @@ Of the 173 historical events, 151 produced eligible signatures; 19 groups appear
     top=1mm,
     bottom=1mm
 ]
-\textbf{Answer to RQ2: } Stability predominated: 74 of the 80 occurrences with resolved anchors did not diverge, while six showed divergence. Only one low-confidence propagation candidate (level C) was identified, without evidence of transmission between repositories. Therefore, no strong evidence of propagation was found, and its rate remained non-estimable.
+\textbf{Answer to RQ2: } Among 80 occurrences with a reference version, 55 had no subsequent comparison, 19 had comparisons without observed divergence, and six diverged. The 75 subsequent comparisons comprised 27 additions, 24 modifications, 19 movements, and five removals. Only one propagation candidate in evidence category C was identified, which was insufficient to infer transmission between repositories; therefore, no strong evidence of propagation was found, and its rate remained non-estimable in this conditioned sample.
 \end{tcolorbox}
 
 \subsection{RQ3: Candidates and Rule Sensitivity}
-The 75 comparisons span 25 occurrences, 18 repositories, and 17 anchor families; 48 have a parent blob. Table~\ref{tab:categorias} summarizes the categories with available counts. Added commands increase from 14.7\% to 53.3\%; added script references, from 1.3\% to 28.0\%; and added external access, from 4.0\% to 12.0\%, when moving from the strict to the broad definition. Low Jaccard similarity indicates many positive cases exclusive to the broad definition, without determining which classification is semantically correct.
+The 75 comparisons span 25 occurrences, 18 repositories, and 17 exact-content families; 48 have a parent blob. Table~\ref{tab:categorias} summarizes the categories with available counts. Added commands increase from 14.7\% to 53.3\%; added script references, from 1.3\% to 28.0\%; and added external access, from 4.0\% to 12.0\%, when moving from the strict to the broad definition. Low Jaccard similarity indicates many positive cases exclusive to the broad definition, without determining which classification is semantically correct.
 
-\begin{table}[h!]
+\begin{table}[h]
 \caption{Multilabel candidates across 75 comparisons}
 \label{tab:categorias}
 \centering\footnotesize
-\begin{tabularx}{\columnwidth}{@{}Yrrr@{}}
+\begin{tabularx}{\columnwidth}{@{}Yrrrrr@{}}
 \toprule
-Category & Strict & Broad & Jaccard \\
+Category & \multicolumn{2}{c}{Strict} & \multicolumn{2}{c}{Broad} & Jaccard \\
+ & Events & Repos. & Events & Repos. & \\
 \midrule
-Command added & 11 & 40 & 0,275 \\
-Command removed & 5 & 16 & 0,313 \\
-External access added & 3 & 9 & 0,333 \\
-External access removed & 1 & 1 & 1,000 \\
-Script reference added & 1 & 21 & 0,048 \\
-Script reference removed & 4 & 11 & 0,364 \\
-Related executable added & 1 & 1 & 1,000 \\
-Related executable moved/copied & 0 & 1 & 0,000 \\
+Command added & 11 & 6 & 40 & 10 & 0.275 \\
+Command removed & 5 & 3 & 16 & 6 & 0.313 \\
+External access added & 3 & 2 & 9 & 5 & 0.333 \\
+External access removed & 1 & 1 & 1 & 1 & 1.000 \\
+Script reference added & 1 & 1 & 21 & 7 & 0.048 \\
+Script reference removed & 4 & 2 & 11 & 5 & 0.364 \\
+Related executable added & 1 & 1 & 1 & 1 & 1.000 \\
+Related executable moved/copied & 0 & 0 & 1 & 1 & 0.000 \\
 \bottomrule
 \end{tabularx}
 \par\smallskip
 \begin{minipage}{\columnwidth}\footnotesize
-Non-additive counts; labels do not demonstrate execution. Eight available pairs, not all 20 outcomes considered by the eligibility gate. Positive repositories per label were not reported.
+Non-additive counts across 75 comparisons and 18 repositories; labels do not demonstrate execution. Eight nonzero strict/broad pairs are shown, from the 20 outcomes considered by the eligibility gate.
 \end{minipage}
 \end{table}
 
@@ -195,6 +223,15 @@ Under the broad definition, 16/40 added-command events also add a script referen
 
 One repository accounts for 29/75 events. None of the 20 outcomes passed the eligibility gate: 18 clusters are fewer than the required 30, regardless of the other requirements. The 280 contrasts between 14 exposures and 20 outcomes are descriptive and unadjusted, without $p$-values or FDR. Age, reuse, parent content, and concurrent characteristics show contrasts sensitive to weights, concentration, and rules; churn and merges also increase the opportunity to detect candidates.
 
+Figure~\ref{fig:rq3-rule-sensitivity} directly summarizes the overlap between the strict and broad definitions. Jaccard similarity was low for added script references (0.048), added commands (0.275), removed commands (0.313), added external access (0.333), and removed script references (0.364). The two definitions coincided for the rare external-access-removal and related-executable-addition events; the single related-executable movement/copy was detected only by the broad definition.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/figure_rq3_scenario_sensitivity.png}
+\caption{Jaccard similarity between events identified by the strict and broad definitions. Lower values indicate that the broad definition identified many additional events. Categories with no positive events under either definition are omitted.}
+\label{fig:rq3-rule-sensitivity}
+\end{figure}
+
 \begin{tcolorbox}[
     colback=gray!15,
     colframe=gray!50,
@@ -205,23 +242,23 @@ One repository accounts for 29/75 events. None of the 20 outcomes passed the eli
     top=1mm,
     bottom=1mm
 ]
-\textbf{Answer to RQ3: } The frequencies of potentially behavioral changes were sensitive to the strict and broad definitions, with more candidates identified by the broad definition. No outcome had sufficient sample support for multivariate modeling. Thus, the results are descriptive and do not demonstrate execution or independent associations.
+\textbf{Answer to RQ3: } For commands, the strict/broad definitions identified 11/40 additions in 6/10 repositories and 5/16 removals in 3/6 repositories. For external access, they identified 3/9 additions in 2/5 repositories and 1/1 removal in 1/1 repository. For script references, they identified 1/21 additions in 1/7 repositories and 4/11 removals in 2/5 repositories. Related executables accounted for 1/1 addition in 1/1 repository and 0/1 movement or copy in 0/1 repository. Low Jaccard similarities for the main categories demonstrate rule sensitivity. No outcome met the prespecified eligibility criteria for multivariable modeling; these descriptive candidates do not demonstrate execution or independent associations.
 \end{tcolorbox}
 
 \section{Discussion}
 In RQ1, reach and additional presences describe the composition of reuse without revealing its temporal diffusion. One untested hypothesis is that headings are associated with reusable documentation; another is that they reflect conventions adopted by aggregators. The negative Flesch association does not support a recommendation to reduce readability, nor do negative associations with stars indicate that lower popularity favors adoption, since the contextual information comes from the representative repository.
 
-In RQ2, stability may reflect the maintenance of stable references or limited observation; these hypotheses cannot be distinguished from the data. The emphasis on historical context is consistent with code clone studies~\cite{krinke2007,bettenburg2012}, without transferring their findings to skills. The level C candidate is compatible with independent decisions or a common source; unknown context prevents treating every absence of a patch as an opportunity for transmission.
+In RQ2, 55/80 occurrences had no subsequent comparison, so they provide no observed opportunity to distinguish stability from limited follow-up. Even among compared occurrences, absence of divergence is bounded by the recovered window. The emphasis on historical context is consistent with code clone studies~\cite{krinke2007,bettenburg2012}, without transferring their findings to skills. The evidence-category C candidate is compatible with independent decisions or a common source; unknown context prevents treating every absence of a patch as an opportunity for transmission.
 
 In RQ3, one hypothesis is that the broad definition combines documentary references with operational instructions, while the strict definition omits relevant forms. Without validation, neither can be regarded as semantically correct. Co-occurrence and concentration further emphasize that 75 events do not constitute 75 independent observations.
 
 For authors and maintainers, these limitations motivate recording declared origin, version, license, hash, dependencies, and update history, consistent with treating skills as software~\cite{authoring-skills}; the effectiveness of these practices was not tested. For researchers, units, losses, weights, taxonomies, and non-estimable results should be explicit. Future data collection should expand the number of clusters and observation windows, verify the applicable context for each patch, incorporate provenance and shared Git objects, independently validate classifications, and reapply the eligibility gate before performing regressions. Broader similarity measures may recover additional candidates but cannot replace historical evidence.
 
 \section{Threats to Validity}
-The findings are subject to several limitations. Hashes identify exact content but not semantic equivalence, while Flesch readability may be unsuitable for technical texts. Temporal anchors do not establish content origin, and automated classifications do not demonstrate execution or semantic validity. The snapshot, selection criteria, incomplete histories, unresolved anchors, and unequal observation windows limit generalizability. Weighting does not correct for these losses. The small number of cases and clusters restricts RQ3 to descriptive analysis. Although deterministic reruns support repeatability, future reproducibility depends on repository availability and complete documentation.
+The findings are subject to several limitations. Hashes identify exact content but not semantic equivalence, while Flesch readability may be unsuitable for technical texts. A reference version is only a comparison point, not evidence of origin; automated classifications do not demonstrate execution or semantic validity. The snapshot, selection, recovery failures, unavailable branches or objects, missing reference versions, 55 occurrences without subsequent comparisons, and unequal observation windows limit generalizability. Weighting does not correct for these losses. The small number of cases and clusters restricts RQ3 to descriptive analysis. Although deterministic reruns support repeatability, future reproducibility depends on repository availability and complete documentation.
 
 \section{Conclusion}
-In RQ1, exact reuse occurs in a minority of contents but accounts for a substantial share of presences, with distinct associations for occurrence and intensity. In RQ2, 06/80 occurrences diverged after the anchor; only one level C candidate was found, without strong evidence of propagation or an estimable rate. In RQ3, classifications were sensitive to the rules, and all multivariate models lacked sufficient sample support. The contribution is to make the findings and limitations explicit: shared presence, similarity, ancestry, and propagation are not equivalent.
+In RQ1, exact reuse occurs in a minority of contents but accounts for a substantial share of presences, with distinct associations for occurrence and intensity. In RQ2, six occurrences diverged, 19 had comparisons without divergence, and 55 had no subsequent comparison; only one evidence-category C candidate was found, without strong evidence of propagation or an estimable rate. In RQ3, classifications were sensitive to the rules, and no outcome met the prespecified eligibility criteria for multivariable modeling. The contribution is to make the findings and limitations explicit: shared presence, similarity, ancestry, and propagation are not equivalent.
 
 The artifacts are available at \url{https://github.com/Jemisson/gitskills-reuse-analysis}; the database was obtained separately as specified by the GitSkills authors~\cite{gitskills}.
 
@@ -239,5 +276,21 @@ G. Destefanis, ``Authoring Agent Skills: A Software-Engineering Approach,'' arXi
 J. Krinke, ``A Study of Consistent and Inconsistent Changes to Code Clones,'' in \emph{Proc. 14th Working Conf. on Reverse Engineering (WCRE)}, 2007, pp. 170--178.
 \bibitem{bettenburg2012}
 N. Bettenburg, W. Shang, W. M. Ibrahim, B. Adams, Y. Zou, and A. E. Hassan, ``An Empirical Study on Inconsistent Changes to Code Clones at the Release Level,'' \emph{Science of Computer Programming}, vol. 77, pp. 760--776, 2012, doi: 10.1016/j.scico.2010.11.010.
+\bibitem{devgpt2024}
+T. Xiao, C. Treude, H. Hata, and K. Matsumoto, ``DevGPT: Studying Developer--ChatGPT Conversations,'' in \emph{Proc. 21st Int. Conf. on Mining Software Repositories (MSR)}, 2024, pp. 227--230, doi: 10.1145/3643991.3648400.
+\bibitem{grewal2024}
+B. Grewal, W. Lu, S. Nadi, and C.-P. Bezemer, ``Analyzing Developer Use of ChatGPT Generated Code in Open Source GitHub Projects,'' in \emph{Proc. 21st Int. Conf. on Mining Software Repositories (MSR)}, 2024, pp. 157--161, doi: 10.1145/3643991.3645072.
+\bibitem{sousa2026genealogy}
+D. Sousa, I. Uchoa, M. Paixao, C. Ragkhitwetsagul, and T. L. Matos, ``An Empirical Study of Code Clone Genealogies in Human--AI Collaborative Development,'' in \emph{Proc. 23rd Int. Conf. on Mining Software Repositories (MSR)}, 2026, pp. 979--983, doi: 10.1145/3793302.3793613.
+\bibitem{uchoa2026lifecycle}
+I. Uchoa, D. Sousa, H. Chuvas, M. Paixao, C. Ragkhitwetsagul, and T. L. Matos, ``A Study on Code Clone Lifecycles in Pull Requests Created by AI Agents,'' in \emph{Proc. 23rd Int. Conf. on Mining Software Repositories (MSR)}, 2026, pp. 949--953, doi: 10.1145/3793302.3793608.
+\bibitem{ogenrwot2026}
+D. Ogenrwot and J. Businge, ``How AI Coding Agents Modify Code: A Large-Scale Study of GitHub Pull Requests,'' arXiv:2601.17581v3, 2026.
+\bibitem{agarwal2026}
+S. Agarwal, H. He, and B. Vasilescu, ``AI IDEs or Autonomous Agents? Measuring the Impact of Coding Agents on Software Development,'' arXiv:2601.13597v2, 2026.
+\bibitem{fu2025security}
+Y. Fu, P. Liang, A. Tahir, Z. Li, M. Shahin, J. Yu, and J. Chen, ``Security Weaknesses of Copilot-Generated Code in GitHub Projects: An Empirical Study,'' arXiv:2310.02059v4, 2025.
+\bibitem{berretta2025}
+B. Berretta, A. Thomas, and H. Guarnera, ``Dependency Update Adoption Patterns in the Maven Software Ecosystem,'' arXiv:2504.07310v1, 2025.
 \end{thebibliography}
 \end{document}

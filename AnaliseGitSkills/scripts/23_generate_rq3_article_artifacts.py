@@ -36,7 +36,7 @@ def atomic_csv(frame: pd.DataFrame, path: Path) -> None:
 
 def save_figure(fig: plt.Figure, path: Path) -> None:
     temporary = path.with_name(f".{path.stem}.{os.getpid()}.tmp{path.suffix}")
-    fig.savefig(temporary, dpi=200, bbox_inches="tight")
+    fig.savefig(temporary, dpi=300, bbox_inches="tight")
     plt.close(fig)
     temporary.replace(path)
 
@@ -92,10 +92,10 @@ def main() -> None:
     x = plot["proportion_unweighted"].to_numpy()
     lower = x - plot["wilson_low"].to_numpy()
     upper = plot["wilson_high"].to_numpy() - x
-    ax.errorbar(x, y, xerr=np.vstack([lower, upper]), fmt="o", color="#2f5d8a", label="Não ponderado (IC Wilson 95%)")
-    ax.scatter(plot["proportion_weighted_conditional"], y, marker="x", color="#b24a3b", label="Ponderado condicional")
+    ax.errorbar(x, y, xerr=np.vstack([lower, upper]), fmt="o", color="#2f5d8a", label="Unweighted (95% Wilson CI)")
+    ax.scatter(plot["proportion_weighted_conditional"], y, marker="x", color="#b24a3b", label="Conditionally weighted")
     ax.set_yticks(y, labels)
-    ax.set_xlabel("Proporção de comparações pós-âncora")
+    ax.set_xlabel("Proportion of comparisons subsequent to the reference version")
     ax.set_xlim(left=0)
     ax.grid(axis="x", alpha=0.25)
     ax.legend(loc="lower right")
@@ -110,7 +110,7 @@ def main() -> None:
         scenario_plot["jaccard_strict_broad"],
         color="#5f8f6f",
     )
-    ax.set_xlabel("Jaccard entre eventos estritos e amplos")
+    ax.set_xlabel("Jaccard similarity between strict and broad events")
     ax.set_xlim(0, 1)
     ax.grid(axis="x", alpha=0.25)
     save_figure(fig, sensitivity_figure_path)

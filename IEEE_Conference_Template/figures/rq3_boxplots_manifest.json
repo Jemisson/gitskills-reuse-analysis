@@ -1,0 +1,80 @@
+{
+  "analysis_version": "rq3-event-boxplots-v1.0",
+  "arguments": {
+    "input": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_events.csv",
+    "output_dir": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/IEEE_Conference_Template/figures",
+    "overwrite": true,
+    "seed": 20261026
+  },
+  "created_at_utc": "2026-11-19T13:46:42.975584+00:00",
+  "environment": {
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "git_commit": "ee7e4a23dab81346db550bb202b0a040660d50ae",
+  "inputs": [
+    {
+      "mtime_ns": 1794868972698007426,
+      "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/AnaliseGitSkills/outputs/rq3/association_dataset_v2/rq3_association_events.csv",
+      "sha256": "7f02c3b99392f3af49a588a78a956bee3adc590ecd35535fa1bcf0b0aef0d44b",
+      "size_bytes": 106539
+    }
+  ],
+  "limitations": [
+    "The 75 comparisons are observations from a conditioned complete-case sample, not a GitHub-wide population.",
+    "Events within repositories, occurrences, exact-content families, and merge commits are not statistically independent.",
+    "Conventional boxplots are unweighted; sampling weights do not resolve selection bias or dependence.",
+    "The log1p transform preserves zeros but changes the visual scale."
+  ],
+  "manifest_version": 1,
+  "outputs": [
+    {
+      "mtime_ns": 1795096002655706860,
+      "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/IEEE_Conference_Template/figures/boxplot_rq3_changed_lines_by_operation.png",
+      "sha256": "a3bc9b709b73f345c0c478245611422764b2ba7930b396129e20f63e86454e46",
+      "size_bytes": 56262
+    },
+    {
+      "mtime_ns": 1795096002786945942,
+      "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/IEEE_Conference_Template/figures/boxplot_rq3_changed_lines_by_operation.pdf",
+      "sha256": "31388ad0335975f38c28cc27401e81708f9aa14539b36f0722e7a37f2d112457",
+      "size_bytes": 15875
+    },
+    {
+      "mtime_ns": 1795096002915763356,
+      "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/IEEE_Conference_Template/figures/boxplot_rq3_days_since_reference_version_by_operation.png",
+      "sha256": "0e2bf43df701d0216b30db11a7f8422327459dbd5289e029b5137c3052568fe4",
+      "size_bytes": 73490
+    },
+    {
+      "mtime_ns": 1795096002974975399,
+      "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/IEEE_Conference_Template/figures/boxplot_rq3_days_since_reference_version_by_operation.pdf",
+      "sha256": "717f2753282d80227eafbeb31b8a6da1e46e8ed081739d92d7be993ecbdf213f",
+      "size_bytes": 16113
+    }
+  ],
+  "results": {
+    "boxplot_definition": "median, Q1/Q3, and whiskers at 1.5 IQR; individual observations overlaid with deterministic jitter",
+    "events": 75,
+    "operation_counts_changed_lines": {
+      "addition": 27,
+      "modification": 24,
+      "movement": 19,
+      "removal": 5
+    },
+    "operation_counts_days_since_reference_version": {
+      "addition": 27,
+      "modification": 24,
+      "movement": 19,
+      "removal": 5
+    },
+    "repositories": 18,
+    "transform": "log1p"
+  },
+  "script": {
+    "mtime_ns": 1795095995030018713,
+    "path": "/home/jemison/Documents/Doutorado/Tópicos/gitskills-reuse-analysis/AnaliseGitSkills/scripts/24_generate_boxplots.py",
+    "sha256": "5dc429224d2bddd3565e0f5cb5651167874b10061d1762b2b1ce92f7cbdd3b88",
+    "size_bytes": 6673
+  }
+}
